@@ -1,0 +1,13 @@
+Fenric_name_rsc = de "Fenric"
+Fenric_desc_rsc = de \
+   "Ein mysterioser Reisender in einem dunklen Mantel, ein vernarbter "
+   "Dolch an seinem Guertel. Seine Augen sind voller Geschichten, und "
+   "ein schwacher Geruch von Graberde haftet an seinen Roben. Er ist "
+   "dafuer bekannt, die verbotenen Kuenste der Nekromantie jenen "
+   "beizubringen, die mutig genug sind zu fragen."
+Fenric_already_have_spell = de \
+   "~kFenric sagt: \"Du kennst bereits die Geheimnisse von %s. "
+   "Verschwende nicht meine Zeit.\""
+Fenric_not_ready = de \
+   "~kFenric sagt: \"Die Toten geben ihre Geheimnisse nicht an "
+   "Unvorbereitete preis. Komm zurueck, wenn Du staerker geworden bist.\""

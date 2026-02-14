@@ -1,0 +1,161 @@
+================================================================================
+ FORTSETZUNG - SCHNELLREFERENZ
+ Meridian 59 Server 113/114 Build System
+ Stand: 2025-12-29
+================================================================================
+
+===============================================================================
+ AKTUELLER STATUS
+===============================================================================
+
+✓ C# WINDOWS FORMS TOOL FERTIG
+  Verzeichnis: C:\Users\Rod\Desktop\2\Server-104-main\M59BuildTool\
+  Status: VOLLSTÄNDIG KOMPILIERBAR UND FUNKTIONSFÄHIG
+
+✓ POWERSHELL SKRIPTE FERTIG
+  Verzeichnis: C:\Users\Rod\Desktop\2\Server-104-main\qbscripts\
+  Status: GETESTET, VS2015 KOMPATIBEL
+
+✓ PERL SKRIPTE VORBEREITET
+  Status: MIT TODO-KOMMENTAREN, BEREIT FÜR GITHUB INTEGRATION
+
+
+===============================================================================
+ SCHNELLSTART - WAS DU JETZT TUN KANNST
+===============================================================================
+
+OPTION 1: C# TOOL BENUTZEN (EMPFOHLEN)
+
+  1. Visual Studio 2015 öffnen
+  2. Öffne: M59BuildTool\M59BuildTool.sln
+  3. Drücke F5 oder F6 zum Compilieren
+  4. EXE läuft oder liegt in: bin\Debug\M59BuildTool.exe
+
+  IM TOOL:
+    - Wähle Server 113 (Production) oder 114 (Test)
+    - Klicke "FULL BUILD" für kompletten Workflow
+    - Oder einzelne Schritte: Build → Copy → Start/Stop/Reload
+
+
+OPTION 2: POWERSHELL SKRIPTE (ALTERNATIV)
+
+  Doppelklick auf:
+    - FULL_BUILD_113.bat      (Build + Deploy Server 113)
+    - FULL_BUILD_114.bat      (Build + Deploy Server 114)
+    - START_BUILD_113.bat     (Nur Build)
+    - DEPLOY_113.bat          (Nur Deploy)
+
+
+===============================================================================
+ WICHTIGSTE DATEIEN
+===============================================================================
+
+C# PROJEKT (HAUPT-TOOL):
+  M59BuildTool\Config.cs              → Hier Pfade ändern falls nötig
+  M59BuildTool\PROJEKT_NOTIZEN.txt    → VOLLSTÄNDIGE DOKUMENTATION
+
+POWERSHELL:
+  qbscripts\build-113.ps1             → Haupt-Skript
+  qbscripts\README.md                 → PowerShell Doku
+  qbscripts\QUICKSTART.md             → Schnellstart
+
+PERL (SPÄTER):
+  qbscripts\autopatch.pl              → GitHub PR Automation
+  Suche nach: "TODO: Ändere" (3x in jeder .pl Datei)
+
+
+===============================================================================
+ KONFIGURATION ANPASSEN
+===============================================================================
+
+FALLS PFADE ÄNDERN:
+  Datei: M59BuildTool\Config.cs
+
+  public static string RootPath = @"C:\Users\Rod\Desktop\2\Server-104-main";
+  public static string Server113Path = @"C:\Server113";
+  public static string Server114Path = @"C:\Server114";
+
+FALLS SERVER 114 ANDERE IP HAT:
+  Datei: M59BuildTool\Config.cs
+
+  public static string Server114IP = "127.0.0.1";  ← HIER ÄNDERN
+
+
+===============================================================================
+ TYPISCHE WORKFLOWS
+===============================================================================
+
+NORMAL DEVELOPMENT:
+  1. C# Tool starten
+  2. "FULL BUILD" klicken
+  3. Fertig - Server läuft
+
+HOTFIX (SCHNELL):
+  1. .kod Datei ändern
+  2. "Server Bauen" klicken
+  3. "Reload System" klicken
+  4. Änderung ist live (ohne Neustart!)
+
+MANUELL:
+  1. Doppelklick: FULL_BUILD_113.bat
+  2. Warte bis fertig
+  3. Server läuft
+
+
+===============================================================================
+ NEXT STEPS / SPÄTER
+===============================================================================
+
+WENN DU GITHUB INTEGRATION WILLST:
+
+  1. GitHub Repository anlegen
+
+  2. In ALLEN .pl Dateien ändern:
+     - Suche: "TODO: Ändere 'OpenMeridian105'"
+     - Ändere zu deinem GitHub Username
+     - Suche: "TODO: Ändere 'Meridian59'"
+     - Ändere zu deinem Repository Name
+
+  3. Pithub installieren:
+     cpan Pithub
+
+  4. GitHub Token generieren und konfigurieren
+
+
+WENN DU MEHR FEATURES WILLST:
+
+  - Backup vor Deployment
+  - Mehr Server (115, 116, ...)
+  - Live-Log vom Server
+  - Automatische Tests
+  - GUI Konfigurations-Editor
+
+
+===============================================================================
+ PROBLEME?
+===============================================================================
+
+"Visual Studio nicht gefunden":
+  → Prüfe Config.cs Zeile 8 (VS2015Path)
+
+"Server antwortet nicht":
+  → Prüfe ob blakserv.exe läuft (Task Manager)
+  → Prüfe Config.cs Server113IP/Server114IP
+
+"Dateien werden nicht kopiert":
+  → Erstelle C:\Server113 oder C:\Server114 Verzeichnis manuell
+
+"Access Denied":
+  → Stoppe Server BEVOR du kopierst!
+  → Oder nutze "FULL BUILD" (stoppt automatisch)
+
+
+VOLLSTÄNDIGE DOKUMENTATION:
+  → M59BuildTool\PROJEKT_NOTIZEN.txt (15 Kapitel, alles erklärt!)
+
+
+===============================================================================
+ FERTIG! PROJEKT IST VOLLSTÄNDIG FUNKTIONSFÄHIG ✓
+===============================================================================
+
+Starte das C# Tool und teste "FULL BUILD" - sollte alles automatisch laufen!

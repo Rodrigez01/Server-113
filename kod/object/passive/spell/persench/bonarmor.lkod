@@ -1,0 +1,20 @@
+BoneArmor_name_rsc = de "Knochenruestung"
+BoneArmor_desc_rsc = de \
+   "Umschliesst den Zauberer mit einer Ruestung aus spektralen "
+   "Knochen, bietet starke Verteidigung und reflektiert 10 Prozent "
+   "des Nahkampfschadens zurueck. Benoetigt zwei Feuersand und "
+   "zwei Dunkle Engelsfedern."
+BoneArmor_already_enchanted_rsc = de \
+   "Du bist bereits in eine Knochenruestung gehuellt."
+BoneArmor_on_rsc = de \
+   "Spektrale Knochen formen eine starre Huelle um Deinen Koerper, "
+   "die Dich schuetzt und Schaden reflektiert."
+BoneArmor_off_rsc = de \
+   "Die Knochenruestung zerfaellt zu Staub."
+BoneArmor_success_rsc = de \
+   "Spektrale Knochen umschliessen %s%s in einer Skelettruestung."
+BoneArmor_reflect_rsc = de \
+   "Deine Knochenruestung reflektiert Schaden zurueck zum Angreifer!"
+BoneArmor_spell_intro = de \
+   "Nekromantie Lv. 3: Umschliesst den Zauberer mit Knochenruestung, "
+   "die Verteidigung bietet und Schaden reflektiert."

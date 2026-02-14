@@ -1,0 +1,11 @@
+slapothecary_name_rsc = de "Brennar"
+slapothecary_desc_rsc = de \
+   "Ein \xe4lterer, wettergegerbter Mann mit tiefen Falten und einer "
+   "gr\xfcnlich get\xf6nten Leder-Sch\xfcrze, bedeckt mit vielen Glasampullen. "
+   "Seine Augen funkeln wissend, umgeben von Kr\xe4utern und kleinen "
+   "Fl\xe4schchen. Brennar hat Jahrzehnte damit verbracht, die Kunst des "
+   "Trankbrauens und der Kr\xe4uterheilkunde zu meistern."
+SLAp_entry_welcome = de "Willkommen, Reisender. Suchst du Heilmittel oder vielleicht seltene Reagenzien?"
+SLAp_unwanted_give = de \
+   "~k%s%s teilt dir mit, \"Damit kann ich nichts anfangen. Vielleicht "
+   "solltest du es bei einem anderen H\xe4ndler versuchen.~n~k\""

@@ -1,0 +1,47 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+BlackDragonScale is Reagent
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   BlackDragonScale_name_rsc = "black dragon scale"
+   BlackDragonScale_icon_rsc = scale.bgf
+   BlackDragonScale_desc_rsc = \
+      "This scale is warm to the touch, no doubt its from a black dragon.  "
+
+   BlackDragonScale_name_plural_rsc = "black dragon scales"
+
+classvars:
+
+   vrName = BlackDragonScale_name_rsc
+   vrIcon = BlackDragonScale_icon_rsc
+   vrDesc = BlackDragonScale_desc_rsc
+
+   vrName_plural = BlackDragonScale_name_plural_rsc
+
+   viValue_average = 100
+   viWeight = 5
+   viBulk = 5
+
+properties:
+
+   piNumber = 1
+
+   piItem_flags = PT_GRAY_TO_BLACK
+
+messages:
+
+end
+////////////////////////////////////////////////////////////////////////////////

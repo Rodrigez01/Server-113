@@ -1,0 +1,37 @@
+Elusion_name_rsc = de "Fliehen"
+Elusion_desc_rsc = de \
+   "Erlaubt es dem Zaubernden aus seiner momentanen Umgebung zu entfliehen. "
+   "Stehen mehrere Zielorte zur Verfügung, so muss der gewünschte genannt "
+   "werden. Dieser Zauber benötigt zwei Klauen der Kriipa."
+Elusion_No_Location_Given = de \
+   "Dein Fluchtversuch schlägt fehl, weil kein Ziel angegeben ist."
+Elusion_Success = de "Die Welt um Dich herum fällt in sich zusammen."
+Elusion_Location_list = de \
+   "Die Welt um Dich herum schimmert und geheime Pfade öffnen sich nach "
+   "%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s."
+Elusion_fail = de "Das ist kein gültiges Ziel."
+Elusion_cant_cast_here = de "Du darfst nur ein Ziel nennen, wo du hinwillst."
+Elusion_depart_to_destination = de \
+   "%s verschwindet innerhalb eines Augenblicks und hinterlässt nur einen "
+   "blassen Schimmer in einem verzerrtem Raum."
+elusion_loc_list_and = de "und "
+
+Elusion_name_rsc = pt "elusão"
+Elusion_desc_rsc = pt \
+   "Permite que o conjurador evite problemas e escape para outro local. "
+   "Vários destinos podem estar disponíveis, e o conjurador deve chamar "
+   "o nome do local para onde deseja viajar. "
+   "Requer as garras do temível kriipa para ser lançado."
+Elusion_No_Location_Given = pt \
+   "Sem um local especificado, sua tentativa de elusão falha."
+Elusion_Success = pt "O mundo se dobra sobre si mesmo."
+Elusion_Location_list = pt \
+   "O mundo reluz e caminhos secretos são revelados, levando "
+   "a %s%s%s%s%s%s%s%s%s%s%s%s%s%s%s%s."
+Elusion_fail = pt "Esse não é um destino válido."
+Elusion_cant_cast_here = pt \
+   "Você só pode se eludir de um lugar para onde pode se eludir."
+Elusion_depart_to_destination = pt \
+   "%s desaparece instantaneamente, deixando para trás um brilho desvanecido "
+   "do espaço distorcido."
+   

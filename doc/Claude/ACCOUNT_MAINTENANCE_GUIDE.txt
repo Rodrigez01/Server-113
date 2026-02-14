@@ -1,0 +1,137 @@
+===========================================================
+MERIDIAN 59 - ACCOUNT ERSTELLUNG ÜBER MAINTENANCE MODE
+===========================================================
+
+ZUGRIFF AUF MAINTENANCE MODE:
+-----------------------------
+
+1. Starten Sie den Blakserv Server
+2. Verbinden Sie sich per Telnet zum Maintenance Port:
+
+   telnet localhost 9998
+
+   (Standard Maintenance Port ist 9998, siehe blakserv.cfg)
+
+
+ACCOUNT ERSTELLEN:
+-----------------
+
+Es gibt zwei Hauptmethoden:
+
+1. SCHNELLE METHODE (Empfohlen für normale Spieler):
+   -----------------------------------------------
+
+   CREATE AUTOMATED <name> <password> <email>
+
+   Beispiel:
+   CREATE AUTOMATED TestUser password123 test@example.com
+
+   Dies erstellt automatisch:
+   - Einen normalen Account
+   - Die konfigurierten Anzahl User-Slots (siehe ACCOUNT_NUM_SLOTS in blakserv.cfg)
+
+
+2. ERWEITERTE METHODE (Mit Account-Typ):
+   ------------------------------------
+
+   CREATE ACCOUNT <type> <name> <password> <email>
+
+   Account-Typen:
+   - USER     : Normaler Spieler-Account
+   - ADMIN    : Administrator-Account
+   - DM       : Dungeon Master Account
+   - GUEST    : Gast-Account
+
+   Beispiele:
+   CREATE ACCOUNT USER spieler1 geheim123 user@test.de
+   CREATE ACCOUNT ADMIN admin adminpw admin@server.de
+   CREATE ACCOUNT DM dungeonmaster dmpw dm@server.de
+   CREATE ACCOUNT GUEST gast gastpw gast@test.de
+
+
+WEITERE NÜTZLICHE BEFEHLE:
+--------------------------
+
+SHOW ACCOUNTS
+   Zeigt alle Accounts an
+
+SHOW ACCOUNT <account_id>
+   Zeigt Details eines bestimmten Accounts
+
+DELETE ACCOUNT <account_id>
+   Löscht einen Account (Vorsicht!)
+
+CREATE USER <account_id>
+   Fügt einem bestehenden Account einen neuen User hinzu
+
+SUSPEND ACCOUNT <account_id>
+   Sperrt einen Account
+
+UNSUSPEND ACCOUNT <account_id>
+   Entsperrt einen Account
+
+QUIT
+   Beendet die Maintenance-Verbindung
+
+
+ACCOUNT-REGELN:
+--------------
+
+- Account-Name: Mindestens 1 Zeichen
+- Darf KEIN ':' Zeichen enthalten
+- Password: Beliebige Länge
+- Email: Wird für Passwort-Reset verwendet
+
+
+BEISPIEL-SESSION:
+-----------------
+
+C:\> telnet localhost 9998
+Verbindung zu Blakserv...
+
+> CREATE AUTOMATED MaxMustermann geheim123 max@example.com
+Created account 1001.
+
+> SHOW ACCOUNT 1001
+Account ID: 1001
+Name: MaxMustermann
+Type: Normal
+Created: 2024-01-15 10:30:00
+Users: 3
+
+> QUIT
+Bye
+
+
+KONFIGURATION (blakserv.cfg):
+-----------------------------
+
+SOCKET_PORT_MAINTENANCE 9998    # Maintenance Port
+ACCOUNT_NUM_SLOTS 3             # Anzahl User-Slots pro Account
+
+
+WICHTIG:
+--------
+
+1. Der Maintenance-Port sollte aus Sicherheitsgründen nicht
+   öffentlich zugänglich sein (nur localhost)!
+
+2. Accounts werden sofort in die Datei accounts.txt gespeichert
+
+3. Passwörter werden verschlüsselt gespeichert
+
+4. Stellen Sie sicher, dass der Server läuft, bevor Sie
+   Accounts erstellen
+
+
+TROUBLESHOOTING:
+---------------
+
+Problem: "Connection refused"
+Lösung: Server läuft nicht oder falscher Port
+
+Problem: "Account name already exists"
+Lösung: Wählen Sie einen anderen Account-Namen
+
+Problem: Keine Verbindung möglich
+Lösung: Prüfen Sie die Firewall-Einstellungen

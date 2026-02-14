@@ -1,0 +1,373 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+BallMonster is Monster
+
+// A fast rolling ball that deals damage on contact.
+
+constants:
+
+   include blakston.khd
+
+   // 0.8 seconds
+   EFFECT_INTERVAL = 800
+
+resources:
+
+   include ballmonster.lkod
+
+   ballmonster_koc_name_rsc = "kocballmonster"
+   ballmonster_name_rsc = "BallMonster"
+   ballmonster_icon_rsc = MBall.bgf
+   ballmonster_desc_rsc = \
+      "A fast rolling sphere that slams into anything in its path."
+
+   ballmonster_dead_icon_rsc = MB_dead.bgf
+   ballmonster_dead_name_rsc = "burned-out sphere"
+
+   ballmonster_collision_rsc = "~B~rThe rolling sphere slams into you!"
+   ballmonster_unaffected_rsc = "You avoid the rolling sphere."
+   ballmonster_sound_spawn = meteor.ogg
+   ballmonster_sound_death = meteor_explosion.ogg
+   ballmonster_sound_move = meteor_trail.ogg
+
+classvars:
+
+   vrKocName = ballmonster_koc_name_rsc
+   vrName = ballmonster_name_rsc
+   vrIcon = ballmonster_icon_rsc
+   vrDesc = ballmonster_desc_rsc
+   vrDead_icon = ballmonster_dead_icon_rsc
+   vrDead_name = ballmonster_dead_name_rsc
+   vrSound_death = ballmonster_sound_death
+
+   viTreasure_type = TID_NONE
+   viSpeed = SPEED_VERY_FAST
+   viAttack_type = ATCK_WEAP_BLUDGEON
+   viDefault_behavior = AI_NOFIGHT | AI_NOMOVE
+   viMoveOn_type = MOVEON_NOTIFY
+   viLevel = 25
+   viDifficulty = 4
+   viKarma = 0
+
+properties:
+
+   piCollisionMinDamage = 24
+   piCollisionMaxDamage = 24
+   piCollisionRange = 1
+
+   piPatrolStep = 1
+   piPatrolDirRow = 1
+   piPatrolDirCol = 0
+   ptPatrol = $
+   pbUsePatrol = TRUE
+
+   ptPeriodic = $
+   plAffected = $
+
+messages:
+
+   Constructed()
+   {
+      ptPeriodic = CreateTimer(self,@PeriodicEffect,
+                               Send(self,@GetPeriodicDuration));
+      if ptPatrol = $
+      {
+         ptPatrol = CreateTimer(self,@PatrolStep,
+                                Send(self,@GetPatrolStepTime));
+      }
+      Send(self,@SetMaxHitPoints,#amount=20000);
+
+      propagate;
+   }
+
+   GetPeriodicDuration()
+   {
+      // 90 - 110// of base interval
+      return (EFFECT_INTERVAL * Random(90,110))/100;
+   }
+
+   PeriodicEffect()
+   {
+      ptPeriodic = CreateTimer(self,@PeriodicEffect,
+                               Send(self,@GetPeriodicDuration));
+      plAffected = $;
+
+      return;
+   }
+
+   NewOwner(what = $)
+   {
+      propagate;
+
+      if IsClass(what,&Room)
+      {
+         piPatrolDirRow = 1;
+         piPatrolDirCol = 0;
+         Send(what,@SomethingWaveRoom,#what=self,
+              #wave_rsc=ballmonster_sound_spawn,
+              #flags=SOUND_RANDOM_PITCH);
+      }
+
+      return;
+   }
+
+   GetPatrolStepTime()
+   {
+      return 150;
+   }
+
+   PatrolStep()
+   {
+      ptPatrol = CreateTimer(self,@PatrolStep,Send(self,@GetPatrolStepTime));
+      Send(self,@DoPatrolStep);
+
+      return;
+   }
+
+   DoPatrolStep()
+   {
+      local oRoom, iRow, iCol, iFineRow, iFineCol, iNewRow, iNewCol, iRows, iCols, i, each_obj, lActive;
+
+      oRoom = poOwner;
+      if oRoom = $
+      {
+         return;
+      }
+
+      iRow = Send(self,@GetRow);
+      iCol = Send(self,@GetCol);
+      iFineRow = Send(self,@GetFineRow);
+      iFineCol = Send(self,@GetFineCol);
+
+      iNewRow = iRow + (piPatrolDirRow * piPatrolStep);
+      iNewCol = iCol + (piPatrolDirCol * piPatrolStep);
+
+      iRows = Send(oRoom,@GetRoomRows);
+      iCols = Send(oRoom,@GetRoomCols);
+      if iNewRow < 1 OR iNewRow > iRows OR iNewCol < 1 OR iNewCol > iCols
+      {
+         piPatrolDirRow = -piPatrolDirRow;
+         piPatrolDirCol = -piPatrolDirCol;
+
+         return;
+      }
+
+      // If a player is on the next square, apply collision damage and pop.
+      lActive = Send(poOwner,@GetHolderActive);
+      foreach i in lActive
+      {
+         each_obj = Send(poOwner,@HolderExtractobject,#data=i);
+         if each_obj <> $
+            AND each_obj <> self
+            AND IsClass(each_obj,&Battler)
+            AND NOT (IsClass(each_obj,&Player)
+                     AND Send(each_obj,@IsInCannotInteractMode))
+            AND Send(each_obj,@GetRow) = iNewRow
+            AND Send(each_obj,@GetCol) = iNewCol
+         {
+            Send(self,@CheckForEffect,#what=each_obj);
+            if IsClass(each_obj,&Player)
+            {
+               return;
+            }
+         }
+      }
+
+      if Send(oRoom,@ReqSomethingMoved,#what=self,
+               #new_row=iNewRow,#new_col=iNewCol,
+               #new_finerow=iFineRow,#new_finecol=iFineCol)
+      {
+         Send(oRoom,@SomethingMoved,#what=self,#speed=viSpeed,
+               #new_row=iNewRow,#new_col=iNewCol,
+               #fine_row=iFineRow,#fine_col=iFineCol,
+               #non_monsters_only=TRUE);
+			   
+         //Send(oRoom,@SomethingWaveRoom,#what=self,
+         //     #wave_rsc=ballmonster_sound_move,
+         //     #flags=SOUND_RANDOM_PITCH);
+      }
+      else
+      {
+         piPatrolDirRow = -piPatrolDirRow;
+         piPatrolDirCol = -piPatrolDirCol;
+      }
+
+      return;
+   }
+
+   SomethingMoved(what = $, new_row = $, new_col = $)
+   {
+      local iRow, iCol;
+
+      if what = $
+      {
+         return;
+      }
+
+      if new_row = $
+      {
+         iRow = Send(what,@GetRow);
+      }
+      else
+      {
+         iRow = new_row;
+      }
+
+      if new_col = $
+      {
+         iCol = Send(what,@GetCol);
+      }
+      else
+      {
+         iCol = new_col;
+      }
+
+      if what = self
+      {
+         Send(self,@CheckCollisionsAt,#iRow=iRow,#iCol=iCol);
+      }
+      else if IsClass(what,&Battler)
+         AND NOT (IsClass(what,&Player)
+                  AND Send(what,@IsInCannotInteractMode))
+         AND Send(self,@InCollisionRange,#iRow=iRow,#iCol=iCol)
+      {
+         Send(self,@CheckForEffect,#what=what);
+      }
+
+      propagate;
+   }
+
+   CheckCollisionsAt(iRow = $, iCol = $)
+   {
+      local i, each_obj, lActive;
+
+      lActive = Send(poOwner,@GetHolderActive);
+      foreach i in lActive
+      {
+         each_obj = Send(poOwner,@HolderExtractobject,#data=i);
+         if each_obj <> $
+            AND each_obj <> self
+            AND IsClass(each_obj,&Battler)
+            AND NOT (IsClass(each_obj,&Player)
+                     AND Send(each_obj,@IsInCannotInteractMode))
+            AND Send(self,@InCollisionRange,#iRow=Send(each_obj,@GetRow),
+                     #iCol=Send(each_obj,@GetCol))
+         {
+            Send(self,@CheckForEffect,#what=each_obj);
+         }
+      }
+
+      return;
+   }
+
+   InCollisionRange(iRow = $, iCol = $)
+   {
+      local iRow_diff, iCol_diff, iDistanceSquared, iRange;
+
+      iRange = Bound(piCollisionRange,0,$);
+      iRow_diff = Send(self,@GetRow) - iRow;
+      iCol_diff = Send(self,@GetCol) - iCol;
+      iDistanceSquared = iRow_diff * iRow_diff + iCol_diff * iCol_diff;
+
+      return (iDistanceSquared <= (iRange * iRange));
+   }
+
+   CheckForEffect(what = $)
+   {
+      if what = $ OR what = self
+      {
+         return FALSE;
+      }
+
+      if plAffected <> $
+         AND FindListElem(plAffected,what) <> 0
+      {
+         return FALSE;
+      }
+
+      if NOT Send(self,@AllowBattlerAttack,#victim=what,#report=FALSE,
+                  #stroke_obj=self)
+      {
+         plAffected = Cons(what,plAffected);
+
+         if IsClass(what,&Player)
+            AND NOT Send(what,@IsInCannotInteractMode)
+         {
+            Send(what,@MsgSendUser,#message_rsc=ballmonster_unaffected_rsc);
+         }
+
+         return FALSE;
+      }
+
+      Send(self,@DoCollisionDamage,#what=what);
+
+      return TRUE;
+   }
+
+   DoCollisionDamage(what = $)
+   {
+      local iDamage;
+
+      plAffected = Cons(what,plAffected);
+
+      iDamage = Send(what,@AssessDamage,#what=self,
+                     #damage=Random(piCollisionMinDamage,piCollisionMaxDamage),
+                     #atype=viAttack_type,#report=FALSE);
+
+      if iDamage = $
+      {
+         Send(self,@KilledSomething,#what=what,#use_weapon=self);
+
+         return;
+      }
+
+      if IsClass(what,&Player)
+      {
+         Send(what,@MsgSendUser,#message_rsc=ballmonster_collision_rsc);
+         Send(self,@Delete);
+      }
+
+      return;
+   }
+
+   Delete()
+   {
+      if ptPatrol <> $
+      {
+         DeleteTimer(ptPatrol);
+         ptPatrol = $;
+      }
+
+      if ptPeriodic <> $
+      {
+         DeleteTimer(ptPeriodic);
+         ptPeriodic = $;
+      }
+
+      plAffected = $;
+
+      propagate;
+   }
+
+   Killed(what = $)
+   {
+      if poOwner <> $
+      {
+         Send(poOwner,@SomethingWaveRoom,#what=self,
+              #wave_rsc=ballmonster_sound_death,
+              #flags=SOUND_RANDOM_PITCH);
+      }
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

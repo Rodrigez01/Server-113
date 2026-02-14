@@ -1,0 +1,70 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+///////////////////////////////////////////////////////////////////////////////
+DeathRealmCastle2 is DeathRealm
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   room_DeathRealm_Castle2 = greeny.roo
+
+   portal_dre = \
+      "Through the portal, you see...home. "
+
+classvars:
+
+   viPermanent_flags = ROOM_NO_COMBAT | ROOM_SAFELOGOFF
+
+   viTeleport_row = 13
+   viTeleport_col = 2
+
+properties:
+
+   piRoom_num = RID_DCASTLE2
+   prRoom = room_DeathRealm_Castle2
+
+   prMapChanges = FALSE
+   prMonsters = FALSE
+
+   poPortalDR = $
+
+messages:
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 25, 2, RID_DCASTLE1, 5, 32, ROTATE_NONE ],plExits);
+
+      return;
+   }
+
+   CreateStandardObjects()
+   {
+      Send(self,@NewHold,#what=Create(&Celegorm),
+            #new_row=3,#new_col=8,#new_angle=ANGLE_SOUTH);
+
+      poPortalDR = Create(&DeathRealmExit,#desc=portal_dre);
+      Send(self,@NewHold,#what=poPortalDR,#new_row=1,#new_col=12,
+            #fine_row=48,#fine_col=32,#new_angle=ANGLE_SOUTH);
+
+      propagate;
+   }
+
+   LeaveHold()
+   {
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,150 @@
+// Meridian 59 - Necromantie Spell School
+// Soul Splinter (Seelensplitter) - Level 1 Attack Spell
+// Small life drain, generates 1 soul fragment on hit.
+
+
+////////////////////////////////////////////////////////////////////////////////
+SoulSplinter is AttackSpell
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include soulspl.lkod
+
+   SoulSplinter_name_rsc = "soul splinter"
+   SoulSplinter_icon_rsc = inecro1.bgf
+   SoulSplinter_desc_rsc = \
+      "Tears a small fragment of life energy from the target, dealing "
+      "minor damage and generating a soul fragment for the caster.  "
+      "Requires one elderberry to cast."
+
+   SoulSplinter_death = \
+      "The last fragment of %s%s's soul shatters in your grasp."
+   SoulSplinter_fragment_rsc = \
+      "A soul fragment materializes in your hands!"
+   SoulSplinter_drain_rsc = \
+      "You drain a sliver of life, restoring ~g~B%i~B~n health."
+
+   SoulSplinter_sound = qor.ogg
+   SoulSplinter_proj_rsc = blindring.bgf
+
+classvars:
+
+   vrName = SoulSplinter_name_rsc
+   vrIcon = SoulSplinter_icon_rsc
+   vrDesc = SoulSplinter_desc_rsc
+
+   viSchool = SS_NECROMANTIE
+   viSpell_num = SID_SOUL_SPLINTER
+
+   viSpell_level = 1
+   viMana = 6
+   viSpellExertion = 1
+
+   viAttack_spell = ATCK_SPELL_ALL + ATCK_SPELL_UNHOLY
+
+   vrSucceed_wav = SoulSplinter_sound
+   vrProjectile_icon = SoulSplinter_proj_rsc
+
+   viPostCast_time = 2
+
+   viChance_To_Increase = 30
+   viMeditate_ratio = 10
+
+properties:
+
+   piDamageMin = 4
+   piDamageMax = 8
+
+   piRange = 4 * FINENESS
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&ElderBerry,1],plReagents);
+
+      return;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellPower=0,bItemCast=FALSE)
+   {
+      local oOwner, oTarget;
+
+      oTarget = First(lTargets);
+      oOwner = Send(who,@GetOwner);
+
+      if oOwner <> $
+      {
+         Send(oOwner,@SomethingShot,#who=who,#target=oTarget,#projectile=self);
+      }
+
+      propagate;
+   }
+
+   DoSideEffect(who=$,victim=$,damage=0)
+   {
+      local iToHeal, oSoul, oRoom;
+
+      if who = $ OR victim = $
+         OR Send(victim,@IsDrainImmune)
+      {
+         propagate;
+      }
+
+      // Small life drain
+      if damage <> $
+      {
+         iToHeal = Bound(damage/4,0,$);
+      }
+      else
+      {
+         iToHeal = Bound(piDamageMax*100/4,0,$);
+      }
+
+      if iToHeal > 0
+      {
+         Send(who,@GainHealth,#amount=iToHeal,#precision=TRUE);
+         Send(who,@MsgSendUser,#message_rsc=SoulSplinter_drain_rsc,
+              #parm1=iToHeal/100);
+      }
+
+      // Generate 1 soul fragment
+      oSoul = Create(&LesserSoul,#number=1);
+      Send(who,@NewHold,#what=oSoul);
+      Send(who,@MsgSendUser,#message_rsc=SoulSplinter_fragment_rsc);
+
+      propagate;
+   }
+
+   SendLookAnimation()
+   {
+      AddPacket(1,ANIMATE_NONE, 2,2);
+
+      return;
+   }
+
+   SendProjectileAnimation()
+   {
+      // 40ms between animations, between frames 1-2
+      AddPacket(1,ANIMATE_CYCLE, 4,80, 2,1, 2,6);
+
+      return;
+   }
+
+   GetProjectileIcon()
+   {
+      return vrProjectile_Icon;
+   }
+
+   GetProjectileSpeed()
+   {
+      return 10;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

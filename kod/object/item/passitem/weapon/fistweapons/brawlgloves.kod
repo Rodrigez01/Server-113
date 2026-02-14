@@ -1,0 +1,65 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+BrawlGloves is FistWeapons
+
+constants:
+
+   include blakston.khd
+
+resources:
+  
+   BrawlGloves_name_rsc = "brawling gloves"
+   BrawlGloves_icon_rsc = gauntlet.bgf
+   BrawlGloves_desc_rsc = \
+      "These brawling gloves protect you hands and pummel your enemies. "
+      "Can't have a good bar fight without these!"
+
+   BrawlGloves_condition_exc = " are in perfect condition."
+   BrawlGloves_condition_exc_mended = \
+      " are in excellent condition, but have been patched before."
+   BrawlGloves_condition_good = " are tarnished and scarred but still usable."
+   BrawlGloves_condition_med = " have been harshly torn in several places."
+   BrawlGloves_condition_poor = \
+      " are in danger of falling apart.  Large strands of leather "
+      "have been torn away during battle."
+   BrawlGloves_condition_broken = " are ruined and offer no benefit."
+   BrawlGloves_broken = "Your %s are a shredded mess of leather."
+
+classvars:
+
+   vrName = BrawlGloves_name_rsc
+   vrIcon = BrawlGloves_icon_rsc
+   vrDesc = BrawlGloves_desc_rsc
+   vrPoss_article = object_article_cap_these_rsc
+
+   vrItem_broken = BrawlGloves_broken
+
+   vrCondition_exc = BrawlGloves_condition_exc 
+   vrCondition_exc_mended = BrawlGloves_condition_exc_mended 
+   vrCondition_good = BrawlGloves_condition_good 
+   vrCondition_med = BrawlGloves_condition_med 
+   vrCondition_poor = BrawlGloves_condition_poor
+   vrCondition_broken = BrawlGloves_condition_broken
+
+
+properties:
+
+   piDamageBonus = 6
+   piHitBonus = 125
+
+   piAttack_type = ATCK_WEAP_UNARMED+ATCK_WEAP_PUNCH
+
+   piItem_flags = 12
+   
+messages:
+
+end
+////////////////////////////////////////////////////////////////////////////////

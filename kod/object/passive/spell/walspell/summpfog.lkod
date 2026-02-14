@@ -1,0 +1,17 @@
+SummonPoisonFog_name_rsc = de "Giftnebel"
+SummonPoisonFog_desc_rsc = de \
+   "Erschafft eine Wolke beißenden Giftnebels. Benötigt zwei Wurzelknollen. "
+SummonPoisonFog_cast_rsc = de \
+   "Eine dicke, scharf stechende Nebelwolke schwebt vor Dir"
+SummonPoisonFog_failed_rsc = de \
+   "Es gibt zu viel Beschwörungsmagie in diesem Raum. Du kannst diesen Zauber "
+   "nicht ausführen."
+
+SummonPoisonFog_name_rsc = pt "neblina venenosa"
+SummonPoisonFog_desc_rsc = pt \
+   "Cria uma espessa nuvem de neblina venenosa. "
+   "Requer frutas entroot para lançar."     
+SummonPoisonFog_cast_rsc = pt \
+   "Um denso nevoeiro pungente surge do chão diante de você."
+SummonPoisonFog_failed_rsc = pt \
+   "Há muita magia de invocação concentrada aqui para criar neblina."

@@ -1,0 +1,17 @@
+CurseWeakness_name_rsc = de "Fluch der Schwaeche"
+CurseWeakness_desc_rsc = de \
+   "Legt einen schwaechenden Fluch auf das Ziel, der allen "
+   "verursachten Schaden um 20 Prozent reduziert. "
+   "Benoetigt zwei Dunkle Engelsfedern und einen violetten Pilz."
+CurseWeakness_already_enchanted = de \
+   "%s%s ist bereits mit Schwaeche verflucht."
+CurseWeakness_caster = de \
+   "Ein welkender Fluch legt sich ueber %s%s und entzieht ihre Kraft!"
+CurseWeakness_on = de \
+   "Du spuerst eine schreckliche Schwaeche in Deinen Muskeln. "
+   "Deine Schlaege fuehlen sich kraftlos an."
+CurseWeakness_off = de \
+   "Der Fluch der Schwaeche hebt sich und Deine Kraft kehrt zurueck."
+CurseWeakness_spell_intro = de \
+   "Nekromantie Lv. 4: Verflucht das Ziel, weniger Schaden "
+   "zu verursachen."

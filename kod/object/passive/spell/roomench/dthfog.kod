@@ -1,0 +1,182 @@
+// Meridian 59 - Necromantie Spell School
+// Death Fog (Todesnebel) - Level 5 Room Enchantment
+// AoE DoT zone that damages all enemies in the room.
+
+
+////////////////////////////////////////////////////////////////////////////////
+DeathFog is RoomEnchantment
+
+constants:
+
+   include blakston.khd
+
+   DEATHFOG_TIME = 150000
+
+resources:
+
+   include dthfog.lkod
+
+   DeathFog_name_rsc = "death fog"
+   DeathFog_icon_rsc = inecro7.bgf
+   DeathFog_desc_rsc = \
+      "Fills the area with a poisonous miasma of necrotic energy "
+      "that slowly drains the life of all within.  "
+      "Requires three dark angel feathers and two shaman blood to cast."
+
+   DeathFog_already_enchanted = "A death fog already fills this area."
+
+   DeathFog_on = \
+      "A thick, sickly green fog rolls across the ground. The air "
+      "becomes heavy with the stench of death."
+   DeathFog_off = "The death fog dissipates."
+   DeathFog_new_entrant = \
+      "A poisonous fog chokes the air here."
+   DeathFog_kills_you = "The death fog consumes your last breath."
+   DeathFog_kills_him = \
+      "%s%s collapses, consumed by your death fog."
+   DeathFog_hurts_you = \
+      "The necrotic fog burns your lungs for ~r~B%i~B~n damage!"
+
+   DeathFog_spell_intro = \
+      "Necromantie Lv. 5: Fills the room with a life-draining fog."
+
+   DeathFog_sound = qdeathlk.ogg
+
+classvars:
+
+   vrName = DeathFog_name_rsc
+   vrIcon = DeathFog_icon_rsc
+   vrDesc = DeathFog_desc_rsc
+
+   vrAlreadyEnchanted = DeathFog_already_enchanted
+   vrRoomEnchKilled = DeathFog_kills_you
+   vrRoomEnchKiller = DeathFog_kills_him
+   vrRoomEnchHit = DeathFog_hurts_you
+
+   viAttack_spell = ATCK_SPELL_UNHOLY + ATCK_SPELL_ALL
+   viSpell_num = SID_DEATH_FOG
+   viSchool = SS_NECROMANTIE
+   viSpell_level = 5
+   viMana = 20
+
+   viHarmful = TRUE
+   viNoNewbieOffense = TRUE
+
+   vrSucceed_wav = DeathFog_sound
+   viChance_To_Increase = 10
+   viMeditate_ratio = 50
+
+properties:
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&DarkAngelFeather,3],plReagents);
+      plReagents = Cons([&ShamanBlood,2],plReagents);
+
+      return;
+   }
+
+   CastSpell(who=$,iSpellPower=0)
+   {
+      local oRoom, iPeriod;
+
+      if IsClass(who,&Room)
+      {
+         oRoom = who;
+      }
+      else
+      {
+         oRoom = Send(who,@GetOwner);
+      }
+
+      Send(oRoom,@SomeoneSaid,#type=SAY_MESSAGE,#string=DeathFog_on,
+            #what=self);
+
+      // Tick every 5-10 seconds based on spellpower
+      iPeriod = (100 - iSpellPower/2);
+      iPeriod = Bound(iPeriod,50,100);
+      iPeriod = iPeriod * 100;
+
+      Send(oRoom,@RoomStartEnchantment,#what=self,#time=iPeriod,
+            #state=[iPeriod + iSpellPower, who],#addicon=TRUE,#lastcall=FALSE);
+
+      propagate;
+   }
+
+   StartPeriodicEnchantment(who=$,where=$,state=$)
+   {
+      local iNext_time, iCombined, iPower, iPeriod;
+
+      if state = $
+      {
+         return;
+      }
+
+      iCombined = First(state);
+      iPower = iCombined % 100;
+      iCombined = iCombined - iPower;
+
+      iPeriod = (100 - iPower/2);
+      iPeriod = Bound(iPeriod,50,100);
+      iPeriod = iPeriod * 100;
+
+      iNext_time = iCombined + iPeriod;
+      if iNext_time >= DEATHFOG_TIME
+      {
+         Send(where,@RoomStartEnchantment,#what=self,
+               #time=DEATHFOG_TIME-iCombined,
+               #state=[DEATHFOG_TIME + iPower, Nth(state,2)],
+               #addicon=FALSE,#lastcall=TRUE);
+
+         return;
+      }
+
+      Send(where,@RoomStartEnchantment,#what=self,#time=iPeriod,
+            #state=[iNext_time+iPower, Nth(state,2)],#addicon=FALSE,
+            #lastcall=FALSE);
+
+      Send(where,@EnchantAllOccupants,#what=self,#iSpellPower=iPower,
+            #state=state);
+
+      return;
+   }
+
+   StartEnchantmentNewOccupant(who=$,state=$)
+   {
+      Send(who,@MsgSendUser,#message_rsc=DeathFog_new_entrant);
+      Send(self,@StartEnchantment,#who=who,#state=state);
+
+      return;
+   }
+
+   StartEnchantment(who=$,state=$)
+   {
+      if who = $
+      {
+         return;
+      }
+
+      Send(self,@RoomEnchantmentDamage,#oTarget=who,#state=state);
+
+      return;
+   }
+
+   ComputeDamage(who=$,oTarget=$,iDamage=$,iLevel=1,iSpellpower=0)
+   {
+      // 3-8 damage per tick
+      return Random(300,800) + iSpellpower * 3;
+   }
+
+   EndSpell(where=$,state=$)
+   {
+      Send(where,@SomeoneSaid,#type=SAY_MESSAGE,#string=DeathFog_off,
+            #what=self);
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

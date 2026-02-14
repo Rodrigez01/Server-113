@@ -1,0 +1,45 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+SuperStoneTrollMask is FaceMask
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   SuperStoneTrollMask_name_rsc = "super stone troll mask"
+   SuperStoneTrollMask_icon_male_rsc = mmtrl.bgf
+   SuperStoneTrollMask_icon_female_rsc = mftrl.bgf
+   SuperStoneTrollMask_desc_rsc = \
+      "This is the mask of a walking statue, the stone troll!  Lets see who can "
+      "stand still the longest!  This mask glows with magical energy."
+
+classvars:
+
+   vrName = SuperStoneTrollMask_name_rsc
+   vrDesc = SuperStoneTrollMask_desc_rsc
+   vrIcon = SuperStoneTrollMask_icon_male_rsc
+
+   vrMaleIcon = StoneTrollMask_icon_male_rsc
+   vrFemaleIcon = StoneTrollMask_icon_female_rsc
+
+properties:
+
+   piItem_flags = 49
+   piDrawFX = DRAWFX_SECONDTRANS
+
+   poSpell = SID_ARMOR_OF_GORT
+
+messages:
+
+end
+////////////////////////////////////////////////////////////////////////////////

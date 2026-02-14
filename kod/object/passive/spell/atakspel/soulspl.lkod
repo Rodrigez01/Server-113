@@ -1,0 +1,11 @@
+SoulSplinter_name_rsc = de "Seelensplitter"
+SoulSplinter_desc_rsc = de \
+   "Reisst ein kleines Fragment Lebensenergie vom Ziel ab, verursacht "
+   "geringen Schaden und erzeugt ein Seelenfragment fuer den Zauberer. "
+   "Benoetigt eine Holunderbeere."
+SoulSplinter_death = de \
+   "Das letzte Fragment der Seele von %s%s zersplittert in Deiner Hand."
+SoulSplinter_fragment_rsc = de \
+   "Ein Seelenfragment materialisiert sich in Deinen Haenden!"
+SoulSplinter_drain_rsc = de \
+   "Du entziehst einen Splitter Leben und stellst ~g~B%i~B~n Gesundheit wieder her."

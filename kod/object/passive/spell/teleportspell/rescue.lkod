@@ -1,0 +1,23 @@
+rescue_name_rsc = de "Retten"
+rescue_desc_rsc = de \
+   "Ruft Sha-Lill an, um Dich zurück in Sicherheit zu bringen. Der Zauber "
+   "benötigt einen Smaragd."
+Rescue_Start = de "Du beginnst Deine Vorbereitungen zum Retten."
+Rescue_Success = de \
+   "Du spürst eine heilige Macht, die Dich aus Deiner jetzigen Lage rettet."
+Rescue_Already_Cast = de "Du wirst bereits gerettet."
+Rescue_Token_Cancel = de \
+   "Du kannst nicht retten, während Du ein Artefakt hälst."
+Rescue_depart_rsc = de "%s verschwindet in einer Wolke aus Licht!"
+
+rescue_name_rsc = pt "resgate"
+rescue_desc_rsc = pt \
+   "Chama Shal'ille para transportá-lo de volta à segurança. "
+   "A habilidade determina o quão rápido você é resgatado. "
+   "Requer um esmeralda para ser lançado."
+Rescue_Start = pt "Você começa seus preparativos de resgate."
+Rescue_Success = pt \
+   "Você sente uma força sagrada resgatá-lo de sua situação atual."
+Rescue_Already_Cast = pt "Você já está sendo resgatado."
+Rescue_Token_Cancel = pt "Você não pode ser resgatado enquanto estiver segurando um token."
+Rescue_depart_rsc = pt "%s desaparece em um clarão de luz protetora!"

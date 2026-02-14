@@ -1,0 +1,136 @@
+// Meridian 59 - Necromantie Disciple Robe
+// Subclass of DiscipleRobe that defaults to SS_NECROMANTIE.
+// Uses standard DiscipleRobe color progression.
+
+
+////////////////////////////////////////////////////////////////////////////////
+NecromantieRobe is DiscipleRobe
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include necrobe.lkod
+
+   NecromantieRobe_name_rsc = "robes of the necromancer"
+   NecromantieRobe_icon_rsc = Robe.bgf
+   NecromantieRobe_desc_rsc = \
+      "Dark and foreboding, these robes bear the mark of the Necromantie "
+      "school and radiate an unsettling chill.  They give bonuses to "
+      "Necromantie spells."
+
+classvars:
+
+   vrName = NecromantieRobe_name_rsc
+   vrIcon = NecromantieRobe_icon_rsc
+   vrDesc = NecromantieRobe_desc_rsc
+
+properties:
+   viPT_necromantie_master = PT_REDTODKBLACK1
+
+messages:
+
+   Constructor(school = SS_NECROMANTIE)
+   {
+      // Ensure this dedicated robe always tracks Necromantie levels.
+      Send(self,@SetSchool,#school=SS_NECROMANTIE);
+      propagate;
+   }
+
+   NewUsed()
+   {
+      // Correct persisted/older items as soon as they are equipped.
+      Send(self,@SetSchool,#school=SS_NECROMANTIE);
+      propagate;
+   }
+
+   ResetColors()
+   {
+      local i, oWarEvent, iSide, oSpell, iHigh_level;
+
+      iHigh_level = 0;
+
+      oWarEvent = Send(SYS,@GetWarEvent);
+      if Send(oWarEvent,@IsActive)
+      {
+         iSide = Send(oWarEvent,@GetPlayerSide,#who=poOwner);
+         Send(self,@SetXLATTranslation,#translation=Send(oWarEvent,@GetSideColor,#side=iSide));
+
+         return;
+      }
+
+      if (IsClass(poOwner,&DM) AND pbImmortalColor)
+      {
+         Send(self,@SetXLATTranslation,#translation=viXLAT_immortal);
+
+         return;
+      }
+
+      foreach i in Send(poOwner,@GetSpellList)
+      {
+         oSpell = Send(SYS,@FindSpellByNum,#num=Send(poOwner,@DecodespellNum,#compound=i));
+         if Send(oSpell,@GetSchool) = SS_NECROMANTIE
+         {
+            if Send(oSpell,@GetLevel) > iHigh_level
+            {
+               iHigh_Level = Send(oSpell,@GetLevel);
+            }
+         }
+      }
+
+      piLevel = iHigh_level;
+
+      if iHigh_level = 0
+      {
+         Send(self,@SetXLATTranslation,#translation=viXLAT_no_knowledge);
+      }
+      else if iHigh_level = 1
+      {
+         Send(self,@SetXLATTranslation,#translation=viXLAT_level_one);
+      }
+      else if iHigh_level = 2
+      {
+         Send(self,@SetXLATTranslation,#translation=viXLAT_level_two);
+      }
+      else if iHigh_level = 3
+      {
+         Send(self,@SetXLATTranslation,#translation=viXLAT_level_three);
+      }
+      else if iHigh_level = 4
+      {
+         Send(self,@SetXLATTranslation,#translation=viXLAT_level_four);
+      }
+      else
+      {
+         // Zirkel 5/6: hard black palette, independent of skin-mix XLAT.
+         Send(self,@SetPaletteTranslation,#translation=viPT_necromantie_master);
+
+         if poOwner <> $
+         {
+            if IsClass(poOwner,&Room)
+            {
+               Send(Send(SYS,@UtilGetRoom,#what=self),@SomethingChanged,#what=self);
+            }
+
+            if IsClass(poOwner,&User)
+            {
+               Send(poOwner,@SomethingChanged,#what=self);
+               Send(self,@DoPlayerArt);
+            }
+         }
+      }
+
+      return;
+   }
+
+   DoBaseDesc()
+   {
+      AddPacket(4,vrDesc);
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

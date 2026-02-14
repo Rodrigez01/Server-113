@@ -1,0 +1,212 @@
+// Meridian 59 - Necromantie Spell School
+// Soul Theft (Seelenraub) - Level 4 Attack Spell
+// Strong life drain. Costs 1 soul fragment.
+
+
+////////////////////////////////////////////////////////////////////////////////
+SoulTheft is AttackSpell
+
+constants:
+
+   include blakston.khd
+
+   DRAIN_FACTOR = 2
+
+resources:
+
+   include soltheft.lkod
+
+   SoulTheft_name_rsc = "soul theft"
+   SoulTheft_icon_rsc = inecro1.bgf
+   SoulTheft_desc_rsc = \
+      "Tears a massive chunk of life energy from the target, dealing "
+      "heavy damage and healing the caster significantly.  "
+      "Costs one soul fragment to cast."
+
+   SoulTheft_death = "You consume the last remnants of %s%s's life force."
+   SoulTheft_drain_rsc = \
+      "Dark energy floods into you, restoring ~g~B%i~B~n health."
+   SoulTheft_no_soul_rsc = \
+      "You need a soul fragment to power this spell."
+
+   SoulTheft_sound = qor.ogg
+   SoulTheft_proj_rsc = blindring.bgf
+
+classvars:
+
+   vrName = SoulTheft_name_rsc
+   vrIcon = SoulTheft_icon_rsc
+   vrDesc = SoulTheft_desc_rsc
+
+   viSchool = SS_NECROMANTIE
+   viSpell_num = SID_SOUL_THEFT
+
+   viSpell_level = 4
+   viMana = 12
+   viSpellExertion = 2
+
+   viAttack_spell = ATCK_SPELL_ALL + ATCK_SPELL_UNHOLY
+
+   vrSucceed_wav = SoulTheft_sound
+   vrProjectile_icon = SoulTheft_proj_rsc
+
+   viPostCast_time = 3
+
+   viChance_To_Increase = 15
+   viMeditate_ratio = 40
+
+properties:
+
+   piDamageMin = 12
+   piDamageMax = 20
+
+   piRange = 5 * FINENESS
+
+messages:
+
+   ResetReagents()
+   {
+      // No standard reagents - consumes soul fragment manually
+      plReagents = $;
+
+      return;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellPower=0)
+   {
+      local i, oSoul, oOwner, oTarget;
+
+      oTarget = First(lTargets);
+      oOwner = Send(who,@GetOwner);
+
+      if oOwner <> $
+      {
+         Send(oOwner,@SomethingShot,#who=who,#target=oTarget,#projectile=self);
+      }
+
+      // Consume one soul fragment (weakest first)
+      oSoul = $;
+      foreach i in Send(who,@GetHolderPassive)
+      {
+         if IsClass(i,&LesserSoul)
+         {
+            oSoul = i;
+
+            break;
+         }
+      }
+
+      if oSoul = $
+      {
+         foreach i in Send(who,@GetHolderPassive)
+         {
+            if IsClass(i,&AdeptSoul)
+            {
+               oSoul = i;
+
+               break;
+            }
+         }
+      }
+
+      if oSoul = $
+      {
+         foreach i in Send(who,@GetHolderPassive)
+         {
+            if IsClass(i,&MasterSoul)
+            {
+               oSoul = i;
+
+               break;
+            }
+         }
+      }
+
+      if oSoul <> $
+      {
+         Send(oSoul,@SubtractNumber,#number=1);
+      }
+
+      propagate;
+   }
+
+   CanPayCosts(who=$,lTargets=$,bItemCast=FALSE)
+   {
+      local i, bFoundSoul;
+
+      bFoundSoul = FALSE;
+      foreach i in Send(who,@GetHolderPassive)
+      {
+         if IsClass(i,&LesserSoul)
+            OR IsClass(i,&AdeptSoul)
+            OR IsClass(i,&MasterSoul)
+         {
+            bFoundSoul = TRUE;
+
+            break;
+         }
+      }
+
+      if NOT bFoundSoul
+      {
+         Send(who,@MsgSendUser,#message_rsc=SoulTheft_no_soul_rsc);
+
+         return FALSE;
+      }
+
+      propagate;
+   }
+
+   DoSideEffect(who=$,victim=$,damage=0)
+   {
+      local iToHeal;
+
+      if who = $ OR victim = $
+         OR Send(victim,@IsDrainImmune)
+      {
+         propagate;
+      }
+
+      if damage <> $
+      {
+         iToHeal = Bound(damage/DRAIN_FACTOR,0,$);
+      }
+      else
+      {
+         iToHeal = Bound(piDamageMax*100/DRAIN_FACTOR,0,$);
+      }
+
+      Send(who,@GainHealth,#amount=iToHeal,#precision=TRUE);
+      Send(who,@MsgSendUser,#message_rsc=SoulTheft_drain_rsc,
+           #parm1=iToHeal/100);
+
+      propagate;
+   }
+
+   SendLookAnimation()
+   {
+      AddPacket(1,ANIMATE_NONE, 2,2);
+
+      return;
+   }
+
+   SendProjectileAnimation()
+   {
+      // 40ms between animations, between frames 1-2
+      AddPacket(1,ANIMATE_CYCLE, 4,80, 2,1, 2,6);
+
+      return;
+   }
+
+   GetProjectileIcon()
+   {
+      return vrProjectile_Icon;
+   }
+
+   GetProjectileSpeed()
+   {
+      return 10;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

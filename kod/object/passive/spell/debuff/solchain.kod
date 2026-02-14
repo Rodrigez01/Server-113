@@ -1,0 +1,155 @@
+// Meridian 59 - Necromantie Spell School
+// Soul Chain (Seelenkette) - Level 3 Debuff
+// Shares damage between target and nearest enemy (damage echo).
+
+
+////////////////////////////////////////////////////////////////////////////////
+SoulChain is Debuff
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include solchain.lkod
+
+   SoulChain_name_rsc = "soul chain"
+   SoulChain_icon_rsc = inecro1.bgf
+   SoulChain_desc_rsc = \
+      "Links the target's soul to the flow of damage, causing a "
+      "portion of any damage dealt to them to echo as additional "
+      "unholy damage.  "
+      "Requires two purple mushrooms and one dark angel feather to cast."
+
+   SoulChain_already_enchanted = "%s%s is already bound by a soul chain."
+   SoulChain_caster = \
+      "A spectral chain binds the soul of %s%s!"
+   SoulChain_on = \
+      "You feel a cold chain wrap around your soul. Damage echoes "
+      "through you."
+   SoulChain_off = \
+      "The soul chain shatters and you are free."
+
+   SoulChain_spell_intro = \
+      "Necromantie Lv. 3: Links the target's soul causing damage "
+      "to echo."
+
+classvars:
+
+   vrName = SoulChain_name_rsc
+   vrIcon = SoulChain_icon_rsc
+   vrDesc = SoulChain_desc_rsc
+
+   vrAlreadyEnchanted = SoulChain_already_enchanted
+   vrEnchantment_On = SoulChain_on
+   vrEnchantment_Off = SoulChain_off
+   vrSuccess = SoulChain_caster
+
+   viSpell_num = SID_SOUL_CHAIN
+   viSchool = SS_NECROMANTIE
+   viSpell_level = 3
+
+   viSpellExertion = 2
+   viMana = 12
+
+   viChance_To_Increase = 20
+   viMeditate_ratio = 30
+
+   viFlash = FLASH_BAD
+
+   viPostCast_time = 2
+
+properties:
+
+   piBaseDuration = 10000
+   piSpellPowerModifier = 80
+   piDeviation = 10
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&PurpleMushroom,2],plReagents);
+      plReagents = Cons([&DarkAngelFeather,1],plReagents);
+
+      return;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellpower=0,report=TRUE)
+   {
+      local oTarget;
+
+      oTarget = First(lTargets);
+
+      Send(self,@DoSpell,#what=who,#oTarget=oTarget,#report=report,
+            #iDuration=Send(self,@GetDuration,#iSpellPower=iSpellPower),
+            #iSpellPower=iSpellPower);
+
+      propagate;
+   }
+
+   DoSpell(what=$,oTarget=$,iDuration=$,report=TRUE,iSpellPower=0)
+   {
+      if oTarget = $
+      {
+         return FALSE;
+      }
+
+      if Send(oTarget,@IsEnchanted,#what=self)
+      {
+         return FALSE;
+      }
+
+      if iDuration = $
+      {
+         iDuration = 10000;
+      }
+
+      Send(oTarget,@StartEnchantment,#what=self,#time=iDuration,
+            #report=report,#state=iSpellPower);
+
+      if IsClass(oTarget,&User)
+      {
+         if report
+         {
+            Send(oTarget,@MsgSendUser,#message_rsc=vrEnchantment_On);
+         }
+      }
+
+      if report
+      {
+         Send(what,@MsgSendUser,#message_rsc=vrSuccess,
+               #parm1=Send(oTarget,@GetCapDef),
+               #parm2=Send(oTarget,@GetName));
+      }
+
+      propagate;
+   }
+
+   GetDuration(iSpellPower=0)
+   {
+      local iDuration;
+
+      iDuration = piBaseDuration + iSpellPower * piSpellPowerModifier;
+      iDuration = Random(iDuration * (100 - piDeviation) / 100,iDuration);
+
+      return iDuration;
+   }
+
+   EndEnchantment(who=$,report=TRUE,state=$)
+   {
+      if IsClass(who,&User)
+      {
+         if report
+         {
+            Send(who,@MsgSendUser,#message_rsc=vrEnchantment_Off);
+         }
+      }
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

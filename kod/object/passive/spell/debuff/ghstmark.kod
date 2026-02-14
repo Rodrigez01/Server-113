@@ -1,0 +1,154 @@
+// Meridian 59 - Necromantie Spell School
+// Ghost Mark (Geistermal) - Level 2 Debuff
+// Target takes +10% necro damage.
+
+
+////////////////////////////////////////////////////////////////////////////////
+GhostMark is Debuff
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include ghstmark.lkod
+
+   GhostMark_name_rsc = "ghost mark"
+   GhostMark_icon_rsc = inecro16.bgf
+   GhostMark_desc_rsc = \
+      "Brands the target with a spectral mark that makes them "
+      "vulnerable to necromantic energies, increasing all necromantic "
+      "damage taken by 10 percent.  "
+      "Requires one dark angel feather to cast."
+
+   GhostMark_already_enchanted = "%s%s is already marked by spirits."
+   GhostMark_caster = \
+      "A spectral brand appears on %s%s, marking them for death!"
+   GhostMark_on = \
+      "A burning mark sears into your flesh! You feel vulnerable "
+      "to dark energies."
+   GhostMark_off = \
+      "The ghost mark fades from your skin."
+
+   GhostMark_spell_intro = \
+      "Necromantie Lv. 2: Brands the target to take increased "
+      "necromantic damage."
+
+classvars:
+
+   vrName = GhostMark_name_rsc
+   vrIcon = GhostMark_icon_rsc
+   vrDesc = GhostMark_desc_rsc
+
+   vrAlreadyEnchanted = GhostMark_already_enchanted
+   vrEnchantment_On = GhostMark_on
+   vrEnchantment_Off = GhostMark_off
+   vrSuccess = GhostMark_caster
+
+   viSpell_num = SID_GHOST_MARK
+   viSchool = SS_NECROMANTIE
+   viSpell_level = 2
+
+   viSpellExertion = 2
+   viMana = 7
+
+   viChance_To_Increase = 25
+   viMeditate_ratio = 20
+
+   viFlash = FLASH_BAD
+
+   viPostCast_time = 1
+
+properties:
+
+   piBaseDuration = 15000
+   piSpellPowerModifier = 100
+   piDeviation = 10
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&DarkAngelFeather,1],plReagents);
+
+      return;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellpower=0,report=TRUE)
+   {
+      local oTarget;
+
+      oTarget = First(lTargets);
+
+      Send(self,@DoSpell,#what=who,#oTarget=oTarget,#report=report,
+            #iDuration=Send(self,@GetDuration,#iSpellPower=iSpellPower),
+            #iSpellPower=iSpellPower);
+
+      propagate;
+   }
+
+   DoSpell(what=$,oTarget=$,iDuration=$,report=TRUE,iSpellPower=0)
+   {
+      if oTarget = $
+      {
+         return FALSE;
+      }
+
+      if Send(oTarget,@IsEnchanted,#what=self)
+      {
+         return FALSE;
+      }
+
+      if iDuration = $
+      {
+         iDuration = 15000;
+      }
+
+      Send(oTarget,@StartEnchantment,#what=self,#time=iDuration,
+            #report=report,#state=iSpellPower);
+
+      if IsClass(oTarget,&User)
+      {
+         if report
+         {
+            Send(oTarget,@MsgSendUser,#message_rsc=vrEnchantment_On);
+         }
+      }
+
+      if report
+      {
+         Send(what,@MsgSendUser,#message_rsc=vrSuccess,
+               #parm1=Send(oTarget,@GetCapDef),
+               #parm2=Send(oTarget,@GetName));
+      }
+
+      propagate;
+   }
+
+   GetDuration(iSpellPower=0)
+   {
+      local iDuration;
+
+      iDuration = piBaseDuration + iSpellPower * piSpellPowerModifier;
+      iDuration = Random(iDuration * (100 - piDeviation) / 100,iDuration);
+
+      return iDuration;
+   }
+
+   EndEnchantment(who=$,report=TRUE,state=$)
+   {
+      if IsClass(who,&User)
+      {
+         if report
+         {
+            Send(who,@MsgSendUser,#message_rsc=vrEnchantment_Off);
+         }
+      }
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

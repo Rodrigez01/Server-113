@@ -1,0 +1,96 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+DeathRealmBarlSewer is DeathRealm
+
+constants:
+
+   include blakston.khd
+
+   TO_ROW = 4
+   TO_COL = 11
+
+resources:
+
+   room_DeathRealm_barlsew = dbarlsew.roo
+
+classvars:
+
+   viTeleport_row = 58
+   viTeleport_col = 11
+
+properties:
+
+   prRoom = room_DeathRealm_barlsew
+   piRoom_num = RID_DBAR_SEWER
+
+messages:
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 56, 8, ROOM_LOCKED_DOOR, Needs_Key ],plExits);
+   
+      plEdge_Exits = $;
+
+      plEdge_Exits = Cons([LEAVE_WEST, RID_DF2, 7, 106, ROTATE_NONE, ROW_IS_GREATER_THAN,46], plEdge_exits);        
+
+      propagate;
+   }
+
+   SomethingTryGo(what=$,row=$,col=$)
+   {
+      local i, each_obj;
+
+      if (IsClass(what,&User)
+         AND (row = 56 AND col = 8))
+      {
+          if send(what,@HasBeatDR)
+		    OR IsClass(what,&DM)
+		  {
+		     foreach i in Send(what,@GetHolderPassive)
+            {
+               each_obj = Send(what,@HolderExtractObject,#data=i);
+               if IsClass(each_obj,&SewerKey)
+               {
+                  Send(each_obj,@Delete);
+			   }
+			}
+			 
+			 Send(what,@MsgSendUser,#message_rsc=Beat_DR);
+             Send(SYS,@UtilGoNearSquare,#what=what,
+                    #where=Send(SYS,@FindRoomByNum,#num=RID_DBAR_NORTH),
+                    #new_row=47,#new_col=40,#new_angle=ANGLE_WEST);
+			 
+			 return TRUE;
+		  }
+
+      	  
+   		     foreach i in Send(what,@GetHolderPassive)
+            {
+               each_obj = Send(what,@HolderExtractObject,#data=i);
+               if IsClass(each_obj,&SewerKey)
+               {
+                  Send(each_obj,@Delete);
+                  Send(what,@MsgSendUser,#message_rsc=Key_Open);
+                  Send(SYS,@UtilGoNearSquare,#what=what,
+                      #where=Send(SYS,@FindRoomByNum,#num=RID_DBAR_NORTH),
+                      #new_row=47,#new_col=40,#new_angle=ANGLE_WEST);
+
+                  return TRUE;
+               }
+            }
+		  }
+ 		 propagate;
+      }
+
+end
+////////////////////////////////////////////////////////////////////////////////

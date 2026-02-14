@@ -1,0 +1,25 @@
+totem_name_rsc = de "Totem"
+totem_desc_rsc = de \
+   "Nach diesem gefiederten Totem wird häufig im Auftrag der Barden aus der "
+   "Welt von Meridian von den Sterblichen gesucht. \n\nWenn man in den Besitz "
+   "des Totems kommt, muss man es halten, und wenn es seinen Zweck erfüllt "
+   "hat, verschwindet es."
+totem_cantuse_rsc = de \
+   "Du kannst nicht so viele Gegenstände in Deinen Händen halten. %s%s fällt "
+   "deshalb auf den Boden."
+totem_unuse_rsc = de \
+   "%s%s wird von Dir auf den Boden gelegt, um Deine Hände freizubekommen."
+totem_drops = de "%s%s entwindet sich Deinen Händen und fällt zu Boden!"
+
+totem_name_rsc = pt "totem"
+totem_desc_rsc = pt \
+   "Este totem emplumado é frequentemente o objetivo de missões "
+   "estabelecidas sobre mortais pelos Bardos do mundo de Meridiano. "
+   "\n\n"
+   "O totem deve ser segurado quando em posse e é largado quando "
+   "removido do uso."
+totem_cantuse_rsc = pt \
+   "Você não consegue segurar tantos itens em suas mãos, e %s%s escorrega para o chão."
+totem_unuse_rsc = pt \
+   "Você deixa %s%s cair no chão para liberar suas mãos."
+totem_drops = pt "%s%s escapa de suas mãos e cai no chão!"

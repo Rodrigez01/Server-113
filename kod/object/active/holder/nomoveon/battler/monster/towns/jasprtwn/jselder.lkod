@@ -1,0 +1,24 @@
+JasperElder_name_rsc = de "Afiera Xor"
+JasperElder_desc_rsc = de \
+   "Afiera Xor verbrachte viele, viele Jahre in Einsamkeit in diesen Bergen "
+   "und weiht sein Leben jetzt seiner Kunst. Seine Holzschnitzereien sind "
+   "komplizierte Muster von mathematischer Vollkommenheit. Doch er wird sich "
+   "die Zeit nehmen, die Reisenden zu unterhalten, die an seiner Weisheit "
+   "teilhaben wollen, die er sich im Verlaufe eines Lebens, das der stillen "
+   "Meditation gewidmet war, angeeignet hat."
+JasperElder_entry_welcome = de "Sei Gegrüßt, mögest du lang leben."
+JasperElder_unwanted_keep = de \
+   "~k%s%s teilt dir mit, \"Vielleicht finde ich einen Nutzen hierfür.~n~k\""
+JasperElder_unwanted_pay = de "~k%s%s teilt dir mit, \"wie praktisch.~n~k\""
+JasperElder_unwanted_give = de \
+   "~k%s%s teilt dir mit, \"Die meisten materiellen Güter sind von geringer "
+   "Bedeutung, für einen alten Mann wie mich.~n~k\""
+JsEl_stat_window_trigger = de "Werte ändern"
+
+JasperElder_name_rsc = pt "Afiera D'xor"
+JasperElder_desc_rsc = pt "Afiera D'xor passou muitos, muitos anos de solidão nessas montanhas e agora dedica sua vida à sua arte. Suas esculturas em pedra são designs intricados de perfeição matemática. Ele arranjará tempo, no entanto, para entreter viajantes que esperam compartilhar um pouco da sabedoria que ele adquiriu de uma vida de meditação isolada."
+JasperElder_entry_welcome = pt "Saudações. Que você viva para ver meus anos."
+JasperElder_unwanted_keep = pt "~k%s%s diz-lhe: \"Talvez eu possa encontrar algum uso para isso.~n~k\""
+JasperElder_unwanted_pay = pt "~k%s%s diz-lhe: \"Que conveniente.~n~k\""
+JasperElder_unwanted_give = pt "~k%s%s diz-lhe: \"A maioria dos bens materiais é de pouca consequência para um velho como eu.~n~k\""
+JsEl_stat_window_trigger = pt "mudar estatísticas"

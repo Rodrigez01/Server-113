@@ -1,0 +1,145 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 1 - ENTRANCE HALL (Lobby)
+// Typ: Safe Zone / Tutorial
+////////////////////////////////////////////////////////////////////////////////
+TowerSt1 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+   // Trigger Zone
+   TRIGGER_ROW_MIN = 10
+   TRIGGER_ROW_MAX = 12
+   TRIGGER_COL_MIN = 9
+   TRIGGER_COL_MAX = 11
+  // Bewegungsgeschwindigkeit
+   SECTOR_SPEED = 50
+   SECTOR_SPEED_FAST = 500
+
+   // Licht daemmen
+   LIGHT_DIM_DELTA = 120
+   TOWER_LIGHT_MIN = 44
+   TOWER_LIGHT_MAX = 244
+
+resources:
+
+   room_towerst1 = st1.roo
+   room_name_towerst1 = "Tower of Quests - Entrance Hall"
+   towerst1_sign_name = "Notice"
+   towerst1_sign_desc = \
+      "Welcome to the Tower of Quests and Fights."
+
+classvars:
+
+   vrName = room_name_towerst1
+
+   viTeleport_row = 58
+   viTeleport_col = 108
+
+properties:
+
+   prRoom = room_towerst1
+   piRoom_num = RID_TOWER_ST1
+
+   piNextFloor = RID_TOWER_ST2
+   piPrevFloor = $
+
+   // Lobby ist immer offen
+   pbStairsOpen = TRUE
+
+   // Safe Room - kein Kampf erlaubt (wie Familiars)
+   viPermanent_flags = ROOM_NO_COMBAT | ROOM_SANCTUARY | ROOM_HOMETOWN | ROOM_SAFELOGOFF
+
+messages:
+
+   Constructed()
+   {
+      // Keine Monster in der Lobby
+      plMonsters = $;
+      plGenerators = $;
+
+      // Lobby ist immer offen: nach Basis-Constructed Treppe oeffnen
+      Send(self,@OpenStairsUp);
+
+      propagate;
+   }
+   
+   
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      // Exit nach SL Haven (Ausgang)
+      plExits = Cons([ 57, 107, RID_SL_HAVEN, 27, 31, SET_ANGLE_WEST ],plExits);
+      plExits = Cons([ 57, 108, RID_SL_HAVEN, 27, 31, SET_ANGLE_WEST ],plExits);
+
+      // Treppe hoch zu Stockwerk 2
+      plExits = Cons([ 60, 90, RID_TOWER_ST2, 15, 15, ROTATE_NONE ],plExits);
+      plExits = Cons([ 35, 91, RID_TOWER_ST2, 15, 15, ROTATE_NONE ],plExits);
+      plExits = Cons([ 33, 90, RID_TOWER_ST2, 15, 15, ROTATE_NONE ],plExits);
+
+      return;
+   }
+
+   CreateStandardObjects()
+   {
+      local oObj;
+
+      // Schild
+      //oObj = Create(&Sign,#desc=towerst1_sign_desc,#newbie=TRUE,
+      //     #name=towerst1_sign_name);
+      //Send(self,@NewHold,#what=oObj,#new_row=176,#new_col=99,
+      //      #fine_row=16,#fine_col=0);
+
+      // Brennar Kraeuterfaust - Apotheker
+      oObj = Create(&SLApothecary);
+	      Send(self,@NewHold,#what=oObj,#new_row=104,#new_col=91,
+            #fine_row=32,#fine_col=32);  
+	  
+
+      // Saura - Essensverkaeuferin
+      oObj = Create(&SLSaura);
+      Send(self,@NewHold,#what=oObj,#new_row=80,#new_col=91,
+            #fine_row=32,#fine_col=32);
+
+      // Ugor - Schmied
+      oObj = Create(&SLUgor);
+      Send(self,@NewHold,#what=oObj,#new_row=80,#new_col=107,
+            #fine_row=32,#fine_col=32);
+
+      // Grelda - Kraeuterfrau
+      oObj = Create(&SLGrelda);
+      Send(self,@NewHold,#what=oObj,#new_row=91,#new_col=107,
+            #fine_row=32,#fine_col=32);
+
+      // Tarien - Haendler
+      oObj = Create(&SLTarien);	
+      Send(self,@NewHold,#what=oObj,#new_row=91,#new_col=91,
+            #fine_row=32,#fine_col=32);  
+	  
+      // Fenric - Questgeber
+      oObj = Create(&SLFenric);
+      Send(self,@NewHold,#what=oObj,#new_row=104,#new_col=107,
+            #fine_row=32,#fine_col=32);
+
+      propagate;
+   }
+
+   // Safe Room - kein Kampf moeglich
+   SafePlayerAttack()
+   {
+      return TRUE;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

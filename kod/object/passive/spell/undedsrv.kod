@@ -1,0 +1,122 @@
+// Meridian 59 - Necromantie Spell School
+// Undead Servant (Untoter Diener) - Level 4 Summon Spell
+// Summons a skeleton for 20 seconds.
+
+
+////////////////////////////////////////////////////////////////////////////////
+UndeadServant is Spell
+
+constants:
+
+   include blakston.khd
+
+   SERVANT_DURATION = 20000
+
+resources:
+
+   include undedsrv.lkod
+
+   UndeadServant_name_rsc = "undead servant"
+   UndeadServant_icon_rsc = inecro5.bgf
+   UndeadServant_desc_rsc = \
+      "Raises a powerful skeletal warrior from the earth to fight by "
+      "your side for 20 seconds.  "
+      "Requires two dark angel feathers and one shaman blood to cast."
+
+   UndeadServant_cast_rsc = \
+      "A skeletal warrior claws its way from the earth!"
+   UndeadServant_limit_rsc = \
+      "You already command an undead servant."
+   UndeadServant_expire_rsc = \
+      "Your undead servant crumbles to dust."
+
+   UndeadServant_spell_intro = \
+      "Necromantie Lv. 4: Summons a skeletal warrior for 20 seconds."
+
+   UndeadServant_sound = qdeathlk.ogg
+
+classvars:
+
+   vrName = UndeadServant_name_rsc
+   vrIcon = UndeadServant_icon_rsc
+   vrDesc = UndeadServant_desc_rsc
+
+   viSpell_num = SID_UNDEAD_SERVANT
+   viSchool = SS_NECROMANTIE
+   viSpell_level = 4
+   viMana = 15
+   viMeditate_ratio = 40
+
+   viSpellExertion = 3
+   viCast_time = 1000
+
+   vrSucceed_wav = UndeadServant_sound
+
+properties:
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&DarkAngelFeather,2],plReagents);
+      plReagents = Cons([&ShamanBlood,1],plReagents);
+
+      return;
+   }
+
+   GetNumSpellTargets()
+   {
+      return 0;
+   }
+
+   CanPayCosts(who=$)
+   {
+      local i;
+
+      foreach i in Send(who,@GetControlledMinions)
+      {
+         if IsClass(i,&Skeleton)
+         {
+            Send(who,@MsgSendUser,#message_rsc=UndeadServant_limit_rsc);
+
+            return FALSE;
+         }
+      }
+
+      propagate;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellPower=1)
+   {
+      local oRoom, oMinion;
+
+      oRoom = Send(who,@GetOwner);
+
+      if oRoom = $
+      {
+         return;
+      }
+
+      oMinion = Create(&Skeleton,#iSpellpower=iSpellpower,#oMaster=who);
+
+      Send(oRoom,@NewHold,#what=oMinion,#new_row=Send(who,@GetRow),
+            #new_col=Send(who,@GetCol),#fine_row=Send(who,@GetFineRow),
+            #fine_col=Send(who,@GetFineCol));
+
+      Send(who,@MsgSendUser,#message_rsc=UndeadServant_cast_rsc);
+
+      Send(who,@NewControlledMinion,#minion=oMinion);
+      Send(oMinion,@SetBehaviorFlag,#flag=AI_MOVE_FOLLOW_MASTER,
+            #value=TRUE);
+      Send(oMinion,@SetMaster,#oMaster=who);
+
+      // Set a timer to destroy the minion after 20 seconds
+      Send(oMinion,@StartEnchantment,#what=self,#time=SERVANT_DURATION,
+            #state=who);
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

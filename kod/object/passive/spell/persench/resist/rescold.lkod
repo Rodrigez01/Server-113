@@ -1,0 +1,22 @@
+resistcold_name_rsc = de "Kälte widerstehen"
+resistcold_desc_rsc = de \
+   "Der Körper Deines Ziels füllt sich mit dem magischen Feuer von Faren, "
+   "das den Schaden von Kälteangriffen für mehrere Minuten verringert. "
+   "Der Zauber benötigt einen roten Pilz."
+resistcold_already_enchanted = de "Du widerstehst Kälte bereits."
+resistcold_on = de "Das magischer Feuer Farens umschließt Deinen Körper."
+resistcold_off = de \
+   "Dein Körper kühlt sich ab und Du spürst das Du nicht mehr immun gegen "
+   "Kälte bist."
+resistcold_success = de "%s%s's Körper wird umschlossen von Farens Wärme."
+resistcold_spell_intro = de \
+   "Faren Level 2: Der Körper Deines Ziels füllt sich mit dem magischen Feuer "
+   "von Faren."
+
+resistcold_name_rsc = pt "resistir ao frio"
+resistcold_desc_rsc = pt "Infunde o alvo com o fogo mágico de Faren, reduzindo o dano de ataques de frio por vários minutos. Requer um cogumelo vermelho para lançar."
+resistcold_already_enchanted = pt "Você já é resistente ao frio."
+resistcold_on = pt "O fogo mágico de Faren entra em seu corpo."
+resistcold_off = pt "Seu corpo esfria perceptivelmente conforme o encantamento de resistência ao frio se dissipa."
+resistcold_success = pt "O corpo de %s%s queima com o fogo mágico de Faren."
+resistcold_spell_intro = pt "Nível 2 de Faren: Infunde seu corpo com o fogo mágico de Faren, reduzindo o dano de ataques de frio."

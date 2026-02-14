@@ -1,0 +1,409 @@
+monster_percent_q = de "%q"
+monster_color_blue_rsc = de "~b"
+monster_plural = de "s"
+monster_little = de "ein kleines bisschen mehr "
+monster_nothing = de ""
+monster_some = de "mehr "
+monster_much = de "viel mehr "
+monster_significantly = de "sehr viel mehr "
+monster_drastically = de "extrem viel mehr "
+monster_teach_karma = de \
+   "Dein Karma ist nicht stark genug, den wahren Pfad zu beschreiten, "
+   "um %s zu lernen."
+monster_teach_quest_needed = de \
+   "Ich könnte Dir %s beibringen, jedoch musst Du zuerst Deinen Wert als "
+   "Schüler unter Beweis stellen."
+monster_teach_base = de \
+   "Du bist auf dem richtigen Weg und mit %i im vorherigen %s-Zirkel "
+   "kannst Du das lernen.%s$0"
+monster_teach_success = de \
+   "Gratuliere! Du hast alle Voraussetzungen erfüllt, um diesen Zirkel zu "
+   "erlernen.%s$0"
+monster_teach_already = de "Das habe ich Dir schon beigebracht.%s$0"
+monster_teach_nobase = de \
+   "Du musst erst einige Erkenntnisse im vorherigen Zirkel sammeln, bevor "
+   "ich Dich das lehren kann.%s$0"
+monster_teach_impossible = de \
+   "Fürwahr, Du hast bereits so viel gelernt! Eine gute Fähigkeit. Du hast "
+   "es nicht ... ähhhmmm... nötig ... mehr in dieser Schule zu lernen."
+monster_said_resource_str = de "%s%s sagt, \"%s~n\""
+monster_level = de "Zirkel"
+monster_one = de "Eins"
+monster_two = de "Zwei"
+monster_three = de "Drei"
+monster_four = de "Vier"
+monster_five = de "Fünf"
+monster_six = de "Sechs"
+monster_teach_and = de "und "
+monster_sch_weaponcraft = de "Waffenfertigkeiten"
+monster_sch_kraanan = de "Kraanan-Magie"
+monster_sch_shalille = de "Shal'ill-Magie"
+monster_sch_qor = de "Qor-Magie"
+monster_sch_faren = de "Faren-Magie"
+monster_schools_faren_shalille = de "Shal'ill- und Faren-Magie"
+monster_schools_qor_shalille = de "Shal'ill- und Qor-magic"
+monster_school_qor_faren = de "Qor- and Faren-Magie"
+monster_division_combat = de "Waffenfertigkeiten und Kraanan-Magie"
+monster_division_magic = de "Sha-Lill-, Faren- und Qor-Magie"
+monster_anonymous_response = de \
+   "%s schaut Dich eigenartig an und antwortet nicht."
+LS_Cant_part = de \
+   "%s%s kann ich Dir nicht abnehmen. Da musst Du Dir etwas anderes einfallen "
+   "lassen."
+LS_Signet_returned = de \
+   "Oh! Ich war sicher, es für immer verloren zu haben. Vielen Dank, dass "
+   "Du es mir zurückgebracht hast. Hier, laß mich Dir eine kleine Belohnung "
+   "geben."
+LS_Signet_wrong = de \
+   "Bestimmt ein Erbstück. Du solltest es selbst zu %s%s bringen. Es ist "
+   "sehr wahrscheinlich, dass es für seine Rückgabe eine Belohnung gibt."
+LS_wanted_keep = de \
+   "Vielen Dank, ich werde mich dafür irgendwann erkenntlich zeigen."
+LS_unwanted_keep = de \
+   "~w%s%s sagt zu Dir, \"Danke. Es ist sehr nett von Dir, mir dies einfach "
+   "so zu geben.~n~w\""
+LS_unwanted_pay = de \
+   "~w%s%s sagt zu Dir, \"Hier. Ich werde Dir ein paar Schillinge dafür geben.~n~w\""
+LS_unwanted_give = de \
+   "~w%s%s sagt zu Dir, \"Ich habe einfach keinen Nutzen davon.~n~w\""
+LS_unwanted_token = de \
+   "~w%s%s sagt zu Dir, \"Ich bin geehrt, es auch nur kurz in Händen zu halten, "
+   "doch dieses Artefakt muss dem Mitglied des Rates von Meridian zurückgegeben "
+   "werden, das es studiert. Ich fürchte, ich muss es Dir zurückgeben~n~w\""
+LS_nofight_attacked = de \
+   "Ein merkwürdiges Gefühl sagt Dir, dass ein Angriff zwecklos wäre."
+Lm_nothing_for_sale = de "Ich fürchte, ich habe zur Zeit nichts zu verkaufen."
+Lm_first_damage_level = de "~r~B%s%s ist leicht verwundet."
+Lm_second_damage_level = de "~r~B%s%s ist verletzt."
+Lm_third_damage_level = de "~r~B%s%s ist schwer verletzt."
+Lm_fourth_damage_level = de "~r~B%s%s ist schwach und dem Tode nahe."
+Lm_party_killed_monster = de \
+   "~r~B%s%s hat das Monster erschlagen. %s%s ist tot!"
+Lm_monster_healing = de \
+   "~g%s%s weicht zurück, um für einen Moment neue Kraft zu schöpfen."
+monster_desc_level = de \
+   "Dieses Monster bringt Dich bis zu %i Lebenspunkten."
+Lm_condition_healthy = de "%s\n\n%r"
+Lm_condition_good = de \
+   "%s\n\n%r\n\n%s%s ist verletzt, aber immer noch ziemlich stark."
+Lm_condition_fair = de \
+   "%s\n\n%r\n\n%s%s ist verwundet, doch immer noch relativ stark."
+Lm_condition_poor = de "%s\n\n%r\n\n%s%s leidet an schweren Verletzungen."
+Lm_condition_bad = de \
+   "%s\n\n%r\n\n%s%s ist schon sehr schwach und wird vermutlich nicht mehr lange "
+   "leben."
+Lm_cant_remove_item = de "%s%s kannst Du nicht abgeben."
+Lm_mrcnt_not_selling = de \
+   "Du versuchst etwas zu erwerben, das nicht verkauft wird."
+Lm_mrcnt_too_costly = de "%s%s? Komm wieder, wenn Du genügend Geld dafür hast!"
+Lm_mrcnt_cant_give = de \
+   "%s%s?! Du solltest vielleicht erst etwas ablegen, denn Du kannst nichts "
+   "mehr tragen."
+Lm_mrcnt_can_give_some = de \
+   "%s%s?! Es sieht so aus, als ob Du nicht alles tragen kannst. Lass mich "
+   "die Menge für dich reduzieren."
+Lm_only_receiver = de \
+   "%s%s sagt, \"Ich kaufe keine Sachen, aber ich nehme Geschenke entgegen.\""
+Lm_buyer_offer_busy = de "%s kümmert sich gerade um einen anderen Kunden."
+Lm_buyer_no_value = de \
+   "Ich kann Dir nicht mal einen einzigen %r dafür geben."
+Lm_buyer_timeout = de \
+   "Du kannst Dich wohl nicht entscheiden?! Überlege es Dir noch einmal und "
+   "komme dann wieder..."
+Lm_buyer_unwanted = de "Kein Interesse."
+Lm_bnkr_balance = de "Dein Kontostand beträgt ~b~B%i~n %r."
+Lm_bnkr_did_deposit = de \
+   "Danke für Deine Einzahlung. Dein Kontostand beträgt nun ~b~B%i~n %r."
+Lm_bnkr_no_account = de \
+   "Tja, Du hast Deine Ersparnisse leider verschleudert - Kredit bekommst "
+   "Du hast kein %r!"
+Lm_bnkr_acct_full = de \
+   "Du hast so viele %r hier gelagert, so dass ich keinen "
+   "Platz für mehr habe."
+Lm_bnkr_acct_almost_full = de \
+   "Du hast so viele %r hier gelagert, so dass ich nur noch "
+   "Platz für %i habe."
+Lm_bnkr_not_enough_withdraw = de \
+   "Aber Du hast doch nur ~b~B%i~n %r auf Deinem Konto!"
+Lm_bnkr_not_enough_deposit = de \
+   "Aber es befinden sich nur ~b~B%i~n %r in Deinem Besitz!"
+Lm_bnkr_did_withdraw = de "Hier sind Deine ~b~B%i~n %r. Vielen Dank."
+Lm_bnkr_player_full = de \
+   "Wenn ich Dir mehr als ~b~B%i~n %r geben würde, wäre mein Ruf "
+   "in Gefahr!"
+Lm_bnkr_player_all_full = de \
+   "Du kannst nicht einmal mehr einen einzigen %r halten!"
+vaultman_nogold = de \
+   "Du brauchst meine Dienste nicht in Anspruch zu nehmen, um %s%s zu verwahren."
+vaultman_nocursed = de "Ich kann keine %s%s von Dir nehmen."
+vaultman_fullvault = de \
+   "Dein Lager kann nicht soviel Kram aufnehmen! Vielleicht solltest Du Sachen "
+   "in kleineren Mengen anbieten."
+vaultman_thanks_amount = de \
+   "Das kostet %i %r. Danke, dass Du mir Deine Ausrüstung anvertraust."
+vaultman_dont_have = de \
+   "Hmmm, ich scheine Deine %s%s nicht in Deinem Lager finden zu können."
+vaultman_no_room = de \
+   "Du kannst das nicht alles tragen! Vielleicht solltest Du versuchen, nur "
+   "einen Gegenstand zur Zeit mitzunehmen."
+vaultman_deposit_thanks = de "Danke, dass Du mir Deine Ausrüstung anvertraust."
+vaultman_thanks = de "Hier ist Deine Ausrüstung. Danke für Dein Vertrauen."
+vaultman_withdraw_failed = de \
+   "Ich war nicht in der Lage unseren Handel abzuschließen. Bitte sortiere "
+   "dein Inventar und versuche es noch einmal."
+vaultman_nowithdraw_cash = de \
+   "Im Moment kannst Du die Ablösegebühr nicht zahlen, um Deine Sachen mitzunehmen."
+vaultman_nodeposit_cash = de \
+   "Die Verwahrung dieser Gegenstände würde %i %r kosten - ich sehe, "
+   "dass Du sie nicht hast."
+vaultman_cant_part = de \
+   "Wow... ich könnte nicht die Verantwortung übernehmen, wenn dir %s verschwinden "
+   "würde! Ich kann es einfach nicht verwahren."
+vaultman_noaccount = de "Ich scheine nichts von Deiner Ausrüstung zu verwahren."
+vaultman_not_enough = de \
+   "Du hast nicht so viele %s unter Deinem Namen in Verwahrung gegeben!"
+monster_say_to_one = de "~w%s%s sagt zu Dir, \"%s~n~w\""
+monster_iteach = de \
+   "Ich unterrichte %s%s%s%s%s%s%s%s%s%s%s%s ab diesem Zirkel."
+monster_teachnothing = de "Ich lehre keine Fertigkeiten ab diesem Zirkel."
+monster_koc_name = de "Der Moch"
+monster_report_balance = de \
+   "~B~g[~n~w%s%s sagt zu Dir, \"%q hat ~b~B%i~w~B %r auf dieser Bank.\"~B~g]"
+Monster_Sweep_Reward = de \
+   "Hmm... das sieht ein wenig sauberer aus, %s%s. Hier, nimm dies als Belohnung!"
+monster_default_attack = de "der Attacke"
+minion_trouble = de "Du bemerkst, dass dein Diener dir Ärger gebracht hat..."
+autolooted_all = de "Du plünderst die Leiche und findest %d %r."
+autolooted_all_no_money = de "Du plünderst die Leiche leer."
+autolooted_some = de \
+   "Du plünderst einige Dinge von der Leiche, und findest %d %r."
+autolooted_some_no_money = de "Du plünderst einige Gegenstände von der Leiche."
+autolooted_only_money = de \
+   "Du findest nichts besonderes was du plündern kannst, erhältst dafür aber "
+   "%d %r."
+autolooted_none = de "Du findest nichts besonderes, was du plündern kannst."
+autoloot_too_far_away = de "Du bist zu weit weg um die Leiche zu plündern!"
+autoloot_got_some_but_full_now = de \
+   "Du nimmst ein paar Gegenstände von der Leiche auf, wirst aber behindert "
+   "alles aufzunehmen."
+autoloot_got_nothing_because_full = de \
+   "Du kannst nicht alles plündern, da du schon zu vollgepackt bist."
+autoloot_got_only_shillings_because_full = de \
+   "Du kannst nichts mehr von der Leiche plündern da du zu vollgepackt bist, und "
+   "nimmst nur die %d %r."
+monster_faction_negative_msg = de \
+      "Dein Ansehen bei %s hat sich verringgert"
+monster_faction_positive_msg = de \
+      "Dein Ansehen bei %s hat sich gesteigert"
+monster_faction_unspecified = de "UNSPEZIFIZIERTE MONSTER PARTEI!"
+monster_faction_farol = de "Knechte des Lebens"
+monster_faction_orc = de "den Orks"
+monster_faction_troll = de "den Trollen"
+monster_faction_farnohl = de "dem Haus von Lord Far'Nohl"
+monster_faction_lich = de "dem Opfern von Königin Queen Venya'cyr"
+monster_faction_psavar = de "dem Peet-Seeeep Avar Clan"
+monster_faction_kkavar = de "dem Kyip-Kyip-Kreeet Avar Clan"
+monster_faction_ctavar = de "dem Chyup-Tewee Avar Clan"
+monster_faction_fey_good = de "dem Fey Elhai"
+monster_faction_fey_evil = de "dem Fey Dirhai"
+monster_faction_frogmen = de "dem Froschman"
+monster_faction_heretic = de "dem Kult der Drei"
+monster_faction_undead = de "den Knechten des Todes"
+
+monster_percent_q = pt "%q"
+monster_color_blue_rsc = pt "~b"
+monster_plural = pt "s"
+monster_little = pt "um pouco "
+monster_nothing = pt ""        
+monster_some = pt "algum "     
+monster_much = pt "muito "     
+monster_significantly = pt "significativamente "
+monster_drastically = pt "drasticamente "
+monster_teach_karma = pt \
+      "Sua karma ainda não está suficientemente avançada no caminho verdadeiro para você aprender %s."
+monster_teach_quest_needed = pt \
+      "Eu posso te ensinar %s, mas primeiro você precisa provar seu valor como um aluno."
+monster_teach_base = pt \
+      "Sua mente está focada corretamente, e com %i melhorias no "
+      "nível anterior de %s você pode aprender %s."
+monster_teach_success = pt \
+      "Você está atualmente qualificado para aprender %s. Parabéns."
+monster_teach_already = pt "Você já foi ensinado %s."
+monster_teach_nobase = pt \
+      "Você primeiro precisa ter algum conhecimento do nível anterior antes de poder "
+      "aprender %s."
+monster_teach_impossible = pt \
+      "De fato, você já aprendeu tanto! Um feito impressionante. Você "
+      "não tem... necessidade... de aprender mais nesta escola."
+monster_level = pt "nível"
+monster_one = pt "um"
+monster_num_one = pt "1"
+monster_two = pt "dois"
+monster_num_two = pt "2"
+monster_three = pt "três"
+monster_num_three = pt "3"
+monster_four = pt "quatro"
+monster_num_four = pt "4"
+monster_five = pt "cinco"
+monster_num_five = pt "5"
+monster_six = pt "seis"
+monster_num_six = pt "6"
+monster_said_resource_str = pt "%s%s diz, \"%s~n\""
+monster_teach_comma = pt ", "
+monster_teach_and = pt "e "
+monster_teach_blank = pt ""
+monster_sch_weaponcraft = pt "Criação de Armas"
+monster_sch_kraanan = pt "Magia Kraanan"
+monster_sch_shalille = pt "Magia Shal'ille"
+monster_sch_qor = pt "Magia Qor"
+monster_sch_faren = pt "Magia Faren"
+monster_schools_faren_shalille = pt "Magias Shal'ille e Faren"
+monster_schools_qor_shalille = pt "Magias Shal'ille e Qor"
+monster_school_qor_faren = pt "Magias Qor e Faren"
+monster_division_combat = pt "Criação de Armas e Magia Kraanan"
+monster_division_magic = pt "Magias Shal'ille, Faren e Qor"
+monster_anonymous_response = pt \
+      "%s olha para você com uma expressão peculiar e não responde."
+LS_Cant_part = pt \
+      "Não consigo entender como você poderia suportar se desfazer de %s%s! "
+      "Certamente não poderia ser eu a pessoa a tirá-lo de suas mãos."
+LS_Signet_returned = pt \
+      "Oh! Eu tinha certeza de que isso estava perdido para sempre. Muito, "
+      "muito obrigado por trazê-lo de volta para mim. Aqui, deixe-me dar a "
+      "você uma pequena recompensa."
+LS_Signet_wrong = pt \
+      "Um objeto de família com certeza. Você deveria levá-lo para %s%s você "
+      "mesmo. Provavelmente haverá uma recompensa por sua devolução."
+LS_wanted_keep = pt "Obrigado. Um dia eu vou retribuir."
+LS_unwanted_keep = pt \
+      "~k%s%s lhe diz: \"Obrigado. É muito gentil da sua parte apenas me dar "
+      "isto.~n~k\""
+LS_unwanted_pay = pt \
+      "~k%s%s lhe diz: \"Aqui. Vou te dar alguns shillings por isso.~n~k\""
+LS_unwanted_give = pt \
+      "~k%s%s lhe diz: \"Eu simplesmente não tenho necessidade disso.~n~k\""
+LS_unwanted_token = pt \
+      "~k%s%s lhe diz: \"Eu me sinto honrado em segurar brevemente, mas esse "
+      "símbolo deve ser devolvido ao membro do Conselho do Meridiano que o "
+      "estuda. Tenho medo de que eu precise devolvê-lo para você.~n~k\""
+LS_nofight_attacked = pt \
+      "Você tem uma sensação engraçada de que atacar é inútil."
+Lm_nothing_for_sale = pt "Receio que não tenho nada para vender agora."
+Lm_first_damage_level = pt "~B~r%s%s está ligeiramente ferido."
+Lm_second_damage_level = pt "~B~r%s%s está claramente ferido."
+Lm_third_damage_level = pt "~B~r%s%s está gravemente ferido."
+Lm_fourth_damage_level = pt "~B~r%s%s está fraco, e perto da morte."
+Lm_party_killed_monster = pt "~B%s%s matou valentemente %s%s!"
+Lm_monster_healing = pt \
+      "%s%s recua para se recuperar por um momento, e depois volta para a luta."
+monster_desc_level = pt "Este monstro vai te levar a %i pontos de vida."
+Lm_condition_healthy = pt "%s\n\n%r"
+Lm_condition_good = pt \
+      "%s\n\n%r\n\n%s%s está ferido, mas ainda está relativamente forte."
+Lm_condition_fair = pt \
+      "%s\n\n%r\n\n%s%s está ferido, mas ainda está relativamente forte."
+Lm_condition_poor = pt "%s\n\n%r\n\n%s%s está sofrendo de feridas profundas."
+Lm_condition_bad = pt \
+      "%s\n\n%r\n\n%s%s está fraco e parece improvável que sobreviva por muito mais tempo."
+Lm_cant_remove_item = pt "Você não pode dar %s%s agora."
+Lm_mrcnt_not_selling = pt "Você tentou comprar algo que não está à venda."
+Lm_mrcnt_too_costly = pt "Volte quando tiver dinheiro suficiente para %s%s."
+Lm_mrcnt_cant_give = pt \
+      "Não consigo lhe dar %s%s. Talvez você esteja carregando muito?"
+Lm_mrcnt_can_give_some = pt \
+      "Parece que você só pode segurar parte de %s%s. Vou reduzir sua contagem."
+Lm_only_receiver = pt "%s%s diz: \"Eu não compro coisas, mas aceito presentes.\""
+Lm_buyer_offer_busy = pt "%s está ocupado agora com outro cliente."
+Lm_buyer_no_value = pt "Eu nem posso te dar nenhum %r por isso."
+Lm_buyer_timeout = pt \
+      "Não consegue se decidir? Pense nisso e volte quando estiver pronto."
+Lm_buyer_unwanted = pt "Eu não estou interessado."
+Lm_bnkr_balance = pt "Você tem %i %r na sua conta."
+Lm_bnkr_did_deposit = pt \
+      "Obrigado pelo seu depósito. Você agora tem %i %r na sua conta."
+Lm_bnkr_no_account = pt "Você não tem %r para sacar!"
+Lm_bnkr_acct_full = pt \
+      "Você tem tantos %r armazenados aqui, que eu tenho medo que eu não tenha "
+      "espaço para armazenar mais nenhum!"
+Lm_bnkr_acct_almost_full = pt \
+      "Você tem tantos %r armazenados aqui, que eu tenho medo que eu só consiga "
+      "armazenar mais %i."
+Lm_bnkr_not_enough_withdraw = pt \
+      "Mas você só tem %i %r na sua conta!"
+Lm_bnkr_not_enough_deposit = pt \
+      "Mas você só tem %i %r em sua posse!"
+Lm_bnkr_did_withdraw = pt \
+      "Aqui estão seus %i %r. Obrigado pela sua preferência."
+Lm_bnkr_player_full = pt \
+      "Juro, se eu lhe desse um %r a mais do que %i você iria cair para "
+      "frente!"
+Lm_bnkr_player_all_full = pt "Você não pode segurar mais %r!"
+vaultman_nogold = pt "Você não pode usar meus serviços para armazenar %s%s."
+vaultman_nocursed = pt "Não posso pegar %s%s de você."
+vaultman_fullvault = pt \
+      "Seu cofre não pode armazenar tanto material! Talvez você deva tentar "
+      "oferecer itens em quantidades menores."
+vaultman_thanks_amount = pt \
+      "Isso vai custar %i %r. Obrigado por confiar em mim para gerenciar "
+      "suas engrenagens."
+vaultman_dont_have = pt \
+      "Hmm... Não consigo encontrar %s%s em seu cofre."
+vaultman_no_room = pt \
+      "Você não pode carregar tudo isso! Talvez você deva tentar retirar os "
+      "itens um de cada vez."
+vaultman_deposit_thanks = pt \
+      "Obrigado por confiar em mim para gerenciar suas engrenagens."
+vaultman_thanks = pt \
+      "Aqui estão suas engrenagens. Obrigado por sua preferência."
+vaultman_withdraw_failed = pt \
+      "Não consegui completar nossa transação. Por favor, organize seu "
+      "inventário e tente novamente."
+vaultman_nowithdraw_cash = pt \
+   "Atualmente, você não pode pagar a taxa de saída para retirar suas coisas."
+vaultman_nodeposit_cash = pt \
+   "Armazenar esses itens custaria %i %r - o que vejo que você não "
+   "tem."
+vaultman_cant_part = pt \
+   "Uau... Eu não me sentiria responsável se seus %s desaparecessem - eu " 
+   "não posso armazená-los."
+vaultman_noaccount = pt "Parece que eu não estou armazenando nenhum de seus equipamentos."
+vaultman_not_enough = pt "Você não tem tantos %s armazenados em seu nome!"
+monster_say_to_one = pt "~k%s%s diz a você, \"%s~n~k\""
+monster_iteach = pt "Eu ensino %s%s%s%s%s%s%s%s%s%s%s%s nesse nível."
+monster_teachnothing = pt "Eu não ensino nenhuma habilidade nesse nível."
+monster_koc_name = pt "moch"
+monster_report_balance = pt \
+   "~B~g[~n~k%s%s diz a você, \"%q tem %i %r neste banco.\"~B~g]"
+Monster_Sweep_Reward = pt \
+   "Hmm... isso parece um pouco mais limpo. Aqui, leve isso como pagamento, %s%s."
+monster_default_attack = pt "ataque"
+minion_trouble = pt \
+   "Você sente que seu servo te colocou em apuros..."
+autolooted_all_no_money = pt "Você saqueia o corpo completamente."
+autolooted_some_no_money = pt "Você saqueia alguns dos itens do seu inimigo derrotado."
+autolooted_none = pt "Você não encontra nada facilmente saqueável em seu inimigo morto."
+autoloot_too_far_away = pt "Você está muito longe para saquear seu inimigo morto!"
+autoloot_got_some_but_full_now = pt "Você pega alguns dos despojos do seu inimigo morto, mas se vê muito sobrecarregado para pegar tudo."
+autoloot_got_nothing_because_full = pt "Você não pode carregar mais nada, então não saqueia nada do seu inimigo morto."
+autolooted_all = pt "Você saqueia o corpo completamente e encontra %d %r."
+autolooted_only_money = pt "Você não encontra nada facilmente saqueável em seu inimigo morto, exceto %d %r."
+autolooted_some = pt "Você saqueia alguns dos itens de sua morte, e encontra %d %r."
+autoloot_got_only_shillings_because_full = pt "Você não pode carregar mais nada, então não saqueia nada do seu inimigo morto, mas encontra %d %r."
+monster_faction_negative_msg = pt \
+   "Sua reputação com %s diminuiu"
+monster_faction_positive_msg = pt \
+   "Sua reputação com %s aumentou"
+monster_faction_unspecified = pt "FACÇÃO DE MONSTRO NÃO ESPECIFICADA!"
+monster_faction_farol = pt "Súditos da Vida"
+monster_faction_orc = pt "Orcs"
+monster_faction_troll = pt "Trolls"
+monster_faction_farnohl = pt "Casa do Senhor Far'Nohl"
+monster_faction_lich = pt "Súditos da Rainha Venya'cyr"
+monster_faction_psavar = pt "Clã Avar Peet-Seeeep"
+monster_faction_kkavar = pt "Clã Avar Kyip-Kyip-Kreeet"
+monster_faction_ctavar = pt "Clã Avar Chyup-Tewee"
+monster_faction_fey_good = pt "Fey Elhai"
+monster_faction_fey_evil = pt "Fey Dirhai"
+monster_faction_frogmen = pt "Homens-Sapo"
+monster_faction_heretic = pt "Culto dos Três"
+monster_faction_undead = pt "Súditos da Morte"

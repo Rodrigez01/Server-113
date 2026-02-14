@@ -1,0 +1,422 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 3 - Trail of Fire
+// Typ: Firezone
+////////////////////////////////////////////////////////////////////////////////
+TowerSt3 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+   // Sektor IDs
+   SECTOR_1 = 1
+   SECTOR_2 = 2
+   SECTOR_TRIGGER = 3
+   SECTOR_12 = 12
+   SECTOR_44 = 44
+   SECTOR_75 = 75
+   SECTOR_68 = 68
+
+   // BallMonster Spawnbereich
+   BALLMONSTER_MIN_ROW = 72
+   BALLMONSTER_MAX_ROW = 176
+   BALLMONSTER_MIN_COL = 89
+   BALLMONSTER_MAX_COL = 108
+   BALLMONSTER_COUNT = 120
+   BALLMONSTER_RESPAWN_DELAY = 1000
+
+   // Sektor Hoehen
+   SECTOR_1_LOW = 0
+   SECTOR_1_HIGH = 112
+   SECTOR_2_LOW = 0
+   SECTOR_12_NORMAL = 2728
+   SECTOR_44_NORMAL = 2448
+   SECTOR_44_HIGH = 2650
+   SECTOR_75_HEIGHT = 2448
+   SECTOR_75_NORMAL = 0
+
+   // Bewegungsgeschwindigkeit
+   SECTOR_SPEED = 50
+   SECTOR_SPEED_FAST = 500
+
+   // Licht daemmen
+   LIGHT_DIM_DELTA = 120
+   TOWER_LIGHT_MIN = 44
+   TOWER_LIGHT_MAX = 244
+
+resources:
+
+   room_towerst3 = st3.roo
+   room_name_towerst3 = "Trail by Fire"
+   towerst3_task_msg = "~r ~BDu musst erst die Aufgabe erfuellen"
+   towerst3_reset_msg = "~g ~BRaum wird zurueckgesetzt!"
+   towerst3_chat_received = "~b ~BChat empfangen!"
+   towerst3_debug_string = "~b ~BDEBUG String: %q"
+   towerst3_trigger_ok = "ok"
+   towerst3_trigger_wtf = "wtf"
+    
+    TOWER_Signname = "Welcome"
+   TOWER_Sign = \
+      "Welcome to the game!  We hope that you come to enjoy this "
+      "unique online experience.\n\n"
+      "The first thing you need to learn is how to walk, using the W, A, S, and D keys "
+      "alone with the left and right arrows. "
+      "You can walk forward and back using the W and S keys, and turn "
+      "using the left and right arrows.  We will get more into movement "
+      "in a moment.\n\n"
+      "Also, you should note that you can right-click on many of the "
+      "things you see in the world. These signs are a good example, "
+      "as is Marcus, the innkeeper. You can even view yourself "
+      "by right-clicking on the head on the upper-right corner of the "
+      "screen.\n\n"
+      "If you wish to activate 'mouselook' you can do so at this time "
+      "by pressing the C key. If you wish to deactivate it, you can do "
+      "so by pressing the C key again.\n\n"
+      "Lastly, you can go through doors by pressing the space bar.\n\n"
+      "-------------------\n\n"
+      "When you're ready to proceed, walk to the exit door (forward and to your left), "
+      "hit the space bar, and then read the next sign which will be in plain sight."
+
+  // TOWER_god_name = "Designers' News"
+  // TOWER_god_desc = \
+  //    "Check here for information from the game administrators."
+
+classvars:
+
+   vrName = room_name_towerst3
+
+   viTeleport_row = 35
+   viTeleport_col = 108
+
+properties:
+
+   prRoom = room_towerst3
+   piRoom_num = RID_TOWER_ST3
+
+   piNextFloor = RID_TOWER_ST4
+   piPrevFloor = RID_TOWER_ST2
+
+   // Lobby ist immer offen
+   pbStairsOpen = TRUE
+
+   // Wurde der Trigger bereits aktiviert?
+   pbTriggered = FALSE
+
+   // Grundlicht fuer Ruecksetzen merken
+   piSavedBaseLight = $
+   pbLightDimmed = FALSE
+
+   pbBallMonstersSpawned = FALSE
+   ptBallMonsterRespawnTimer = $
+   plTaskDoneUsers = $
+
+messages:
+
+   Constructed()
+   {
+
+      if piSavedBaseLight = $
+      {
+         piSavedBaseLight = Send(self,@GetBaseLight);
+      }
+
+      // Sektor 1 auf Starthoehe 0
+      Send(self,@SetSector,#sector=SECTOR_1,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=SECTOR_1_LOW,
+           #speed=0);
+
+      // Sektor 44 auf Normalhoehe
+      Send(self,@SetSector,#sector=SECTOR_44,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=SECTOR_44_NORMAL,
+           #speed=0);
+
+      propagate;
+   }
+
+   // Trigger wenn Spieler Sektor 3 betritt
+   SomethingMoved(what=$,new_row=$,new_col=$)
+   {
+      local iSector;
+
+      if IsClass(what,&User)
+      {
+         iSector = Send(what,@GetSectorIDAtObject);
+
+         if iSector = SECTOR_TRIGGER
+         {
+            Send(self,@ActivateSectors);
+         }
+         if iSector = SECTOR_68 AND NOT FindListElem(plTaskDoneUsers,what)
+         {
+            Send(what,@SysMsgSendUser,#message_rsc=towerst3_task_msg);
+         }
+      }
+
+      propagate;
+   }
+
+   ActivateSectors()
+   {
+      // Sektor 1 erhoehen auf 112
+      Send(self,@SetSector,#sector=SECTOR_1,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=SECTOR_1_HIGH,
+           #speed=SECTOR_SPEED);
+
+      // Sektor 2 senken auf 0
+      Send(self,@SetSector,#sector=SECTOR_2,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=SECTOR_2_LOW,
+           #speed=SECTOR_SPEED);
+
+      // Sektor 44 sehr schnell hochfahren
+      Send(self,@SetSector,#sector=SECTOR_44,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=SECTOR_44_HIGH,
+           #speed=SECTOR_SPEED);
+
+      // Sektor 75 auf 2448 heben
+      Send(self,@SetSector,#sector=SECTOR_75,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=SECTOR_75_HEIGHT,
+           #speed=SECTOR_SPEED_FAST);
+
+      if NOT pbLightDimmed
+      {
+         if piSavedBaseLight = $
+         {
+            piSavedBaseLight = Send(self,@GetBaseLight);
+         }
+
+         Send(self,@SetBaseLight,#amount=Bound(piSavedBaseLight - LIGHT_DIM_DELTA,
+                                              TOWER_LIGHT_MIN, TOWER_LIGHT_MAX));
+         pbLightDimmed = TRUE;
+      }
+
+      Send(self,@SpawnBallMonsters);
+
+      pbTriggered = TRUE;
+
+      return;
+   }
+
+   SpawnBallMonsters()
+   {
+      local i;
+
+      if pbBallMonstersSpawned
+      {
+         return;
+      }
+
+      i = 0;
+      while i < BALLMONSTER_COUNT
+      {
+         Send(self,@SpawnBallMonster);
+
+         i = i + 1;
+      }
+
+      pbBallMonstersSpawned = TRUE;
+
+      return;
+   }
+
+   SpawnBallMonster()
+   {
+      local iRow, iCol, oMonster;
+
+      iRow = Random(BALLMONSTER_MIN_ROW,BALLMONSTER_MAX_ROW);
+      iCol = Random(BALLMONSTER_MIN_COL,BALLMONSTER_MAX_COL);
+
+      oMonster = Create(&BallMonster);
+      Send(oMonster,@SetDontDispose,#bValue=TRUE);
+      Send(self,@NewHold,#what=oMonster,#new_row=iRow,#new_col=iCol);
+
+      return;
+   }
+
+   CountBallMonsters()
+   {
+      local i, each_obj, iCount;
+
+      iCount = 0;
+      foreach i in plActive
+      {
+         each_obj = First(i);
+         if IsClass(each_obj,&BallMonster)
+         {
+            iCount = iCount + 1;
+         }
+      }
+
+      return iCount;
+   }
+
+   RespawnBallMonsters(timer=$)
+   {
+      local iMissing, iCount;
+
+      ptBallMonsterRespawnTimer = $;
+      if NOT pbBallMonstersSpawned
+      {
+         return;
+      }
+
+      iCount = Send(self,@CountBallMonsters);
+      iMissing = BALLMONSTER_COUNT - iCount;
+      while iMissing > 0
+      {
+         Send(self,@SpawnBallMonster);
+         iMissing = iMissing - 1;
+      }
+
+      return;
+   }
+
+   ResetOkState()
+   {
+      local i, each_obj;
+
+      // Reset sectors to normal state
+      Send(self,@SetSector,#sector=SECTOR_1,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=SECTOR_1_LOW,
+           #speed=SECTOR_SPEED_FAST);
+      Send(self,@SetSector,#sector=SECTOR_2,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=SECTOR_2_LOW,
+           #speed=SECTOR_SPEED_FAST);
+      Send(self,@SetSector,#sector=SECTOR_12,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=SECTOR_12_NORMAL,
+           #speed=SECTOR_SPEED_FAST);
+      Send(self,@SetSector,#sector=SECTOR_44,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=SECTOR_44_NORMAL,
+           #speed=SECTOR_SPEED_FAST);
+      Send(self,@SetSector,#sector=SECTOR_75,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=SECTOR_75_NORMAL,
+           #speed=SECTOR_SPEED_FAST);
+      if pbLightDimmed
+      {
+         if piSavedBaseLight = $
+         {
+            piSavedBaseLight = Send(self,@GetBaseLight);
+         }
+         Send(self,@SetBaseLight,#amount=piSavedBaseLight);
+         pbLightDimmed = FALSE;
+      }
+      foreach i in plActive
+      {
+         each_obj = First(i);
+         if IsClass(each_obj,&BallMonster)
+         {
+            Send(each_obj,@Delete);
+         }
+      }
+      if ptBallMonsterRespawnTimer <> $
+      {
+         DeleteTimer(ptBallMonsterRespawnTimer);
+         ptBallMonsterRespawnTimer = $;
+      }
+      pbBallMonstersSpawned = FALSE;
+      pbTriggered = FALSE;
+      plTaskDoneUsers = $;
+
+      return;
+   }
+
+   // Chat-Trigger fuer Ruecksetzen
+   SomeoneSaid(what=$,type=$,string=$,parm1=$,parm2=$,parm3=$,
+               parm4=$,parm5=$,parm6=$,parm7=$,parm8=$)
+   {
+      // Debug: Zeige den empfangenen String
+      if IsClass(what,&User)
+      {
+         Send(what,@MsgSendUser,#message_rsc=towerst3_debug_string,
+              #parm1=string);
+      }
+
+      // "ok" setzt den Raum zurueck
+      if StringContain(string,towerst3_trigger_ok)
+      {
+         if IsClass(what,&User)
+         {
+            Send(what,@MsgSendUser,#message_rsc=towerst3_reset_msg);
+         }
+         Send(self,@ResetOkState);
+         return;
+      }
+
+      // "wtf" markiert Aufgabe als erledigt
+      if StringContain(string,towerst3_trigger_wtf)
+      {
+         if NOT FindListElem(plTaskDoneUsers,what)
+         {
+            plTaskDoneUsers = Cons(what,plTaskDoneUsers);
+         }
+         return;
+      }
+
+      propagate;
+   }
+
+   SomethingKilled(killer=$,victim=$)
+   {
+      if pbBallMonstersSpawned AND IsClass(victim,&BallMonster)
+      {
+         if ptBallMonsterRespawnTimer = $
+         {
+            ptBallMonsterRespawnTimer = CreateTimer(self,@RespawnBallMonsters,
+                                                   BALLMONSTER_RESPAWN_DELAY);
+         }
+      }
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      // Treppe runter zu Stockwerk 2
+      plExits = Cons([ 2, 10, RID_TOWER_ST2, 18, 10, ROTATE_NONE ],plExits);
+
+      // Treppe hoch zu Stockwerk 4
+      plExits = Cons([ 18, 10, RID_TOWER_ST4, 5, 10, ROTATE_NONE ],plExits);
+
+      propagate;
+   }
+
+   CreateStandardObjects()
+   {
+      local oObj;
+
+      oObj = Create(&Sign,#desc=towerst3_sign_desc,#newbie=TRUE,
+           #name=towerst3_sign_name);
+      Send(self,@NewHold,#what=oObj,#new_row=167,#new_col=61,
+            #fine_row=51,#fine_col=52);
+      propagate;
+   }
+
+   // Lobby ist sicher - kein PvP
+   // SafePlayerAttack()
+//  {
+//     return TRUE;
+//  }
+
+end
+////////////////////////////////////////////////////////////////////////////////

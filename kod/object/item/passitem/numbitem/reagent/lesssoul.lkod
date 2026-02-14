@@ -1,0 +1,6 @@
+LesserSoul_name_rsc = de "Niederer Seelenstein"
+LesserSoul_desc_rsc = de \
+   "Ein schwaches, flackerndes Irrlicht spiritueller Energie, "
+   "geerntet von einer schwachen Kreatur. Es pulsiert matt "
+   "mit verbleibender Lebenskraft."
+LesserSoul_name_plural_rsc = de "Niedere Seelensteine"

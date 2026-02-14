@@ -1,0 +1,144 @@
+// Meridian 59 - Necromantie Spell School
+// Soul Drain - Level 1 Necromantie Attack Spell
+
+
+////////////////////////////////////////////////////////////////////////////////
+SoulDrain is AttackSpell
+
+constants:
+
+   include blakston.khd
+
+   DAMAGE_FACTOR_TO_HEAL = 3
+
+resources:
+
+   include souldrn.lkod
+
+   SoulDrain_name_rsc = "soul drain"
+   SoulDrain_icon_rsc = inecro1.bgf
+   SoulDrain_desc_rsc = \
+      "Reaches into the target's soul and tears away fragments of life "
+      "energy, feeding them back to the caster.  "
+      "Requires one elderberry to cast."
+
+   SoulDrain_death = "You rip the last shred of %s%s's soul away."
+   SoulDrain_health_gain = \
+      "Dark energy flows into you, restoring ~g~B%i~B~n health."
+
+   SoulDrain_sound = qor.ogg
+   SoulDrain_proj_rsc = blindring.bgf
+
+classvars:
+
+   vrName = SoulDrain_name_rsc
+   vrIcon = SoulDrain_icon_rsc
+   vrDesc = SoulDrain_desc_rsc
+
+   viSchool = SS_NECROMANTIE
+   viSpell_num = SID_SOUL_DRAIN
+
+   viSpell_level = 1
+   viMana = 8
+   viSpellExertion = 1
+
+   viAttack_spell = ATCK_SPELL_ALL + ATCK_SPELL_UNHOLY
+
+   vrSucceed_wav = SoulDrain_sound
+   vrProjectile_icon = SoulDrain_proj_rsc
+
+   viPostCast_time = 2
+
+   viChance_To_Increase = 30
+   viMeditate_ratio = 10
+
+properties:
+
+   piDamageMin = 6
+   piDamageMax = 12
+
+   piRange = 4 * FINENESS
+
+   piManaFocusBonus = 0
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&ElderBerry, 1],plReagents);
+
+      return;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellPower=0,bItemCast=FALSE)
+   {
+      local oOwner, oTarget;
+
+      oTarget = First(lTargets);
+      oOwner = Send(who,@GetOwner);
+
+      if oOwner <> $
+      {
+         Send(oOwner,@SomethingShot,#who=who,#target=oTarget,#projectile=self);
+      }
+
+      propagate;
+   }
+
+   DoSideEffect(who=$,victim=$,damage=0)
+   {
+      local iToHeal;
+
+      if who = $ OR victim = $
+         OR Send(victim,@IsDrainImmune)
+      {
+         propagate;
+      }
+
+      if damage <> $
+      {
+         iToHeal = Bound(damage/DAMAGE_FACTOR_TO_HEAL,0,$);
+      }
+      else
+      {
+         iToHeal = Bound(piDamageMax*100/DAMAGE_FACTOR_TO_HEAL,0,$);
+         Post(who,@MsgSendUser,#message_rsc=SoulDrain_death,
+              #parm1=Send(victim,@GetDef),#parm2=Send(victim,@GetName));
+      }
+
+      Send(who,@MsgSendUser,#message_rsc=SoulDrain_health_gain,
+           #parm1=iToHeal/100);
+      Send(who,@GainHealth,#amount=iToHeal,#precision=TRUE);
+
+      propagate;
+   }
+
+   SendLookAnimation()
+   {
+      AddPacket(1,ANIMATE_NONE, 2,2);
+
+      return;
+   }
+
+   SendProjectileAnimation()
+   {
+      // 40ms between animations, between frames 1-2
+      AddPacket(1,ANIMATE_CYCLE, 4,80, 2,1, 2,6);
+
+      return;
+   }
+
+   GetProjectileIcon()
+   {
+      return vrProjectile_Icon;
+   }
+
+   GetProjectileSpeed()
+   {
+      return 10;
+   }
+
+
+end
+////////////////////////////////////////////////////////////////////////////////

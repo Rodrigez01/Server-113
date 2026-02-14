@@ -1,0 +1,17 @@
+SoulChain_name_rsc = de "Seelenkette"
+SoulChain_desc_rsc = de \
+   "Bindet die Seele des Ziels an den Schadensfluss, wodurch ein "
+   "Teil des erlittenen Schadens als zusaetzlicher unheiliger "
+   "Schaden widerhallt. Benoetigt zwei violette Pilze und "
+   "eine Dunkle Engelsfeder."
+SoulChain_already_enchanted = de "%s%s ist bereits von einer Seelenkette gebunden."
+SoulChain_caster = de \
+   "Eine spektrale Kette bindet die Seele von %s%s!"
+SoulChain_on = de \
+   "Du spuerst eine kalte Kette, die sich um Deine Seele legt. "
+   "Schaden hallt durch Dich hindurch."
+SoulChain_off = de \
+   "Die Seelenkette zerbricht und Du bist frei."
+SoulChain_spell_intro = de \
+   "Nekromantie Lv. 3: Bindet die Seele des Ziels, sodass Schaden "
+   "widerhallt."

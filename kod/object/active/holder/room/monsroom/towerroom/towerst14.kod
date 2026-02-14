@@ -1,0 +1,251 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 14 - THE GAUNTLET
+// Typ: Survival Waves (5 Wellen)
+////////////////////////////////////////////////////////////////////////////////
+TowerSt14 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+   MAX_WAVES = 5
+   WAVE_DELAY = 5000   // 5 Sekunden zwischen Wellen
+
+   SECTOR_GATE = 30
+   GATE_OPEN = 300
+   GATE_CLOSED = 1
+
+resources:
+
+   room_towerst14 = st14.roo
+   room_name_towerst14 = "Tower of Quests - The Gauntlet"
+
+   towerst14_wave_start = "~r~BWelle %i beginnt!"
+   towerst14_wave_clear = "~g~BWelle %i geschafft!"
+   towerst14_complete = "~g~BDu hast den Gauntlet ueberlebt! Die Treppe oeffnet sich."
+   towerst14_gate_close = "~kDas Gitter schliesst sich..."
+
+classvars:
+
+   vrName = room_name_towerst14
+
+   viTeleport_row = 50
+   viTeleport_col = 102
+
+properties:
+
+   prRoom = room_towerst14
+   piRoom_num = RID_TOWER_ST14
+
+   piNextFloor = RID_TOWER_ST15
+   piPrevFloor = RID_TOWER_ST13
+
+   piCurrentWave = 0
+   piMaxWaves = MAX_WAVES
+   ptWaveTimer = $
+   pbGauntletActive = FALSE
+
+messages:
+
+   Constructed()
+   {
+      plMonsters = $;
+      plGenerators = [ [8,8], [8,12], [12,8], [12,12] ];
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 2, 10, RID_TOWER_ST13, 18, 10, ROTATE_NONE ],plExits);
+      plExits = Cons([ 18, 10, RID_TOWER_ST15, 5, 10, ROTATE_NONE ],plExits);
+
+      propagate;
+   }
+
+   // Starte Gauntlet wenn Spieler Trigger betritt
+   SomethingMoved(what=$,new_row=$,new_col=$)
+   {
+      if IsClass(what,&User) AND NOT pbGauntletActive
+      {
+         if new_row >= 8 AND new_row <= 12
+            AND new_col >= 8 AND new_col <= 12
+         {
+            Send(self,@StartGauntlet);
+         }
+      }
+
+      propagate;
+   }
+
+   StartGauntlet()
+   {
+      local i;
+
+      pbGauntletActive = TRUE;
+      piCurrentWave = 0;
+
+      // Schliesse Gitter
+      Send(self,@SetSector,#sector=SECTOR_GATE,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=GATE_CLOSED,
+           #speed=50);
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst14_gate_close);
+         }
+      }
+
+      // Starte erste Welle
+      ptWaveTimer = CreateTimer(self,@StartNextWave,WAVE_DELAY);
+
+      return;
+   }
+
+   StartNextWave()
+   {
+      local i, iMonsterCount;
+
+      ptWaveTimer = $;
+
+      piCurrentWave = piCurrentWave + 1;
+
+      if piCurrentWave > piMaxWaves
+      {
+         Send(self,@GauntletComplete);
+         return;
+      }
+
+      // Benachrichtige Spieler
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst14_wave_start,
+                 #parm1=piCurrentWave);
+         }
+      }
+
+      // Spawne Monster basierend auf Welle
+      iMonsterCount = piCurrentWave * 3;   // 3, 6, 9, 12, 15 Monster
+
+      // TODO: Spawne Monster
+      // for (i = 1; i <= iMonsterCount; ++i)
+      // {
+      //    Send(self,@SpawnWaveMonster);
+      // }
+
+      return;
+   }
+
+   // Pruefe ob Welle geschafft
+   SomethingKilled(killer=$,victim=$)
+   {
+      local i;
+
+      if IsClass(victim,&Monster) AND pbGauntletActive
+      {
+         // Pruefe ob alle Monster tot
+         if Send(self,@CountMonsters) = 0
+         {
+            foreach i in plActive
+            {
+               if IsClass(First(i),&User)
+               {
+                  Send(First(i),@MsgSendUser,#message_rsc=towerst14_wave_clear,
+                       #parm1=piCurrentWave);
+               }
+            }
+
+            // Naechste Welle
+            ptWaveTimer = CreateTimer(self,@StartNextWave,WAVE_DELAY);
+         }
+      }
+
+      propagate;
+   }
+
+   CountMonsters()
+   {
+      local i, iCount;
+
+      iCount = 0;
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&Monster)
+         {
+            iCount = iCount + 1;
+         }
+      }
+
+      return iCount;
+   }
+
+   GauntletComplete()
+   {
+      local i;
+
+      pbGauntletActive = FALSE;
+
+      // Oeffne Gitter
+      Send(self,@SetSector,#sector=SECTOR_GATE,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=GATE_OPEN,
+           #speed=50);
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst14_complete);
+         }
+      }
+
+      Send(self,@OpenStairsUp);
+
+      return;
+   }
+
+   Delete()
+   {
+      if ptWaveTimer <> $
+      {
+         DeleteTimer(ptWaveTimer);
+         ptWaveTimer = $;
+      }
+
+      propagate;
+   }
+
+   // Reset
+   LastUserLeft()
+   {
+      piCurrentWave = 0;
+      pbGauntletActive = FALSE;
+
+      if ptWaveTimer <> $
+      {
+         DeleteTimer(ptWaveTimer);
+         ptWaveTimer = $;
+      }
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,26 @@
+	Sector 4 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 38 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 66 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 67 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 68 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 69 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 70 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 71 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 103 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 106 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 107 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 121 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 122 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 123 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	
+	
+		Sector 4 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 38 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 66 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 67 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 68 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 69 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 70 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 71 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 106 has an invalid floor slope! Missing at least one vertex. Not saving slope.
+	Sector 121 has an invalid floor slope! Missing at least one vertex. Not saving slope.

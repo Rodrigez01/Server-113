@@ -1,0 +1,238 @@
+===============================================================================
+MERIDIAN 59 - BETAPOTIONS & BETA-EQUIPMENT ÄNDERUNGEN
+Datum: 27. Dezember 2025
+===============================================================================
+
+PROBLEM 1: CLIENT MODULES.C - LIGHT.BGF FEHLER
+===============================================================================
+Fehler: 0xc000012f - Client versuchte light.bgf als DLL zu laden
+
+LÖSUNG:
+Datei: clientd3d\modules.c (Zeilen 168-177)
+- Validierung hinzugefügt: Prüft ob Datei .dll Endung hat
+- Verhindert dass BGF-Dateien als Module geladen werden
+
+Code-Änderung:
+  // Validate that the filename is a DLL before attempting to load it
+  {
+    size_t len = strlen(filename);
+    if (len < 4 || _stricmp(filename + len - 4, ".dll") != 0)
+    {
+      debug(("Resource %d (%s) is not a DLL file, skipping module load\n",
+             name_rsc, filename));
+      return False;
+    }
+  }
+
+STATUS: ✅ Behoben (muss aber neu kompiliert werden wenn clientd3d verwendet wird)
+
+
+===============================================================================
+PROBLEM 2: BETAPOTIONS FUNKTIONIEREN NICHT
+===============================================================================
+Fehler: Potions wurden konsumiert aber gaben keine Effekte
+
+URSACHE:
+BetaPotions waren in 2 Systemen deaktiviert:
+1. Lore System: pbEnableBetaPotions = FALSE
+2. Parliament System: pbHiddenSwitch = FALSE
+
+LÖSUNG:
+Datei 1: kod\util\lore.kod (Zeile 79)
+  GEÄNDERT: pbEnableBetaPotions = FALSE
+  ZU:       pbEnableBetaPotions = TRUE
+
+Datei 2: kod\util\parlia.kod (Zeile 112)
+  GEÄNDERT: pbHiddenSwitch = FALSE
+  ZU:       pbHiddenSwitch = TRUE
+
+Datei 3: run\server\kod\util\lore.kod (Zeile 79)
+  GEÄNDERT: pbEnableBetaPotions = FALSE
+  ZU:       pbEnableBetaPotions = TRUE
+
+Datei 4: run\server\kod\util\parlia.kod (Zeile 112)
+  GEÄNDERT: pbHiddenSwitch = FALSE
+  ZU:       pbHiddenSwitch = TRUE
+
+STATUS: ✅ Funktioniert - Potions geben jetzt HP + Spells
+
+
+===============================================================================
+PROBLEM 3: BETA-EQUIPMENT NUR NACH PORTAL-DURCHGANG
+===============================================================================
+Fehler: Beta-Equipment wurde nur gegeben wenn Spieler durch Newbie-Portal geht
+Gewünscht: Sofort beim ersten Login geben
+
+LÖSUNG:
+Datei 1: kod\object\active\holder\nomoveon\battler\player\user.kod
+Datei 2: run\server\kod\object\active\holder\nomoveon\battler\player\user.kod
+
+In UserLogonHook() (ca. Zeile 2999-3017):
+  // Give beta equipment to new players on first login (bypass portal)
+  if piLastLoginTime = 0
+  {
+     Send(self,@AddRealWorldObjects);
+
+     // Also give BetaPotions for each school
+     Send(self,@NewHold,#what=Create(&BetaPotion,#health=150,#school=SS_QOR,
+          #level=6,#giveHealth=TRUE,#healthCap=150));
+     Send(self,@NewHold,#what=Create(&BetaPotion,#health=150,#school=SS_KRAANAN,
+          #level=6,#giveHealth=FALSE));
+     Send(self,@NewHold,#what=Create(&BetaPotion,#health=150,#school=SS_FAREN,
+          #level=6,#giveHealth=FALSE));
+     Send(self,@NewHold,#what=Create(&BetaPotion,#health=150,#school=SS_RIIJA,
+          #level=6,#giveHealth=FALSE));
+     Send(self,@NewHold,#what=Create(&BetaPotion,#health=150,#school=SS_JALA,
+          #level=6,#giveHealth=FALSE));
+     Send(self,@NewHold,#what=Create(&BetaPotion,#health=150,#school=SS_SHALILLE,
+          #level=6,#giveHealth=FALSE));
+  }
+
+NEUE SPIELER BEKOMMEN JETZT (beim ersten Login):
+Beta-Equipment:
+  - 1000 Shillings
+  - 2x Mystic Sword
+  - Scale Armor
+  - Simple Helm
+  - Gauntlet
+  - 20x Inky Cap
+  - Reagenzien für ihre Spells
+  - 5x Apple
+  - 1x Mace
+
+6x BetaPotions:
+  1. Qor (+150 HP + Level 6 Spells)
+  2. Kraanan (Level 6 Spells)
+  3. Faren (Level 6 Spells)
+  4. Riija (Level 6 Spells)
+  5. Jala (Level 6 Spells)
+  6. Shalille (Level 6 Spells)
+
+STATUS: ✅ Implementiert (muss kompiliert werden)
+
+
+===============================================================================
+KOMPILIERUNGS-ANLEITUNG
+===============================================================================
+
+NACH JEDER ÄNDERUNG:
+
+1. KOD-Dateien kompilieren:
+   cd E:\Meridian59_source\04.08.2016\Meridian59-develop\kod
+
+   # Lore kompilieren:
+   ..\bin\bc.exe util\lore.kod
+   copy util\lore.bof ..\run\server\kod\util\
+
+   # Parliament kompilieren:
+   ..\bin\bc.exe util\parlia.kod
+   copy util\parlia.bof ..\run\server\kod\util\
+
+   # User kompilieren:
+   ..\bin\bc.exe object\active\holder\nomoveon\battler\player\user.kod
+   copy object\active\holder\nomoveon\battler\player\user.bof ..\run\server\kod\object\active\holder\nomoveon\battler\player\
+
+2. Server neu starten!
+
+3. Clientd3d kompilieren (falls verwendet):
+   cd E:\Meridian59_source\04.08.2016\Meridian59-develop\clientd3d
+   nmake release=1
+
+
+===============================================================================
+SERVER-KONSOLEN BEFEHLE
+===============================================================================
+
+# BetaPotions an ALLE Spieler verteilen:
+send object 0 DistributeBetaPotions
+
+# Überprüfen ob BetaPotions aktiviert sind:
+send object 0 GetLore
+show object <LORE_ID>
+# Suchen nach: pbEnableBetaPotions = INT 1
+
+send object 0 GetParliament
+show object <PARLIAMENT_ID>
+# Suchen nach: pbHiddenSwitch = INT 1
+
+# Ersten Login simulieren (für Tests):
+send object <PLAYER_ID> SetProperty piLastLoginTime int=0
+# Dann ausloggen und neu einloggen
+
+
+===============================================================================
+GEÄNDERTE DATEIEN (ÜBERSICHT)
+===============================================================================
+
+CLIENT (optional, nur bei clientd3d):
+  ✓ clientd3d\modules.c (Zeile 168-177)
+
+SERVER (KERN-ÄNDERUNGEN):
+  ✓ kod\util\lore.kod (Zeile 79)
+  ✓ kod\util\parlia.kod (Zeile 112)
+  ✓ kod\object\active\holder\nomoveon\battler\player\user.kod (Zeile 2999-3017)
+
+  ✓ run\server\kod\util\lore.kod (Zeile 79)
+  ✓ run\server\kod\util\parlia.kod (Zeile 112)
+  ✓ run\server\kod\object\active\holder\nomoveon\battler\player\user.kod (Zeile 2999-3017)
+
+
+===============================================================================
+TEST-ANLEITUNG
+===============================================================================
+
+FÜR NEUE SPIELER:
+1. Neuen Account erstellen
+2. Einloggen
+3. Sollte sofort Equipment + 6 Potions im Inventar haben
+
+FÜR BESTEHENDE SPIELER (Simulation):
+1. Server-Konsole: send object <PLAYER_ID> SetProperty piLastLoginTime int=0
+2. Ausloggen
+3. Einloggen
+4. Sollte Equipment + Potions bekommen
+
+POTION TESTEN:
+1. Potion benutzen (Apply/Use)
+2. MUSS 2 Nachrichten zeigen:
+   - "Du stürzt den Inhalt der Phiole in einem einzigen Zug herunter."
+   - "You suddenly feel a little taller." ← Bestätigt Effekte!
+3. HP sollten steigen (nur Qor-Potion)
+4. Spells sollten hinzugefügt werden
+
+
+===============================================================================
+WICHTIGE HINWEISE
+===============================================================================
+
+- piLastLoginTime = 0 bedeutet ERSTER LOGIN
+- AddRealWorldObjects() gibt das Beta-Equipment
+- BetaPotions NUR aktiv wenn BEIDE Systeme enabled (Lore UND Parliament)
+- Portal in Raza ist jetzt OPTIONAL - Equipment wird sofort gegeben
+- Code ist in UserLogonHook() = wird bei JEDEM Login gecheckt
+
+
+===============================================================================
+BEI PROBLEMEN
+===============================================================================
+
+Problem: "Potion wirkt nicht"
+→ Überprüfen: Beide Systeme enabled? (Lore + Parliament)
+→ Lösung: Server-Konsole Befehle oben verwenden
+
+Problem: "Kein Equipment beim Login"
+→ Überprüfen: piLastLoginTime = 0?
+→ Lösung: Server-Konsole: send object <ID> SetProperty piLastLoginTime int=0
+
+Problem: "Kompilierung fehlschlägt"
+→ Überprüfen: bc.exe vorhanden? Pfade korrekt?
+→ Lösung: Vollständige Pfade verwenden
+
+Problem: "Client zeigt light.bgf Fehler"
+→ Überprüfen: modules.c kompiliert?
+→ Lösung: Clientd3d neu bauen: nmake release=1
+
+
+===============================================================================
+ENDE DER DOKUMENTATION
+===============================================================================

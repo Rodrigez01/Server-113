@@ -1,0 +1,18 @@
+DeathFever_name_rsc = de "Totenfieber"
+DeathFever_desc_rsc = de \
+   "Infiziert das Ziel mit einem nekromantischen Fieber, das die "
+   "Lebenskraft von innen verbrennt und 8 Sekunden lang Schaden "
+   "verursacht. Benoetigt einen roten Pilz und eine Holunderbeere."
+DeathFever_already_enchanted = de "%s%s brennt bereits im Totenfieber."
+DeathFever_caster = de \
+   "Ein kraenkliches Gluehen umgibt %s%s als das Totenfieber greift!"
+DeathFever_on = de \
+   "Ein brennendes Fieber ergreift Dich! Nekromantisches Feuer "
+   "fliesst durch Deine Adern."
+DeathFever_off = de \
+   "Das Totenfieber bricht und das Brennen laesst nach."
+DeathFever_tick_rsc = de \
+   "Das Totenfieber verbrennt Dich fuer ~r~B%i~B~n Schaden!"
+DeathFever_spell_intro = de \
+   "Nekromantie Lv. 2: Verursacht ein nekromantisches Fieber mit "
+   "Schaden ueber 8 Sekunden."

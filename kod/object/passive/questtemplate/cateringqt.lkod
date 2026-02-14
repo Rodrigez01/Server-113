@@ -1,0 +1,61 @@
+cateringqt_name_rsc = de "Catering Quest"
+cateringqt_desc_rsc = de \
+   "Ein NPC sucht nach Hilfe um eine Lieferung für eine Party zu überbringen."
+cateringqt_nodetwo_rsc = de \
+   "%s%s hat eine Party und %s der Botenjunge ist krank.  %s würde gerne "
+   "das du %s aushilst bei der Auslieferung der Lieferung.  %s%s catert die Party "
+   ", gehe zu %s und frage nach dem \"Catering\".  Du wirst "
+   "bei Lieferung bezahlt."
+cateringqt_nodethree_rsc = de \
+   "Bringe %i %s zu %s%s, wer verantwortlich für die Party ist.  "
+   "Wage es nicht, irgendetwas für Dich zu behalten. Diebstahl wird bestraft!"
+cateringqt_completed_rsc = de \
+   "Du hast das Catering Quest abgeschlossen."
+catering_assign_2 = de \
+   "Vielleicht kannst Du mir helfen. Ich habe eine private Party und mein "
+   "Laufbursche ist krank geworden.  Würdest Du mir helfen die Lebensmittel "
+   "zu anzuliefern?  %NPC veranstelte die Party, und weiß wo das Essen hingehen "
+   "muss, frag einfach, %HIMHER_NPC nach den Details.  Du wirst reichlich "
+   "belohnt, wenn die Anlieferung abgeschlossen ist. Bitte beeile Dich."
+catering_failure_2 = de \
+   "Betreff: Catering\nIch habe einen anderen Laufburschen gefunden."
+catering_trigger_2 = de "Catering"
+catering_assign_3 = de \
+   "Ja, die Party!  Ich war schon besorgt, dass niemand auftauchen würde!  "
+   "Hier ist das Essen, %INDEF_CARGO%CARGO.  Bitte bringe es zu %NPC, die "
+   "Vorbereitung für die Party wird gemacht von %HIMHER_NPC.  Bitte verliere "
+   "nicht den Überblick über das Essen. Dieser Job ist sehr wichtig für mich.  "
+   "Sollte die Lieferung %NPC nicht erreichen, bin ich gezwungen dem Gericht "
+   "den Diebstahl mitzuteilen.  Ich bin mir sicher, das wird nicht nötig "
+   "sein."
+catering_assign_3_h = de \
+   "Ja, die Party!  Ich war schon besorgt, dass niemand auftauchen würde!  "
+   "Hier ist das Essen,  %INDEF_CARGO%CARGO.  Bitte bringe es zu %NPC, die "
+   "Vorbereitung für die Party wird gemacht von %HIMHER_NPC.  Bitte verliere "
+   "nicht den Überblick über das Essen. Dieser Job ist sehr wichtig für mich.  "
+   "Sollte die Lieferung %NPC nicht erreichen, werde ich mit einem befreundeten "
+   "Zauberer sprechen.  Ich bin mir sicher, das wird nicht nötig sein."
+catering_failure_3 = de \
+   "Betreff: Du hast das Essen für meine Party gestohlen!\nIch habe Dich bei "
+   "Gericht gemeldet, und hiermit wirst Du nun als Gesetzesloser deklaiert."
+catering_failure_3_h = de \
+   "Betreff: Du hast das Essen für meine Party gestohlen!\nIch habe mit meinem "
+   "befreundeten Zauberer gesprochen, und er hat dafür gesorgt, dass Du für "
+   "Deine Unehrlichkeit leiden wirst."
+catering_success_3 = de \
+   "Ach, was für ein leckerer Aufstrich!  Hier ist Deine Provision, ich danke "
+   "Dir für Deine Schnelligkeit."
+
+cateringqt_name_rsc = pt "missão de catering"
+cateringqt_desc_rsc = pt "Um NPC está procurando ajuda para entregar comida para uma festa."
+cateringqt_nodetwo_rsc = pt "%s%s está tendo uma festa privada e o menino de recados de %s está doente. %s gostaria que você ajudasse %s entregando a comida. %s%s está fornecendo o catering para a festa, vá até %s e pergunte sobre a \"atribuição de catering\". Você será recompensado na entrega."
+cateringqt_nodethree_rsc = pt "Leve %i %s para %s%s, que é responsável pela preparação da festa. Não seja tentado a pegar nada para você, para não ser punido por sua ladroagem!"
+cateringqt_completed_rsc = pt "Você completou a missão de catering."
+catering_assign_2 = pt "Talvez você possa me ajudar. Estou tendo uma festa privada e meu menino de recados adoeceu. Você me ajudaria entregando a comida? %NPC está fornecendo o catering para a festa e sabe para onde a comida precisa ir, basta perguntar a %HIMHER_NPC sobre a atribuição de catering. Você será generosamente recompensado quando concluir a entrega. Por favor, se apresse."
+catering_failure_2 = pt "Assunto: Catering\nEncontrei outro menino de recados."
+catering_trigger_2 = pt "catering"
+catering_assign_3 = pt "Sim, a festa! Eu estava preocupado que ninguém aparecesse! Aqui está a comida, %INDEF_CARGO%CARGO. Por favor, leve-a para %NPC, a preparação para a festa é de responsabilidade de %HIMHER_NPC. Por favor, não perca a comida de vista, este negócio é muito importante para mim. Caso a entrega nunca chegue a %NPC, serei obrigado a informar o justicar sobre seu roubo. Tenho certeza de que isso não será necessário, porém."
+catering_assign_3_h = pt "Sim, a festa! Eu estava preocupado que ninguém aparecesse! Aqui está a comida, %INDEF_CARGO%CARGO. Por favor, leve-a para %NPC, a preparação para a festa é de responsabilidade de %HIMHER_NPC. Por favor, não perca a comida de vista, este negócio é muito importante para mim. Caso a entrega nunca chegue a %NPC, serei obrigado a falar com um amigo mago meu. Tenho certeza de que isso não será necessário, porém."
+catering_failure_3 = pt "Assunto: você roubou a comida da festa!\nEu te denunciei para o justicar e, daqui em diante, você será considerado um fora da lei."
+catering_failure_3_h = pt "Assunto: você roubou a comida da festa!\nConversei com um amigo mago meu e ele garantiu que você sofrerá por sua desonestidade."
+catering_success_3 = pt "Ah, que mesa deliciosa! Aqui está sua comissão, agradeço pela sua rapidez."

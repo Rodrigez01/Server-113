@@ -1,0 +1,19 @@
+shield_condition_exc = de " leuchtet vor glatter Vollkommenheit."
+shield_condition_exc_mended = de \
+   " leuchtet vor glatter Vollkommenheit, wurde allerdings bereits repariert"
+shield_condition_good = de \
+   " ist durch ein tiefe, lange Delle beschädigt, doch ansonsten in gutem "
+   "Zustand."
+shield_condition_med = de \
+   " hat vom Kampf tiefe Narben davongetragen, ist ansonsten aber noch funktionstüchtig."
+shield_condition_poor = de \
+   " ist an mehreren Stellen angebrochen und wird nicht mehr lange halten."
+shield_condition_broken = de \
+   " ist durch einen mächtigen Hieb zerbrochen und dadurch unbrauchbar geworden."
+
+shield_condition_exc = pt " brilha com perfeição suave."
+shield_condition_exc_mended = pt " está em ótima condição, mas já foi remendado antes."
+shield_condition_good = pt " está marcado por uma profunda cavidade, mas, caso contrário, está em ótima condição."
+shield_condition_med = pt " está profundamente marcado pela batalha, mas ainda é funcional."
+shield_condition_poor = pt " está rachado em vários lugares e pode não durar muito mais tempo."
+shield_condition_broken = pt " foi despedaçado por um golpe forte, deixando-o inútil."

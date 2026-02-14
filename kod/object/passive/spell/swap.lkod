@@ -1,0 +1,4 @@
+swap_name_rsc = pt "troca"
+swap_desc_rsc = pt "Os deuses mais sombrios concedem a você o poder de trocar de lugar com seu alvo. Requer uma pena de anjo negro, um frasco de seiva de yrxl e um cogumelo roxo para lançar."
+swap_cast_rsc = pt "~B~oVocê trocou de lugar com %s!"
+swap_no_target = pt "Seu alvo está fora do alcance."

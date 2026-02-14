@@ -1,0 +1,281 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 15 - THRONE OF ETERNITY (Final Boss)
+// Typ: Multi-Phase Boss + alle Mechaniken kombiniert
+////////////////////////////////////////////////////////////////////////////////
+TowerSt15 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+   PHASE_CHECK_TIME = 2000
+
+   // Boss Phasen
+   PHASE_1 = 1   // 100% - 66% HP
+   PHASE_2 = 2   // 66% - 33% HP
+   PHASE_3 = 3   // 33% - 0% HP
+
+resources:
+
+   room_towerst15 = st15.roo
+   room_name_towerst15 = "Tower of Quests - Throne of Eternity"
+
+   towerst15_boss_spawn = "~r~B~kDer EWIGE KOENIG erwacht!"
+   towerst15_phase2 = "~r~B~kPhase 2! Der Koenig ruft Verstaerkung!"
+   towerst15_phase3 = "~r~B~kFINALE PHASE! Der Koenig wird rasend!"
+   towerst15_victory = "~g~B~kDER EWIGE KOENIG IST GEFALLEN! DU HAST DEN TOWER BEZWUNGEN!"
+   towerst15_loot = "~g~BEine legendaere Truhe erscheint..."
+
+classvars:
+
+   vrName = room_name_towerst15
+
+   viTeleport_row = 50
+   viTeleport_col = 102
+
+properties:
+
+   prRoom = room_towerst15
+   piRoom_num = RID_TOWER_ST15
+
+   piNextFloor = $   // Kein naechstes Stockwerk (Ende)
+   piPrevFloor = RID_TOWER_ST14
+
+   poEternalKing = $
+   piPhase = 0
+   pbBossSpawned = FALSE
+   pbBossCanSpawn = TRUE
+   ptHealthCheckTimer = $
+
+messages:
+
+   Constructed()
+   {
+      plMonsters = $;
+      plGenerators = $;
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      // Nur Treppe zurueck
+      plExits = Cons([ 2, 10, RID_TOWER_ST14, 18, 10, ROTATE_NONE ],plExits);
+
+      // Exit nach draussen (nach Sieg)
+      // TODO: Portal erstellen nach Sieg
+
+      propagate;
+   }
+
+   // Boss Trigger
+   SomethingMoved(what=$,new_row=$,new_col=$)
+   {
+      if IsClass(what,&User)
+      {
+         if (new_row >= 10) AND (new_row <= 15)
+            AND (new_col >= 8) AND (new_col <= 12)
+         {
+            if (NOT pbBossSpawned) AND pbBossCanSpawn
+            {
+               Send(self,@SpawnBoss);
+            }
+         }
+      }
+
+      propagate;
+   }
+
+   SpawnBoss()
+   {
+      local i;
+
+      if pbBossSpawned
+      {
+         return;
+      }
+
+      // TODO: Erstelle Eternal King Boss
+      // poEternalKing = Create(&EternalKing);
+      // Send(self,@NewHold,#what=poEternalKing,
+      //      #new_row=15,#new_col=10);
+
+      pbBossSpawned = TRUE;
+      pbBossCanSpawn = FALSE;
+      piPhase = PHASE_1;
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst15_boss_spawn);
+         }
+      }
+
+      // Starte HP-Check Timer
+      ptHealthCheckTimer = CreateTimer(self,@BossHealthCheck,PHASE_CHECK_TIME);
+
+      return;
+   }
+
+   BossHealthCheck()
+   {
+      local i, iHP, iMaxHP, iPercent;
+
+      ptHealthCheckTimer = $;
+
+      if poEternalKing = $ OR NOT pbBossSpawned
+      {
+         return;
+      }
+
+      iHP = Send(poEternalKing,@GetHitPoints);
+      iMaxHP = Send(poEternalKing,@ReturnMaxHitPoints);
+
+      if iMaxHP = 0
+      {
+         return;
+      }
+
+      iPercent = (iHP * 100) / iMaxHP;
+
+      // Phase 2 bei 66%
+      if (iPercent <= 66) AND (piPhase = PHASE_1)
+      {
+         piPhase = PHASE_2;
+         Send(self,@StartPhase2);
+      }
+
+      // Phase 3 bei 33%
+      if (iPercent <= 33) AND (piPhase = PHASE_2)
+      {
+         piPhase = PHASE_3;
+         Send(self,@StartPhase3);
+      }
+
+      ptHealthCheckTimer = CreateTimer(self,@BossHealthCheck,PHASE_CHECK_TIME);
+
+      return;
+   }
+
+   StartPhase2()
+   {
+      local i;
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst15_phase2);
+         }
+      }
+
+      // TODO: Spawne Adds
+      // TODO: Starte Plattform-Bewegungen
+
+      return;
+   }
+
+   StartPhase3()
+   {
+      local i;
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst15_phase3);
+         }
+      }
+
+      // TODO: Aktiviere Kill-Zonen
+      // TODO: Boss Enrage
+
+      return;
+   }
+
+   SomethingKilled(killer=$,victim=$)
+   {
+      if victim = poEternalKing
+      {
+         Send(self,@FinalVictory);
+      }
+
+      propagate;
+   }
+
+   FinalVictory()
+   {
+      local i;
+
+      pbBossSpawned = FALSE;
+      poEternalKing = $;
+
+      if ptHealthCheckTimer <> $
+      {
+         DeleteTimer(ptHealthCheckTimer);
+         ptHealthCheckTimer = $;
+      }
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst15_victory);
+            Send(First(i),@MsgSendUser,#message_rsc=towerst15_loot);
+         }
+      }
+
+      // TODO: Spawne legendaere Truhe
+      // Send(self,@NewHold,#what=Create(&LegendaryChest),
+      //      #new_row=15,#new_col=10);
+
+      // TODO: Erstelle Exit-Portal
+      // Send(self,@NewHold,#what=Create(&TowerExitPortal),
+      //      #new_row=5,#new_col=10);
+
+      return;
+   }
+
+   Delete()
+   {
+      if ptHealthCheckTimer <> $
+      {
+         DeleteTimer(ptHealthCheckTimer);
+         ptHealthCheckTimer = $;
+      }
+
+      poEternalKing = $;
+
+      propagate;
+   }
+
+   // Reset
+   LastUserLeft()
+   {
+      piPhase = 0;
+      pbBossSpawned = FALSE;
+      pbBossCanSpawn = TRUE;
+
+      if ptHealthCheckTimer <> $
+      {
+         DeleteTimer(ptHealthCheckTimer);
+         ptHealthCheckTimer = $;
+      }
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

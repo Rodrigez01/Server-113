@@ -1,0 +1,129 @@
+// Meridian 59 - Necromantie Spell School
+// Bone Breath (Knochenhauch) - Level 1 Attack Spell
+// Small frost damage + slow effect.
+
+
+////////////////////////////////////////////////////////////////////////////////
+BoneBreath is AttackSpell
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include bonebrth.lkod
+
+   BoneBreath_name_rsc = "bone breath"
+   BoneBreath_icon_rsc = inecro14.bgf
+   BoneBreath_desc_rsc = \
+      "Exhales a chilling mist from beyond the grave, dealing frost "
+      "damage to the target and briefly slowing their movements.  "
+      "Requires one blue mushroom to cast."
+
+   BoneBreath_death = "The deathly cold snuffs the last warmth from %s%s."
+   BoneBreath_slow_rsc = \
+      "A chilling cold seeps into your bones, slowing your movements."
+
+   BoneBreath_sound = faren.ogg
+   BoneBreath_proj_rsc = blindring.bgf
+
+classvars:
+
+   vrName = BoneBreath_name_rsc
+   vrIcon = BoneBreath_icon_rsc
+   vrDesc = BoneBreath_desc_rsc
+
+   viSchool = SS_NECROMANTIE
+   viSpell_num = SID_BONE_BREATH
+
+   viSpell_level = 1
+   viMana = 5
+   viSpellExertion = 1
+
+   viAttack_spell = ATCK_SPELL_ALL + ATCK_SPELL_COLD
+
+   vrSucceed_wav = BoneBreath_sound
+   vrProjectile_icon = BoneBreath_proj_rsc
+
+   viPostCast_time = 2
+
+   viChance_To_Increase = 30
+   viMeditate_ratio = 10
+
+properties:
+
+   piDamageMin = 3
+   piDamageMax = 7
+
+   piRange = 5 * FINENESS
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&BlueMushroom,1],plReagents);
+
+      return;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellPower=0,bItemCast=FALSE)
+   {
+      local oOwner, oTarget;
+
+      oTarget = First(lTargets);
+      oOwner = Send(who,@GetOwner);
+
+      if oOwner <> $
+      {
+         Send(oOwner,@SomethingShot,#who=who,#target=oTarget,#projectile=self);
+      }
+
+      propagate;
+   }
+
+   DoSideEffect(who=$,victim=$,damage=0)
+   {
+      if who = $ OR victim = $
+      {
+         propagate;
+      }
+
+      // Brief slow effect on the victim
+      if IsClass(victim,&Player)
+      {
+         Send(victim,@MsgSendUser,#message_rsc=BoneBreath_slow_rsc);
+         Send(victim,@AddExertion,#amount=3000);
+      }
+
+      propagate;
+   }
+
+   SendLookAnimation()
+   {
+      AddPacket(1,ANIMATE_NONE, 2,2);
+
+      return;
+   }
+
+   SendProjectileAnimation()
+   {
+      // 40ms between animations, between frames 1-2
+      AddPacket(1,ANIMATE_CYCLE, 4,80, 2,1, 2,6);
+
+      return;
+   }
+
+   GetProjectileIcon()
+   {
+      return vrProjectile_Icon;
+   }
+
+   GetProjectileSpeed()
+   {
+      return 10;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

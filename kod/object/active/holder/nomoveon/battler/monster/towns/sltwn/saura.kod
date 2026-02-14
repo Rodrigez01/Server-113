@@ -1,0 +1,124 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Saura - Food vendor in Silver Light Haven (Tower)
+////////////////////////////////////////////////////////////////////////////////
+SLSaura is SLTown
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include saura.lkod
+
+   Saura_name_rsc = "Saura"
+   Saura_icon_rsc = Saura.bgf
+   Saura_desc_rsc = \
+      "A friendly vendor offering warm meals and fresh bread."
+
+   Saura_entry_welcome = "Hungry? I have something warm for you."
+
+   Saura_unwanted_keep = \
+      "~k%s%s tells you, \"Thank you, but I cannot use that.\"~n~k"
+   Saura_unwanted_pay = \
+      "~k%s%s tells you, \"I can pay a little for that.\"~n~k"
+   Saura_unwanted_give = \
+      "~k%s%s tells you, \"I do not buy that.\"~n~k"
+
+classvars:
+
+   vrName = Saura_name_rsc
+   vrIcon = Saura_icon_rsc
+   vrDesc = Saura_desc_rsc
+   viMerchant_markup = MERCHANT_NORMAL
+   viAttributes = \
+      MOB_NOFIGHT | MOB_SELLER | MOB_BUYER | MOB_RANDOM | \
+      MOB_LISTEN | MOB_NOMOVE | MOB_RECEIVE | MOB_LAWFUL
+   viOccupation = MOB_ROLE_GROCER
+
+   vrUnwanted_keep = Saura_unwanted_keep
+   vrUnwanted_pay = Saura_unwanted_pay
+   vrUnwanted_give = Saura_unwanted_give
+
+properties:
+
+messages:
+
+   SetForSale()
+   {
+      plFor_sale = [
+         [
+            Create(&MeatPie,#number=4),
+            Create(&Bread,#number=4),
+            Create(&Apple,#number=4),
+            Create(&Cheese,#number=3),
+            Create(&Stew,#number=4),
+            Create(&Waterskin,#number=4),
+            Create(&LunchBox),
+            Create(&InkyCap,#number=5)
+         ],
+      $,$,$];
+
+      return;
+   }
+
+   // Saura kauft Streifenpilze (InkyCap)
+   ObjectDesired(what=$)
+   {
+      if IsClass(what,&InkyCap)
+      {
+         return TRUE;
+      }
+
+      return FALSE;
+   }
+
+   // Spezieller Ankaufspreis fuer Streifenpilze: 5 Shilling pro Stueck
+   Offer(what=$,item_list=$,funds=$)
+   {
+      local i, iValue_offered;
+
+      iValue_offered = 0;
+
+      foreach i in item_list
+      {
+         if IsClass(i,&InkyCap)
+         {
+            // Fester Preis: 5 Shilling pro Stueck
+            iValue_offered = iValue_offered + (5 * Send(i,@GetNumber));
+         }
+      }
+
+      if iValue_offered > 0
+      {
+         poCustomer = what;
+         funds = poCurrency;
+         plOffer_items = [ Create(funds,#number=iValue_offered) ];
+         Send(what,@CounterOffer,#item_list=plOffer_items);
+         ptCancelOffer = CreateTimer(self,@CancelOfferTimer,viCancel_offer_time);
+
+         return;
+      }
+
+      propagate;
+   }
+
+   UserEntered(who=$)
+   {
+      Post(who,@SomeoneSaid,#what=self,#string=Saura_entry_welcome,
+            #type=SAY_RESOURCE);
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

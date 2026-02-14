@@ -1,0 +1,59 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+CraftNeruditeSword is Crafting
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include cneruswrd.lkod
+
+   CraftNeruditeSword_name_rsc = "craft nerudite sword"
+   CraftNeruditeSword_icon_rsc = icraftnerusword.bgf
+   CraftNeruditeSword_desc_rsc = \
+      "Craft a nerudite sword at a ko'catan anvil with a blacksmith's hammer. "
+      "Requires 15 nerudite ingots, 5 dense lumber and 5 kriipa leather. "
+
+   CraftNeruditeSword_sound = kraanan.ogg
+
+classvars:
+
+   vrName = CraftNeruditeSword_name_rsc
+   vrIcon = CraftNeruditeSword_icon_rsc
+   vrDesc = CraftNeruditeSword_desc_rsc
+
+   viSpell_num = SID_CRAFTNERUDITESWORD
+   viSpell_level = 4
+   viMeditate_ratio = 80
+   viSpellExertion = 5
+
+   vrGear = &NeruditeSword
+   voTool = &BlackSmithsHammer
+   viBench  = &KocatanAnvil
+
+properties:
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&NeruditeIngot,15],plReagents);
+      plReagents = Cons([&DenseLumber,5],plReagents);
+      plReagents = Cons([&KriipaLeather,5],plReagents);
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,19 @@
+Barloquetailor_name_rsc = de "Madelia"
+Barloquetailor_desc_rsc = de \
+   "Daran gewöhnt für den raffinierten Geschmack des Adels zu arbeiten, führt "
+   "Madelia ihr Handwerk mit großer Sorgfalt aus. Trotzdem wünscht sie sich, "
+   "daß sie mehr Zeit einem einzigen Kleidungsstück eines mächtigeren und "
+   "geschätzten Mitglied des Hofes widmen könnte. Madelias anderes Hobby "
+   "ist es, mit den Herzen der Männer zu spielen, und zur Zeit behält sie "
+   "mehrere Beziehungen am Kochen."
+Batail_entry_welcome = de \
+   "Hail %s%s.  Was ist das für eine schreckliche Kleidung, die du da trägst?"
+Batail_unwanted_give = de \
+   "~k%s%s teilt dir mit, \"Du solltest einne anderen Händler finden der das "
+   "von dir kauft.~n~k\""
+
+Barloquetailor_name_rsc = pt "Madelia"
+Barloquetailor_desc_rsc = pt "Acostumada a trabalhar com os gostos refinados da nobreza, Madelia supervisiona meticulosamente sua arte. No entanto, ela muitas vezes deseja passar tempo excessivo trabalhando em um único traje para um dos membros mais poderosos e estimados da corte. O outro hobby de Madelia é brincar com os corações dos homens e atualmente ela tem vários casos em andamento."
+Batail_entry_welcome = pt "Salve %s%s. O que são essas coisas terríveis que tu usas?"
+Batail_unwanted_give = pt "~k%s%s diz a ti, \"Deverias procurar um comerciante adequado para vender tuas mercadorias.~n~k\""
+Batail_already_have_spell = pt "Tu já tens conhecimento do feitiço %s. Estás a desperdiçar o meu tempo."

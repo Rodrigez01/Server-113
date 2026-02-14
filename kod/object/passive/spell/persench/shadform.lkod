@@ -1,0 +1,19 @@
+shadowform_name_rsc = de "Schattenform"
+shadowform_desc_rsc = de \
+   "Wandelt Dein Ziel in einen Schatten seiner selbst. Ideal, um in dunkleren "
+   "Gefilden herumzuschleichen. Dafür reichen drei Regenbogenfarn."
+shadowform_already_enchanted = de "Du bist bereits eine Schattenform."
+shadowform_already_affected = de "Du bist bereits eine Schattenform."
+shadowform_on = de "Du verschmilzt mit deinem eigenen Schatten."
+shadowform_off = de "Du kehrst zu deinem normalen Aussehen zurück."
+shadowform_enchantment_rsc = de \
+   "\n\nDein aktueller %s Zauber fügt %i Verteidigung gegen Monster,  "
+   "und %i Verteidigung gegen andere Mitspieler hinzu."
+
+shadowform_name_rsc = pt "forma sombria"
+shadowform_desc_rsc = pt "Transforma o alvo em uma silhueta de seu antigo eu, perfeito para se esgueirar em locais mais escuros e torná-los mais difíceis de serem atingidos. Requer três samambaias arco-íris para lançar."
+shadowform_enchantment_rsc = pt "\n\nSeu encantamento atual de %s adiciona %i de defesa contra monstros aqui. Contra um jogador com nível de luz médio, adicionará %i de defesa."
+shadowform_already_enchanted = pt "Você já possui forma sombria."
+shadowform_already_affected = pt "As sombras se recusam a esconder o que você deseja."
+shadowform_on = pt "Você se funde à sua sombra."
+shadowform_off = pt "Você desvanece de volta para suas próprias cores."

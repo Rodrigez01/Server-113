@@ -1,0 +1,9 @@
+itematt_misdirection_desc = de \
+   " Eine Illusion wurde auf diesen gegenstand geworfen wodurch die wahren "
+   "Fähigkeiten verborgen bleiben."
+iaMisdirection_gone = de \
+   "Die Illusion um dein %s verschwindet, und Du siehst nun was es wirklich "
+   "ist."
+
+itematt_misdirection_desc = pt "\n\nUma ilusão foi lançada neste item, escondendo suas verdadeiras habilidades."
+iaMisdirection_gone = pt "A ilusão ao redor do seu %s desaparece, e você pode ver o que realmente é."

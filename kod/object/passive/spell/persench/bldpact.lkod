@@ -1,0 +1,20 @@
+BloodPact_name_rsc = de "Blutpakt"
+BloodPact_desc_rsc = de \
+   "Besiegelt einen Pakt in Blut, opfert 15 Prozent Deiner "
+   "Gesundheit fuer 30 Prozent erhoehten Schaden fuer 10 Sekunden. "
+   "Benoetigt zwei Schamanenblut und eine Dunkle Engelsfeder."
+BloodPact_already_enchanted_rsc = de \
+   "Du hast bereits einen Blutpakt besiegelt."
+BloodPact_on_rsc = de \
+   "Blut quillt aus Deinen Handflaechen als dunkle Macht durch "
+   "Dich stroemt! Deine Angriffe sind verheerend maechtig."
+BloodPact_off_rsc = de \
+   "Der Blutpakt laeuft aus. Deine Kraft normalisiert sich."
+BloodPact_success_rsc = de \
+   "Blut stroemt aus den Haenden von %s%s als dunkle Macht "
+   "sie einkhuellt."
+BloodPact_sacrifice_rsc = de \
+   "Der Blutpakt fordert ein Opfer! Du verlierst ~r~B%i~B~n Gesundheit."
+BloodPact_spell_intro = de \
+   "Nekromantie Lv. 5: Opfere Gesundheit fuer stark erhoehten "
+   "Schadensausstoss."

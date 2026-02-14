@@ -1,0 +1,20 @@
+yeti_name_rsc = de "Der Yeti"
+yeti_koc_name_rsc = de "tezatzmoch"
+yeti_desc_rsc = de \
+   "Diese wundersame weiße Kreatur überragt mit ihrer Gestalt alle anderen "
+   "Wesen. Yetis sind extrem gefährlich, besonders wenn sie in Eishöhlen, "
+   "ihren Ruheplätzen, angegriffen werden. Nur jemand, der sehr gut vorbereitet "
+   "ist würde es wagen, einen Yeti alleine angreifen."
+yeti_dead_name_rsc = de "Ein toter Yeti"
+yeti_cast_spell = de \
+   "Dieser Yeti fühlt sich durch die menschliche Magie gestört."
+
+yeti_name_rsc = pt "yeti"
+yeti_koc_name_rsc = pt "tezatzmoch"
+yeti_desc_rsc = pt \
+   "Esta magnífica besta branca se ergue acima de todos em sua " 
+   "presença. Yetis são extremamente perigosos, especialmente " 
+   "quando atacados nas cavernas de gelo onde habitam. Apenas " 
+   "alguém bem preparado se atreveria a atacar um yeti sozinho."
+yeti_dead_name_rsc = pt "yeti morto"
+yeti_cast_spell = pt "O yeti está ofendido pela mágica humana poluente."

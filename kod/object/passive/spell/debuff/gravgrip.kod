@@ -1,0 +1,170 @@
+// Meridian 59 - Necromantie Spell School
+// Grave Grip (Grabesgriff) - Level 1 Debuff
+// Roots the target for ~1 second.
+
+
+////////////////////////////////////////////////////////////////////////////////
+GraveGrip is Debuff
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include gravgrip.lkod
+
+   GraveGrip_name_rsc = "grave grip"
+   GraveGrip_icon_rsc = inecro3.bgf
+   GraveGrip_desc_rsc = \
+      "Spectral hands burst from the ground and clutch at the target, "
+      "rooting them in place for a brief moment.  "
+      "Requires one purple mushroom to cast."
+
+   GraveGrip_already_enchanted = "%s%s is already held by grave grip."
+   GraveGrip_caster = \
+      "Ghostly hands erupt from the earth and seize %s%s!"
+   GraveGrip_on = \
+      "Skeletal hands burst from the ground and grip your legs! "
+      "You cannot move!"
+   GraveGrip_off = \
+      "The spectral grip crumbles and you can move again."
+
+   GraveGrip_spell_intro = \
+      "Necromantie Lv. 1: Roots the target in place for a brief moment."
+
+classvars:
+
+   vrName = GraveGrip_name_rsc
+   vrIcon = GraveGrip_icon_rsc
+   vrDesc = GraveGrip_desc_rsc
+
+   vrAlreadyEnchanted = GraveGrip_already_enchanted
+   vrEnchantment_On = GraveGrip_on
+   vrEnchantment_Off = GraveGrip_off
+   vrSuccess = GraveGrip_caster
+
+   viSpell_num = SID_GRAVE_GRIP
+   viSchool = SS_NECROMANTIE
+   viSpell_level = 1
+
+   viSpellExertion = 1
+   viMana = 5
+
+   viChance_To_Increase = 30
+   viMeditate_ratio = 10
+
+   viFlash = FLASH_BAD
+
+   viPostCast_time = 1
+
+properties:
+
+   piBaseDuration = 1000
+   piSpellPowerModifier = 10
+   piDeviation = 10
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&PurpleMushroom,1],plReagents);
+
+      return;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellpower=0,report=TRUE)
+   {
+      local oTarget;
+
+      oTarget = First(lTargets);
+
+      Send(self,@DoSpell,#what=who,#oTarget=oTarget,#report=report,
+            #iDuration=Send(self,@GetDuration,#iSpellPower=iSpellPower),
+            #iSpellPower=iSpellPower);
+
+      propagate;
+   }
+
+   DoSpell(what=$,oTarget=$,iDuration=$,report=TRUE,iSpellPower=0)
+   {
+      if oTarget = $
+      {
+         return FALSE;
+      }
+
+      if Send(oTarget,@IsEnchanted,#what=self)
+      {
+         return FALSE;
+      }
+
+      if iDuration = $
+      {
+         iDuration = 1000;
+      }
+
+      Send(oTarget,@StartEnchantment,#what=self,#time=iDuration,
+            #report=report,#state=iSpellPower);
+
+      if IsClass(oTarget,&User)
+      {
+         if report
+         {
+            Send(oTarget,@MsgSendUser,#message_rsc=vrEnchantment_On);
+         }
+      }
+
+      if report
+      {
+         Send(what,@MsgSendUser,#message_rsc=vrSuccess,
+               #parm1=Send(oTarget,@GetCapDef),
+               #parm2=Send(oTarget,@GetName));
+      }
+
+      propagate;
+   }
+
+   GetDuration(iSpellPower=0)
+   {
+      local iDuration;
+
+      iDuration = piBaseDuration + iSpellPower * piSpellPowerModifier;
+      iDuration = Random(iDuration * (100 - piDeviation) / 100,iDuration);
+
+      return iDuration;
+   }
+
+   EndEnchantment(who=$,report=TRUE,state=$)
+   {
+      if IsClass(who,&User)
+      {
+         if report
+         {
+            Send(who,@MsgSendUser,#message_rsc=vrEnchantment_Off);
+         }
+      }
+      else
+      {
+         Post(who,@ResetBehaviorFlags);
+      }
+
+      return;
+   }
+
+   ModifyMonsterBehavior(mob=$)
+   {
+      Send(mob,@SetBehaviorFlag,#flag=AI_NOMOVE,#value=TRUE);
+
+      return;
+   }
+
+   SetSpellPlayerFlag(who=$)
+   {
+      Send(who,@SetPlayerFlag,#flag=PFLAG_NO_MOVE,#value=TRUE);
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

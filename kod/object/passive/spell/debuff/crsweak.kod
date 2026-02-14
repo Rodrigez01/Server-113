@@ -1,0 +1,167 @@
+// Meridian 59 - Necromantie Spell School
+// Curse of Weakness (Fluch der Schwaeche) - Level 4 Debuff
+// Target deals -20% damage.
+
+
+////////////////////////////////////////////////////////////////////////////////
+CurseWeakness is Debuff
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include crsweak.lkod
+
+   CurseWeakness_name_rsc = "curse of weakness"
+   CurseWeakness_icon_rsc = ifirebal.bgf
+   CurseWeakness_desc_rsc = \
+      "Places a debilitating curse on the target, reducing all damage "
+      "they deal by 20 percent.  "
+      "Requires two dark angel feathers and one purple mushroom to cast."
+
+   CurseWeakness_already_enchanted = \
+      "%s%s is already cursed with weakness."
+   CurseWeakness_caster = \
+      "A withering curse settles over %s%s, sapping their strength!"
+   CurseWeakness_on = \
+      "You feel a terrible weakness seep into your muscles. "
+      "Your strikes feel feeble."
+   CurseWeakness_off = \
+      "The curse of weakness lifts and your strength returns."
+
+   CurseWeakness_spell_intro = \
+      "Necromantie Lv. 4: Curses the target to deal reduced damage."
+
+classvars:
+
+   vrName = CurseWeakness_name_rsc
+   vrIcon = CurseWeakness_icon_rsc
+   vrDesc = CurseWeakness_desc_rsc
+
+   vrAlreadyEnchanted = CurseWeakness_already_enchanted
+   vrEnchantment_On = CurseWeakness_on
+   vrEnchantment_Off = CurseWeakness_off
+   vrSuccess = CurseWeakness_caster
+
+   viSpell_num = SID_CURSE_WEAKNESS
+   viSchool = SS_NECROMANTIE
+   viSpell_level = 4
+
+   viSpellExertion = 2
+   viMana = 12
+
+   viChance_To_Increase = 15
+   viMeditate_ratio = 40
+
+   viFlash = FLASH_BAD
+
+   viPostCast_time = 2
+
+properties:
+
+   piBaseDuration = 10000
+   piSpellPowerModifier = 100
+   piDeviation = 10
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&DarkAngelFeather,2],plReagents);
+      plReagents = Cons([&PurpleMushroom,1],plReagents);
+
+      return;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellpower=0,report=TRUE)
+   {
+      local oTarget;
+
+      oTarget = First(lTargets);
+
+      Send(self,@DoSpell,#what=who,#oTarget=oTarget,#report=report,
+            #iDuration=Send(self,@GetDuration,#iSpellPower=iSpellPower),
+            #iSpellPower=iSpellPower);
+
+      propagate;
+   }
+
+   DoSpell(what=$,oTarget=$,iDuration=$,report=TRUE,iSpellPower=0)
+   {
+      if oTarget = $
+      {
+         return FALSE;
+      }
+
+      if Send(oTarget,@IsEnchanted,#what=self)
+      {
+         return FALSE;
+      }
+
+      if iDuration = $
+      {
+         iDuration = 10000;
+      }
+
+      Send(oTarget,@StartEnchantment,#what=self,#time=iDuration,
+            #report=report,#state=iSpellPower);
+      Send(oTarget,@AddAttackModifier,#what=self);
+
+      if IsClass(oTarget,&User)
+      {
+         if report
+         {
+            Send(oTarget,@MsgSendUser,#message_rsc=vrEnchantment_On);
+         }
+      }
+
+      if report
+      {
+         Send(what,@MsgSendUser,#message_rsc=vrSuccess,
+               #parm1=Send(oTarget,@GetCapDef),
+               #parm2=Send(oTarget,@GetName));
+      }
+
+      propagate;
+   }
+
+   GetDuration(iSpellPower=0)
+   {
+      local iDuration;
+
+      iDuration = piBaseDuration + iSpellPower * piSpellPowerModifier;
+
+      return iDuration;
+   }
+
+   EndEnchantment(who=$,report=TRUE,state=$)
+   {
+      Send(who,@RemoveAttackModifier,#what=self);
+
+      if IsClass(who,&User)
+      {
+         if report
+         {
+            Send(who,@MsgSendUser,#message_rsc=vrEnchantment_Off);
+         }
+      }
+
+      return;
+   }
+
+   ModifyHitRoll(who=$,what=$,hit_roll=$)
+   {
+      return hit_roll;
+   }
+
+   ModifyDamage(who=$,what=$,damage=$)
+   {
+      // Reduce damage by 20%
+      return (damage * 80) / 100;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

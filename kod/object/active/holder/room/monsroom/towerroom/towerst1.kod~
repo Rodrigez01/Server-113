@@ -1,0 +1,122 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 3 - TRIAL BY FIRE
+// Typ: Trigger-Zone Boss (wie Soulforge)
+////////////////////////////////////////////////////////////////////////////////
+TowerSt3 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+   // Trigger Zone
+   TRIGGER_ROW_MIN = 10
+   TRIGGER_ROW_MAX = 12
+   TRIGGER_COL_MIN = 9
+   TRIGGER_COL_MAX = 11
+
+   // Boss Spawn Position
+   BOSS_SPAWN_ROW = 15
+   BOSS_SPAWN_COL = 10
+
+resources:
+
+   room_towerst3 = st3.roo
+   room_name_towerst3 = "Tower of Quests - Trial by Fire"
+
+   towerst3_boss_spawn = "~r~BFlammen lodern auf... Ein Feuer-Elementar erscheint!"
+
+classvars:
+
+   vrName = room_name_towerst3
+
+   viTeleport_row = 50
+   viTeleport_col = 102
+
+properties:
+
+   prRoom = room_towerst3
+   piRoom_num = RID_TOWER_ST3
+
+   piNextFloor = RID_TOWER_ST4
+   piPrevFloor = RID_TOWER_ST2
+
+   pbBossSpawned = FALSE
+   pbBossCanSpawn = TRUE
+
+messages:
+
+   Constructed()
+   {
+      plMonsters = $;
+      plGenerators = $;
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 2, 10, RID_TOWER_ST2, 18, 10, ROTATE_NONE ],plExits);
+      plExits = Cons([ 18, 10, RID_TOWER_ST4, 5, 10, ROTATE_NONE ],plExits);
+
+      propagate;
+   }
+
+   // Trigger Zone - Boss spawnt wenn Spieler Mitte betritt
+   SomethingMoved(what=$,new_row=$,new_col=$)
+   {
+      if IsClass(what,&User)
+      {
+         if (new_row >= TRIGGER_ROW_MIN) AND (new_row <= TRIGGER_ROW_MAX)
+            AND (new_col >= TRIGGER_COL_MIN) AND (new_col <= TRIGGER_COL_MAX)
+         {
+            if (NOT pbBossSpawned) AND pbBossCanSpawn
+            {
+               Send(self,@SpawnBoss);
+            }
+         }
+      }
+
+      propagate;
+   }
+
+   SpawnBoss()
+   {
+      local i, oBoss;
+
+      if pbBossSpawned
+      {
+         return;
+      }
+
+      // TODO: Boss-Klasse anpassen
+      // oBoss = Create(&FireElemental);
+      // Send(self,@NewHold,#what=oBoss,
+      //      #new_row=BOSS_SPAWN_ROW,#new_col=BOSS_SPAWN_COL);
+
+      pbBossSpawned = TRUE;
+      pbBossCanSpawn = FALSE;
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst3_boss_spawn);
+         }
+      }
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

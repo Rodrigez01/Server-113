@@ -1,0 +1,12 @@
+room_name_MarionCrypt1 = de "Die Krypta von Marion"
+MarionCrtyp1_martyr_on = de \
+   "Die guten angestammten Geister dieser Hallen rufen die Götter an, die "
+   "Unschuldigen zu beschützen."
+MarionCrypt1_gods = de "Götter"
+MarionCrypt1_venyacyr = de "Venya'cyr die Verdammte"
+
+room_name_MarionCrypt1 = pt "A cripta em Marion"
+MarionCrtyp1_martyr_on = pt \
+   "Os bons espíritos ancestrais deste lugar invocam os deuses para proteger os inocentes."
+MarionCrypt1_gods = pt "deuses"
+MarionCrypt1_venyacyr = pt "Venya'cyr, a Maldita"

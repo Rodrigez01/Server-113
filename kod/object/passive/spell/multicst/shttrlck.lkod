@@ -1,0 +1,25 @@
+ShatterLock_name_rsc = de "Schloß Knacken"
+ShatterLock_desc_rsc = de \
+   "Durchdringt die Schlösser einer Gildenhalle (aber er wird keine anderen Türen öffnen). "
+   "Erfordert vier Kriipa Klauen und die magischen Energien der Zauberer müssen durch ein Prisma gebündelt werden. "
+Shatterlock_safety = de \
+   "Du darfst keinen Schutzengel haben und deine Sicherheit muss deaktiviert "
+   "sein. Beachte, dass die Ausführung dieses Zaubers dazu führen kann, dass "
+   "Du zu einem Gesetzeslosen wirst. "
+Shatterlock_outlaw = de \
+   "HINWEIS: Du wirst zu einem Gesetzeslosen, wenn Du diesen Zauber ausführst, "
+   "egal, ob Du dabei erfolgreich bist oder nicht. Daher musst Du deine Sicherheit "
+   "deaktivieren bevor Du den Zauber ausüben kannst. "
+ShatterLock_cast_complete = de \
+   "Als Du deine Beschwörung abgeschlossen hast, öffnet sich plötlich die "
+   "Tür der Gildenhalle!"
+ShatterLock_guildwarning = de \
+   "Du hast ein seltsames Gefühl, dass die Abwehr deiner Gildenhalle manipuliert "
+   "wird."
+
+ShatterLock_name_rsc = pt "quebrar bloqueio"
+ShatterLock_desc_rsc = pt "Penetra as fechaduras de uma sala de guilda (observe que não abrirá outros tipos de portas em outros lugares). Requer quatro garras de Kriipa para ser lançado, e as energias dos lançadores devem ser focalizadas através de um prisma."
+Shatterlock_safety = pt "Você não deve ter um anjo da guarda e deve desativar sua segurança ANTES de lançar este feitiço. Observe que você será marcado como fora da lei como resultado da realização deste feitiço."
+Shatterlock_outlaw = pt "NOTA: Lançar este feitiço o marcará como fora da lei, mesmo que você não tenha sucesso em invadir a sala. Portanto, você deve desativar sua segurança ANTES de lançar o feitiço."
+ShatterLock_cast_complete = pt "Ao terminar sua incantação, a porta da sala da guilda se abre!"
+ShatterLock_guildwarning = pt "Você tem uma sensação estranha de que as defesas de sua sala de guilda estão sendo manipuladas."

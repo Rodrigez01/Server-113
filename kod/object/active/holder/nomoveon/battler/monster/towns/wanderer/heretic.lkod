@@ -1,0 +1,19 @@
+Heretic_name_rsc = de "Miriana"
+Heretic_desc_rsc = de \
+   "Ausgestoßen von der religiösen Gemeinde wegen Ihrer blasphemischen Ansichten "
+   "über die Götter, tanzt Miriana alleine, weit weg von aller Zivilisation. "
+   "Einige nennen sie eine Ketzerin, andere ein Kind, dennoch, etwas scheint "
+   "sehr gefährlich an diesem seltsamen Mädchen."
+heretic_inexperienced = de \
+   "Ich werde diese Künste niemanden lehren, der so schwach ist."
+Heretic_already_have_spell = de \
+   "Dummerchen! Du beherrschst den %s-Spruch bereits."
+
+Heretic_name_rsc = pt "Miriana"
+Heretic_desc_rsc = pt \
+   "Excluída pela comunidade religiosa devido às suas visões blasfemas "
+   "sobre os deuses, Miriana dança sozinha longe das rígidas paredes da "
+   "civilização. Alguns a chamam de herege, outros de criança, mas todos parecem "
+   "encontrar algo perigoso na garota distante."
+heretic_inexperienced = pt "Eu não ensinarei essas artes para alguém tão fraco."
+Heretic_already_have_spell = pt "Bobo! Você já conhece o feitiço %s."

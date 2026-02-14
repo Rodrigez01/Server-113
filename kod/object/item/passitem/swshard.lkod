@@ -1,0 +1,18 @@
+swordshard_name_rsc = de "Der Schwertsplitter"
+swordshard_desc_rsc = de \
+   "Dies ist ein Teil von einem aufwendig bearbeitet aussehenden Schwert. "
+swordshard_possessive = de \
+   "%qs Name ist in einer merkwürdig scheinenden, fremden Schrift in das "
+   "Metall des Splitters eingraviert."
+SwordShard_bind = de \
+   "Verblüfft siehst Du zu, wie sich die Schwertsplitter wieder zu einem "
+   "Ganzen verbinden."
+swordshard_try_bind = de \
+   "Deine Schwertsplitter versuchen sich miteinander zu verbinden; doch es "
+   "gelingt ihnen nicht und sie fallen zu einem Häufchen zusammen."
+
+swordshard_name_rsc = pt "fragmento de una espada"
+swordshard_desc_rsc = pt "Esta es una pieza de una espada de aspecto muy elaborado."
+swordshard_possessive = pt "El nombre de %q está escrito en un sutil y brillante guión eldritch en el metal del fragmento."
+SwordShard_bind = pt "Observas con asombro cómo los fragmentos de la espada se unen para formar un todo nuevo."
+swordshard_try_bind = pt "Tus fragmentos de espada intentan unirse, pero fallan y se convierten en un montón de chatarra."

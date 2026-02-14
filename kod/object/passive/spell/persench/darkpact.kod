@@ -1,0 +1,157 @@
+// Meridian 59 - Necromantie Spell School
+// Dark Pact - Level 4 Necromantie Personal Enchantment
+
+
+////////////////////////////////////////////////////////////////////////////////
+DarkPact is PersonalEnchantment
+
+constants:
+
+   include blakston.khd
+
+   // How much HP is sacrificed on cast (percentage of max health)
+   HEALTH_SACRIFICE_PCT = 25
+
+resources:
+
+   include darkpact.lkod
+
+   DarkPact_name_rsc = "dark pact"
+   DarkPact_icon_rsc = inecro13.bgf
+   DarkPact_desc_rsc = \
+      "Forges a pact with the forces of death, sacrificing a portion "
+      "of your life force to greatly amplify your magical power. "
+      "While the pact is active, all spells deal significantly more damage "
+      "but you cannot be healed.  "
+      "Requires three dark angel feathers and one shaman blood to cast."
+
+   DarkPact_enchantment_rsc = \
+      "\n\nYour current %s pact increases spell damage by %i "
+      "but prevents all healing."
+
+   DarkPact_already_enchanted_rsc = "You have already sealed a dark pact."
+   DarkPact_on_rsc = \
+      "You feel a piece of your soul tear away as dark power floods "
+      "through your veins. Your magical might surges, but warmth "
+      "and healing are now beyond your reach."
+   DarkPact_off_rsc = \
+      "The dark pact expires and the oppressive power fades. "
+      "You feel your connection to the living world slowly return."
+   DarkPact_success_rsc = \
+      "Dark energy crackles around %s%s as they seal a pact with death."
+   DarkPact_sacrifice_rsc = \
+      "The pact demands sacrifice! You lose ~r~B%i~B~n health."
+
+   DarkPact_spell_intro = \
+      "Necromantie Lv. 4: Sacrifice your vitality for devastating "
+      "magical power, but lose the ability to be healed."
+
+classvars:
+
+   viPersonal_ench = True
+
+   vrName = DarkPact_name_rsc
+   vrIcon = DarkPact_icon_rsc
+   vrDesc = DarkPact_desc_rsc
+
+   vrAlreadyEnchanted = DarkPact_already_enchanted_rsc
+   vrEnchantment_On = DarkPact_On_rsc
+   vrEnchantment_Off = DarkPact_Off_rsc
+   vrSuccess = DarkPact_Success_rsc
+
+   viSpell_num = SID_DARK_PACT
+
+   vrSpell_intro = DarkPact_spell_intro
+
+   viMana = 20
+
+   viSpell_level = 4
+   viSchool = SS_NECROMANTIE
+
+   viChance_To_Increase = 15
+   viMeditate_ratio = 40
+
+   viFlash = FLASH_BAD
+
+   viHarmful = TRUE
+
+properties:
+
+   // Cannot be purged easily
+   viPurgeFactor = 30
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&DarkAngelFeather,3],plReagents);
+      plReagents = Cons([&ShamanBlood,1],plReagents);
+
+      return;
+   }
+
+   GetStateValue(iSpellpower=$,who=$,target=$)
+   {
+      local iSacrifice;
+
+      Send(target,@AddAttackModifier,#what=self);
+
+      // Sacrifice health on cast
+      iSacrifice = Send(target,@GetMaxHealth) * HEALTH_SACRIFICE_PCT / 100;
+      iSacrifice = Bound(iSacrifice,1,$);
+      Send(target,@LoseHealth,#amount=iSacrifice*100,#precision=TRUE);
+      Send(target,@MsgSendUser,#message_rsc=DarkPact_sacrifice_rsc,
+           #parm1=iSacrifice);
+
+      return iSpellpower;
+   }
+
+   GetDuration(iSpellPower=0)
+   {
+      local iDuration;
+
+      // Base duration 30-330 seconds (shorter than most buffs due to power).
+      iDuration = (30 + (iSpellPower*3)) * 1000;
+
+      return iDuration;
+   }
+
+   EndEnchantment(who=$,report=TRUE,state=0)
+   {
+      Send(who,@RemoveAttackModifier,#what=self);
+
+      propagate;
+   }
+
+   // Attack modifier interface - boost damage significantly
+
+   ModifyHitRoll(who=$,what=$,hit_roll=$)
+   {
+      return hit_roll;
+   }
+
+   ModifyDamage(who=$,what=$,damage=$)
+   {
+      local iState;
+
+      iState = Send(who,@GetEnchantedState,#what=self);
+
+      // Add 0 to spellpower/20 bonus damage
+      return damage + Random(0,iState/20);
+   }
+
+   EffectDesc(who=$)
+   {
+      local iState;
+
+      iState = Send(who,@GetEnchantedState,#what=self);
+
+      AddPacket(4,DarkPact_enchantment_rsc, 4,Send(self,@GetName),
+                4,iState/20);
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

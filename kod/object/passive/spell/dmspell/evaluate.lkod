@@ -1,0 +1,26 @@
+Evaluate_name_rsc = de "Auswerten"
+allinroom_Evaluate_msg1 = de "~b%s%s deeply plunges into the soul of %s%s."
+allinroom_Evaluate_msg2 = de \
+   "~bYou tingle as %s%s stares deep into the soul of %s%s."
+caster_Evaluate_msg = de "~bYou stare deeply at %s%s."
+Evaluated_Evaluate_msg = de "~b%s%s looks deeply into your eyes."
+Evaluate_desc_rsc = de \
+   "This gazes deep into a person's eyes, and judges their odds of gaining "
+   "another health point."
+evaluate_message = de "%s has %i XP and needs %i to reach %i HP."
+evaluate_monster = de \
+   "%s should concentrate on killing monsters at about %s ability level, "
+   "such as %ss and %ss."
+Evaluate_combat = de \
+   "~BCombat stats: ~B%s has an Offense of %i, Defense of %i, and can do "
+   "around %i points of type %i (physical) and %i (spell) damage."
+
+Evaluate_name_rsc = pt "avaliar"
+allinroom_Evaluate_msg1 = pt "~b%s%s mergulha profundamente na alma de %s%s."
+allinroom_Evaluate_msg2 = pt "~bVocê sente um formigamento enquanto %s%s olha profundamente na alma de %s%s."
+caster_Evaluate_msg = pt "~bVocê olha profundamente para %s%s."
+Evaluated_Evaluate_msg = pt "~b%s%s olha profundamente nos seus olhos."
+Evaluate_desc_rsc = pt "Isso olha profundamente nos olhos de uma pessoa e avalia suas chances de ganhar outro ponto de saúde."
+evaluate_message = pt "%s tem %i XP e precisa de %i para alcançar %i HP."
+evaluate_monster = pt "%s deve se concentrar em matar monstros com cerca de nível de habilidade %s, como %ss e %ss."
+Evaluate_combat = pt "~BEstatísticas de combate: ~B%s tem um Ataque de %i, Defesa de %i, e pode causar cerca de %i pontos de dano do tipo %i (físico) e %i (mágico)."

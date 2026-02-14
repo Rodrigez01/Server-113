@@ -1,0 +1,18 @@
+easterbunny_koc_name_rsc = de "koixleocbunny"
+easterbunny_name_rsc = de "Der Osterhase"
+easterbunny_desc_rsc = de \
+   "Dieser übergroße Hase schaut dich sturr an. Seine Zähne sind mächtig "
+   "und scharf."
+easterbunny_dead_name_rsc = de "Toter Osterhase"
+easterbunny_spawn_minion = de \
+   "~BDer Osterhase stellt sich auf seine Hinterläufe und plötzlich erscheint "
+   "ein Killerhase vor Dir!"
+
+easterbunny_name_rsc = pt "easter bunny"
+easterbunny_desc_rsc = pt \
+   "Este coelho gigante saliva enquanto olha na sua direção. Seus " 
+   "dentes e garras são afiados como navalhas, e parece faminto."
+easterbunny_dead_name_rsc = pt "coelho da páscoa abatido"
+easterbunny_spawn_minion = pt \
+   "O coelho da páscoa se ergue sobre as patas traseiras, e um coelho assassino " 
+   "surge repentinamente à existência!"

@@ -1,0 +1,22 @@
+enchantedweapon_cast_rsc = de "Dein %s ist nun Kraanan gesegnet."
+enchantweapon_no_can = de "Du kannst %s%s nicht Kraanan segnen."
+enchantweapon_fails = de "Der %s ist unberührt von dem Zauber."
+enchantweapon_already_done = de "Diese Waffe ist bereits Kraaanan gesegnet."
+enchantweapon_name_rsc = de "Waffe segnen"
+enchantweapon_desc_rsc = de \
+   "Weiht Deine Waffe Kraanan. Der Zauber benötigt zwei Holunderbeeren, "
+   "einen Orkzahn sowie etwas Zeit."
+enchantweapon_resists = de \
+   "%s%s widersteht dem Versuch Kraanan gesegnet zu werden."
+enchantweapon_spell_intro = de "Kraanan Level 2: Weiht Deine Waffe Kraanan."
+enchantweapon_label_rsc = de "Blutbrief"
+
+enchantedweapon_cast_rsc = pt "Seu %s agora está dedicado a Kraanan."
+enchantweapon_no_can = pt "Você não pode encantar %s%s."
+enchantweapon_fails = pt "O %s não é afetado pelo feitiço de forma estranha."
+enchantweapon_fails2 = pt "O %s já está afetado pela magia."
+enchantweapon_already_done = pt "Esta arma já está dedicada a Kraanan."
+enchantweapon_desc_rsc = pt "Dedica sua arma a Kraanan.  Requer duas sementes de sabugueiro, um dente de orc e tempo."
+enchantweapon_resists = pt "%s%s resiste às suas tentativas de encantamento."
+enchantweapon_spell_intro = pt "Kraanan Lv. 2: Abençoa sua arma com um toque de magia, melhorando seu dano."
+enchantweapon_label_rsc = pt "sanguinolento"

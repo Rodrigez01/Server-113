@@ -1,0 +1,85 @@
+Phase_name_rsc = de "Ausstieg"
+Phase_desc_rsc = de \
+   "Mit dem Ausstieg aus deiner realen Existenz, machst du dich vorrübergehend "
+   "immun gegen Gefahr... aber, sei gewarnt Abenteurer! Bleibst du zu lange "
+   "aus der Realität ausgestiegen, führt der Ausstieg zu körperlichen und "
+   "geistigen Schäden sowie einem möglichen Verlust von mitgeführten Gegenständen. "
+   "Die Zeit wird so lange mitgerechnet, bis du einen sicheren Ort betrittst."
+Phase_no_danger = de "Der magische Schutz verhindert deinen Ausstieg."
+Phase_penned = de \
+   "Dein Bezug zur Realität reißt ab und du wirst mit Gewalt an einen sicheren "
+   "Ort gebracht um von dem sicheren Ort wieder in die reale Welt zu gehen!"
+Phase_penned_others = de \
+   "%s's Bezug zur Realität reißt %s$0ab, und wird mit Gewalt an einen sicheren Ort "
+   "gebracht!"
+Phase_penned_others_item = de \
+   "Der gewalttätige Ausstieg hat dafür gesorgt, dass %s%s aus dem Inventar "
+   "von %s gerissen wurde."
+Phase_lost_one_item = de \
+   "Du hast %s Skill Punkte, %s Zauber Punkte, und %s%s verloren."
+Phase_lost_two_items = de \
+   "Du hast %s Skill Punkte, %s Zauber Punkte, %s%s, und %s%s verloren."
+penalties_inflicted_one_item = de \
+   "Diese qualvolle Erfahrung kostet Dich %i XP, einen Gegenstand, %i%% in "
+   "Zaubersprüchen und %i%% in Waffenfertigkeiten."
+penalties_inflicted_plural = de \
+   "Diese qualvolle Erfahrung kostet Dich %i XP, %i Gegenstände, %i%% in "
+   "Zaubersprüchen und %i%% in Waffenfertigkeiten."
+no_phasing_in_safe_place_msg = de \
+   "Dieser Ort ist sicher und ruhig. Du kannst hier nicht aussteigen."
+no_phasing_in_guildhall_msg = de \
+   "Die magische Abwehr lässt dich hier nicht aussteigen."
+no_phasing_in_arena_msg = de \
+   "Die einzigartigen Kampfbedingungen lassen dich hier nicht aussteigen."
+no_phasing_while_specator_msg = de \
+   "Wenn du versuchst auszusteigen, während du schon ausgestiegen bist, wirst "
+   "du explodieren!"
+phase_time_low = de "Du hast das Gefühl du verlierst deinen halt..."
+phase_time_gone = de "Du verlierst deinen Bezug zur realen Existenz!"
+no_phasing_here_override_msg = de \
+   "Eine mystische Präsenz hinder dich daran hier auszusteigen."
+phase_time_header = de \
+      "\n\nDu hast noch %r%r%r%r%r%r%r vom Zauber %s übrig."
+
+Phase_name_rsc = pt "fase"
+Phase_desc_rsc = pt \
+   "Ao parcialmente se desfazer da existência, alguém pode se tornar temporariamente "
+   "imune ao perigo... mas, aventureiros, cuidado: ficar fora de fase "
+   "por muito tempo resultará em danos físicos e mentais, além de "
+   "possível perda de itens carregados. O tempo passado fora de fase "
+   "é cumulativo até você encontrar um lugar seguro para se recuperar."
+Phase_no_danger = pt "As magias protetoras aqui impedem a saída de fase."
+Phase_penned = pt \
+   "Seu tênue controle sobre a realidade se rompe, e você é lançado violentamente "
+   "ao longo das correntes mágicas até encontrar um lugar seguro para "
+   "reentrar no mundo!"
+Phase_penned_others = pt \
+   "O controle de %s sobre a realidade se rompe, lançando %s violentamente "
+   "ao longo das correntes mágicas!"
+Phase_penned_others_item = pt \
+   "As correntes violentas parecem ter arrancado %s%s do inventário de %s."
+Phase_lost_one_item = pt \
+   "Você perdeu %s pontos de habilidade, %s pontos de magia e %s%s."
+Phase_lost_two_items = pt \
+   "Você perdeu %s pontos de habilidade, %s pontos de magia, %s%s e %s%s."
+penalties_inflicted_one_item = pt \
+   "A experiência torturante custou-lhe %i XP, um item, %i pontos de magia "
+   "e %i pontos de habilidade."
+penalties_inflicted_plural = pt \
+   "A experiência torturante custou-lhe %i XP, %i itens, %i pontos de magia "
+   "e %i pontos de habilidade."
+no_phasing_in_safe_place_msg = pt \
+   "Este lugar seguro está ancorado e calmo, e você não pode "
+   "sair de fase aqui."
+no_phasing_in_guildhall_msg = pt \
+   "As defesas mágicas aqui mantêm você ancorado na realidade."
+no_phasing_in_arena_msg = pt \
+   "As magias de combate únicas em jogo aqui impedem você de sair de fase."
+no_phasing_while_specator_msg = pt \
+   "Se você tentar sair de fase enquanto já está fora de fase, você pode explodir!"
+phase_time_low = pt "Você sente seu controle escorregando..."
+phase_time_gone = pt "Você está perdendo o controle sobre a realidade!"
+no_phasing_here_override_msg = pt \
+   "Uma força misteriosa impede você de sair de fase aqui."
+phase_time_header = pt \
+   "\n\nVocê tem %r%r%r%r%r%r%r de tempo %s restante."

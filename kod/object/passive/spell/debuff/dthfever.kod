@@ -1,0 +1,196 @@
+// Meridian 59 - Necromantie Spell School
+// Death Fever (Totenfieber) - Level 2 Debuff
+// Damage over time for 8 seconds.
+
+
+////////////////////////////////////////////////////////////////////////////////
+DeathFever is Debuff
+
+constants:
+
+   include blakston.khd
+
+   DOT_TICKS = 4
+   DOT_INTERVAL = 2000
+
+resources:
+
+   include dthfever.lkod
+
+   DeathFever_name_rsc = "death fever"
+   DeathFever_icon_rsc = ifirebal.bgf
+   DeathFever_desc_rsc = \
+      "Infects the target with a necromantic fever that burns their "
+      "life force from within, dealing damage over 8 seconds.  "
+      "Requires one red mushroom and one elderberry to cast."
+
+   DeathFever_already_enchanted = "%s%s is already burning with death fever."
+   DeathFever_caster = \
+      "A sickly glow surrounds %s%s as death fever takes hold!"
+   DeathFever_on = \
+      "A burning fever grips you! Necromantic fire courses through "
+      "your veins."
+   DeathFever_off = \
+      "The death fever breaks and the burning subsides."
+   DeathFever_tick_rsc = \
+      "The death fever burns you for ~r~B%i~B~n damage!"
+
+   DeathFever_spell_intro = \
+      "Necromantie Lv. 2: Inflicts a necromantic fever dealing damage "
+      "over 8 seconds."
+
+classvars:
+
+   vrName = DeathFever_name_rsc
+   vrIcon = DeathFever_icon_rsc
+   vrDesc = DeathFever_desc_rsc
+
+   vrAlreadyEnchanted = DeathFever_already_enchanted
+   vrEnchantment_On = DeathFever_on
+   vrEnchantment_Off = DeathFever_off
+   vrSuccess = DeathFever_caster
+
+   viSpell_num = SID_DEATH_FEVER
+   viSchool = SS_NECROMANTIE
+   viSpell_level = 2
+
+   viSpellExertion = 2
+   viMana = 8
+
+   viChance_To_Increase = 25
+   viMeditate_ratio = 20
+
+   viFlash = FLASH_BAD
+
+   viPostCast_time = 1
+
+properties:
+
+   piBaseDuration = 8000
+   piSpellPowerModifier = 0
+   piDeviation = 0
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&RedMushroom,1],plReagents);
+      plReagents = Cons([&ElderBerry,1],plReagents);
+
+      return;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellpower=0,report=TRUE)
+   {
+      local oTarget;
+
+      oTarget = First(lTargets);
+
+      Send(self,@DoSpell,#what=who,#oTarget=oTarget,#report=report,
+            #iDuration=piBaseDuration,#iSpellPower=iSpellPower);
+
+      propagate;
+   }
+
+   DoSpell(what=$,oTarget=$,iDuration=$,report=TRUE,iSpellPower=0)
+   {
+      if oTarget = $
+      {
+         return FALSE;
+      }
+
+      if Send(oTarget,@IsEnchanted,#what=self)
+      {
+         return FALSE;
+      }
+
+      if iDuration = $
+      {
+         iDuration = piBaseDuration;
+      }
+
+      // State stores: [caster, spellpower, ticks_remaining]
+      Send(oTarget,@StartEnchantment,#what=self,#time=DOT_INTERVAL,
+            #report=report,#state=[what,iSpellPower,DOT_TICKS],
+            #lastcall=FALSE);
+
+      if IsClass(oTarget,&User)
+      {
+         if report
+         {
+            Send(oTarget,@MsgSendUser,#message_rsc=vrEnchantment_On);
+         }
+      }
+
+      if report
+      {
+         Send(what,@MsgSendUser,#message_rsc=vrSuccess,
+               #parm1=Send(oTarget,@GetCapDef),
+               #parm2=Send(oTarget,@GetName));
+      }
+
+      propagate;
+   }
+
+   StartPeriodicEnchantment(who=$,where=$,state=$)
+   {
+      local oCaster, iSpellPower, iTicksLeft, iDamage;
+
+      if state = $
+      {
+         return;
+      }
+
+      oCaster = First(state);
+      iSpellPower = Nth(state,2);
+      iTicksLeft = Nth(state,3);
+
+      // Deal damage: 3-6 per tick, scaling slightly with spellpower
+      iDamage = Random(300,600) + iSpellPower * 2;
+      Send(who,@LoseHealth,#amount=iDamage,#precision=TRUE);
+
+      if IsClass(who,&User)
+      {
+         Send(who,@MsgSendUser,#message_rsc=DeathFever_tick_rsc,
+               #parm1=iDamage/100);
+      }
+
+      iTicksLeft = iTicksLeft - 1;
+
+      if iTicksLeft <= 0
+      {
+         // Final tick - end the enchantment
+         Send(who,@RemoveEnchantment,#what=self);
+
+         return;
+      }
+
+      // Schedule next tick
+      Send(who,@StartEnchantment,#what=self,#time=DOT_INTERVAL,
+            #report=FALSE,#state=[oCaster,iSpellPower,iTicksLeft],
+            #lastcall=FALSE);
+
+      return;
+   }
+
+   EndEnchantment(who=$,report=TRUE,state=$)
+   {
+      if IsClass(who,&User)
+      {
+         if report
+         {
+            Send(who,@MsgSendUser,#message_rsc=vrEnchantment_Off);
+         }
+      }
+
+      return;
+   }
+
+   GetDuration(iSpellPower=0)
+   {
+      return piBaseDuration;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

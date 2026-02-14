@@ -1,0 +1,27 @@
+////////////////////////////////////////////////////////////////////////////////
+TanningRack is CraftingBench
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include tanrack.lkod
+
+   TanningRack_name_rsc = "tanning rack"
+   TanningRack_icon_rsc = tanrack.bgf
+   TanningRack_desc_rsc = "A wooden rack for tanning hides into leather."
+
+classvars:
+
+   vrName = TanningRack_name_rsc
+   vrIcon = TanningRack_icon_rsc
+   vrDesc = TanningRack_desc_rsc
+
+properties:
+
+messages:
+
+end
+////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,690 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+soulforge is BossRoom
+
+constants:
+
+   include blakston.khd
+   SECTOR_DOOR11 = 11
+   SECTOR_DOOR12 = 12
+   SECTOR_DOOR13 = 13
+   SECTOR_DOOR3a = 22
+   SECTOR_DOOR3b = 23
+   SECTOR_DOOR3c = 24
+   SECTOR_DOOR3d = 25
+   DOOR11_UP	= 144 	
+   DOOR12_UP    = 144
+   DOOR13_UP    = 280
+   DOOR3a_UP    = 112
+   DOOR3b_UP    = 280
+   DOOR3c_UP    = 1208
+   DOOR3d_UP    = 1040
+
+   DOOR11_DOWN  = 1
+   DOOR12_DOWN  = 1
+   DOOR13_DOWN  = 1
+   DOOR3a_DOWN  = 1
+   DOOR3b_DOWN  = 1
+   DOOR3c_DOWN  = 1
+   DOOR3d_DOWN  = 1
+
+   DOOR_UP_SPEED = 35
+   DOOR_DOWN_SPEED = 35
+
+   // TRIGGER ZONE - Sektor 88 (ANPASSEN: Row/Col Bereich)
+   // Spieler betritt diesen Bereich -> Boss spawnt
+   TRIGGER_ROW_MIN = 9
+   TRIGGER_ROW_MAX = 10
+   TRIGGER_COL_MIN = 85
+   TRIGGER_COL_MAX = 86
+
+   // BOSS SPAWN Position - Sektor 99 (ANPASSEN: Row/Col)
+   BOSS_SPAWN_ROW = 20
+   BOSS_SPAWN_COL = 81
+
+   // KILL-ZONEN - Spieler auf diesen Sektoren sterben nach 5 Min
+   // Sektor 13 (ANPASSEN)
+   KILL_SECTOR13_ROW_MIN = 1
+   KILL_SECTOR13_ROW_MAX = 208
+   KILL_SECTOR13_COL_MIN = 192
+   KILL_SECTOR13_COL_MAX = 192
+
+   // Sektor 22 (ANPASSEN)
+   KILL_SECTOR22_ROW_MIN = 1
+   KILL_SECTOR22_ROW_MAX = 2
+   KILL_SECTOR22_COL_MIN = 97
+   KILL_SECTOR22_COL_MAX = 192
+
+   // Sektor 23 (ANPASSEN)
+   KILL_SECTOR23_ROW_MIN = 208
+   KILL_SECTOR23_ROW_MAX = 209
+   KILL_SECTOR23_COL_MIN = 9
+   KILL_SECTOR23_COL_MAX = 192
+
+   // Sektor 24 (ANPASSEN)  -- war auskommentiert, wurde aber im Code benutzt -> Fehler
+   KILL_SECTOR24_ROW_MIN = 15
+   KILL_SECTOR24_ROW_MAX = 25
+   KILL_SECTOR24_COL_MIN = 80
+   KILL_SECTOR24_COL_MAX = 90
+
+
+resources:
+
+   room_Soulforge = soulforge.roo
+   room_name_Soulforge = "The Soulforge"
+   Soulforge_music = forest.ogg
+
+   soulforge_door_sound = doorrsup.ogg
+   soulforge_boss_spawn_sound = nec_growl.ogg
+   soulforge_boss_dead = "~kDer Boden bebt, als sich die Sektoren senken..."
+   soulforge_warning_5min = "~r~kWarnung: In 5 Minuten heben sich alle Sektoren wieder!"
+   soulforge_timer_up = "~r~k~BDIE 5 MINUTEN SIND UM! Der Boden hebt sich wieder!"
+   soulforge_boss_spawn = "~r~k~BEin gewaltiges Grollen ertoent... VAJRA erwacht!"
+   soulforge_king_lives = "~kEin dumpfes Grollen ertoent, als sich der Boden erhebt!"
+   soulforge_crushed = "~r~k~BDu wirst vom aufsteigenden Boden zerquetscht!"
+
+classvars:
+
+   vrName = room_name_Soulforge
+   viTeleport_row = 2
+   viTeleport_col = 12
+   viTerrain_type = TERRAIN_NECROPOLIS
+   viWeatherZone = WEATHER_ZONE_MARION
+
+   // 30 Minuten bis Boss wieder gespawnt werden kann
+   //  viBossResetTime = 90 * 1000 = 90000
+  // viBossResetTime =  90 * 1000
+   
+
+properties:
+
+   prBackground = background_chaos_night
+   prRoom = room_Soulforge
+   prMusic = Soulforge_music
+   piRoom_num = RID_Soulforge
+
+   // Anfangszustand: Alle Sektoren OBEN
+   piDOOR11Position = DOOR11_UP
+   piDOOR12Position = DOOR12_UP
+   piDOOR13Position = DOOR13_UP
+   piDOOR3aPosition = DOOR3a_UP
+   piDOOR3bPosition = DOOR3b_UP
+   piDOOR3cPosition = DOOR3c_UP
+   piDOOR3dPosition = DOOR3d_UP
+
+   ptSectorTimer = $
+   pbSnowGroundTexture = TRUE
+
+   // Boss Trigger System
+   pbBossSpawned = FALSE
+   pbBossCanSpawn = TRUE
+
+messages:
+
+   Recreate()
+   {
+      // Bei Server-Neustart: Alle Sektoren auf Normalhoehe (UP) setzen
+      Send(self,@SetSector,#sector=SECTOR_DOOR11,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR11_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR12,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR12_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR13,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR13_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3a,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3a_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3b,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3b_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3c,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3c_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3d,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3d_UP,
+            #speed=0);
+
+      piDOOR12Position = DOOR12_UP;
+      piDOOR13Position = DOOR13_UP;
+      piDOOR3aPosition = DOOR3a_UP;
+      piDOOR3bPosition = DOOR3b_UP;
+      piDOOR3cPosition = DOOR3c_UP;
+      piDOOR3dPosition = DOOR3d_UP;
+
+      // Reset Boss-Status
+      pbBossSpawned = FALSE;
+      pbBossCanSpawn = TRUE;
+
+      // Timer loeschen falls vorhanden
+      if ptSectorTimer <> $
+      {
+         DeleteTimer(ptSectorTimer);
+         ptSectorTimer = $;
+      }
+
+      propagate;
+   }
+
+   FirstUserEntered()
+   {
+      // Wenn erster Spieler den Raum betritt: Sektoren auf UP setzen
+      Send(self,@SetSector,#sector=SECTOR_DOOR12,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR12_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR13,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR13_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3a,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3a_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3b,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3b_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3c,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3c_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3d,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3d_UP,
+            #speed=0);
+
+      piDOOR12Position = DOOR12_UP;
+      piDOOR13Position = DOOR13_UP;
+      piDOOR3aPosition = DOOR3a_UP;
+      piDOOR3bPosition = DOOR3b_UP;
+      piDOOR3cPosition = DOOR3c_UP;
+      piDOOR3dPosition = DOOR3d_UP;
+
+      propagate;
+   }
+
+   Delete()
+   {
+      if ptSectorTimer <> $
+      {
+         DeleteTimer(ptSectorTimer);
+         ptSectorTimer = $;
+      }
+
+      propagate;
+   }
+
+   //////////////////////////////////
+   // CHAT TRIGGER - "der Koenig lebt" / "der Koenig ist tod"
+   //////////////////////////////////
+
+   SomeoneSaid(what=$,type=$,string=$,parm1=$,parm2=$,parm3=$,
+               parm4=$,parm5=$,parm6=$,parm7=$,parm8=$)
+   {
+      local i;
+
+      // "der Koenig lebt" - Sektor 25 (DOOR3d) auf Normalhoehe heben
+      if StringContain(string,"lebt")
+      {
+         // Nur ausfuehren wenn Sektor unten ist
+         if piDOOR3dPosition = DOOR3d_DOWN
+         {
+            Send(self,@SetSector,#sector=SECTOR_DOOR3d,
+                  #animation=ANIMATE_FLOOR_LIFT,
+                  #height=DOOR3d_UP,
+                  #speed=DOOR_UP_SPEED);
+
+            piDOOR3dPosition = DOOR3d_UP;
+
+            Send(self,@SomethingWaveRoom,#wave_rsc=soulforge_door_sound);
+
+            foreach i in plActive
+            {
+               Send(First(i),@MsgSendUser,#message_rsc=soulforge_king_lives);
+            }
+         }
+
+         return;
+      }
+
+      // "der Koenig ist tod" - Sektor 25 (DOOR3d) absenken
+      if StringContain(string,"tod")
+      {
+         // Nur ausfuehren wenn Sektor nicht schon unten ist
+         if piDOOR3dPosition <> DOOR3d_DOWN
+         {
+            Send(self,@SetSector,#sector=SECTOR_DOOR3d,
+                  #animation=ANIMATE_FLOOR_LIFT,
+                  #height=DOOR3d_DOWN,
+                  #speed=DOOR_DOWN_SPEED);
+
+            piDOOR3dPosition = DOOR3d_DOWN;
+
+            Send(self,@SomethingWaveRoom,#wave_rsc=soulforge_door_sound);
+
+            foreach i in plActive
+            {
+               Send(First(i),@MsgSendUser,#message_rsc=soulforge_king_lives);
+            }
+         }
+
+         return;
+      }
+
+      propagate;
+   }
+
+   //////////////////////////////////
+   // BOSS TRIGGER SYSTEM
+   //////////////////////////////////
+
+   SomethingMoved(what=$,new_row=$,new_col=$)
+   {
+      local i, oVajra;
+
+      // Nur Spieler triggern den Boss
+      if IsClass(what,&User)
+      {
+         // Pruefen ob Spieler im Trigger-Bereich ist (Sektor 88)
+         if (new_row >= TRIGGER_ROW_MIN) AND (new_row <= TRIGGER_ROW_MAX)
+            AND (new_col >= TRIGGER_COL_MIN) AND (new_col <= TRIGGER_COL_MAX)
+         {
+            // Boss nur spawnen wenn: nicht bereits gespawnt UND spawn erlaubt
+            if (NOT pbBossSpawned) AND pbBossCanSpawn
+            {
+               // Boss spawnen!
+               Send(self,@SpawnBoss);
+            }
+         }
+      }
+
+      propagate;
+   }
+
+   SpawnBoss()
+   {
+      local i, oVajra;
+
+      // Sicherheitscheck
+      if pbBossSpawned
+      {
+         return;
+      }
+
+      // Vajra erstellen und im Sektor 99 platzieren
+      oVajra = Create(&Vajra);
+      Send(self,@NewHold,#what=oVajra,
+            #new_row=BOSS_SPAWN_ROW,
+            #new_col=BOSS_SPAWN_COL,
+            #fine_row=FINENESS/2,
+            #fine_col=FINENESS/2);
+
+      // In Boss-Liste eintragen (fuer BossRoom Logik)
+      plBoss = Cons(oVajra, plBoss);
+
+      pbBossSpawned = TRUE;
+      pbBossCanSpawn = FALSE;
+
+      // Dramatischer Sound beim Boss-Spawn
+      Send(self,@SomethingWaveRoom,#wave_rsc=soulforge_boss_spawn_sound);
+
+      foreach i in plActive
+      {
+         Send(First(i),@MsgSendUser,#message_rsc=soulforge_boss_spawn);
+      }
+
+      return;
+   }
+
+   // Nach 5 Minuten heben sich alle Sektoren wieder auf Normalhoehe
+   SectorAutoRaise()
+   {
+      local i, oUser, iRow, iCol, bInKillZone;
+
+      ptSectorTimer = $;
+
+      // Nachricht an alle Spieler
+      foreach i in plActive
+      {
+         Send(First(i),@MsgSendUser,#message_rsc=soulforge_timer_up);
+      }
+
+      // KILL-LOGIK: Spieler auf Sektoren 13, 22, 23, 24 sterben!
+      // (NICHT auf Sektor 12 und 25)
+      foreach i in plActive
+      {
+         oUser = First(i);
+         if IsClass(oUser,&User)
+         {
+            iRow = Send(oUser,@GetRow);
+            iCol = Send(oUser,@GetCol);
+            bInKillZone = FALSE;
+
+            // Pruefe Sektor 13
+            if (iRow >= KILL_SECTOR13_ROW_MIN) AND (iRow <= KILL_SECTOR13_ROW_MAX)
+               AND (iCol >= KILL_SECTOR13_COL_MIN) AND (iCol <= KILL_SECTOR13_COL_MAX)
+            {
+               bInKillZone = TRUE;
+            }
+
+            // Pruefe Sektor 22
+            if (iRow >= KILL_SECTOR22_ROW_MIN) AND (iRow <= KILL_SECTOR22_ROW_MAX)
+               AND (iCol >= KILL_SECTOR22_COL_MIN) AND (iCol <= KILL_SECTOR22_COL_MAX)
+            {
+               bInKillZone = TRUE;
+            }
+
+            // Pruefe Sektor 23
+            if (iRow >= KILL_SECTOR23_ROW_MIN) AND (iRow <= KILL_SECTOR23_ROW_MAX)
+               AND (iCol >= KILL_SECTOR23_COL_MIN) AND (iCol <= KILL_SECTOR23_COL_MAX)
+            {
+               bInKillZone = TRUE;
+            }
+
+            // Pruefe Sektor 24
+            if (iRow >= KILL_SECTOR24_ROW_MIN) AND (iRow <= KILL_SECTOR24_ROW_MAX)
+               AND (iCol >= KILL_SECTOR24_COL_MIN) AND (iCol <= KILL_SECTOR24_COL_MAX)
+            {
+               bInKillZone = TRUE;
+            }
+
+            // Spieler in Kill-Zone toeten!
+            if bInKillZone
+            {
+               Send(oUser,@MsgSendUser,#message_rsc=soulforge_crushed);
+               Send(oUser,@Killed,#what=self);
+            }
+         }
+      }
+
+      // Hebe ALLE 6 Sektoren auf Normalhoehe (UP)
+      Send(self,@SetSector,#sector=SECTOR_DOOR12,
+            #animation=ANIMATE_FLOOR_LIFT,
+            #height=DOOR12_UP,
+            #speed=DOOR_UP_SPEED);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR13,
+            #animation=ANIMATE_FLOOR_LIFT,
+            #height=DOOR13_UP,
+            #speed=DOOR_UP_SPEED);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3a,
+            #animation=ANIMATE_FLOOR_LIFT,
+            #height=DOOR3a_UP,
+            #speed=DOOR_UP_SPEED);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3b,
+            #animation=ANIMATE_FLOOR_LIFT,
+            #height=DOOR3b_UP,
+            #speed=DOOR_UP_SPEED);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3c,
+            #animation=ANIMATE_FLOOR_LIFT,
+            #height=DOOR3c_UP,
+            #speed=DOOR_UP_SPEED);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3d,
+            #animation=ANIMATE_FLOOR_LIFT,
+            #height=DOOR3d_UP,
+            #speed=DOOR_UP_SPEED);
+
+      // Setze Position-Variablen auf UP
+      piDOOR12Position = DOOR12_UP;
+      piDOOR13Position = DOOR13_UP;
+      piDOOR3aPosition = DOOR3a_UP;
+      piDOOR3bPosition = DOOR3b_UP;
+      piDOOR3cPosition = DOOR3c_UP;
+      piDOOR3dPosition = DOOR3d_UP;
+
+      // Sound abspielen
+      Send(self,@SomethingWaveRoom,#wave_rsc=soulforge_door_sound);
+
+      return;
+   }
+
+   RecalcBackgroundSkyGraphic(iSkyBox=0)
+   {
+      return;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+      // GRAVEYARD
+      plExits = Cons([ 1, 19, RID_Pit, 12, 34, SET_ANGLE_EAST ],plExits);
+
+      propagate;
+   }
+
+   Constructed()
+   {
+      plMonsters = [ [&NecromancerTroop, 100] ];
+      plGenerators = [ [8,18], [7,22], [15,32], [8,31], [14,50], [17,80], [41,80], [20,80], [20,40] ];
+
+      // Initialisiere alle Sektoren auf Normalhoehe (UP)
+      Send(self,@SetSector,#sector=SECTOR_DOOR12,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR12_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR13,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR13_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3a,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3a_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3b,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3b_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3c,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3c_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3d,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3d_UP,
+            #speed=0);
+
+      piDOOR12Position = DOOR12_UP;
+      piDOOR13Position = DOOR13_UP;
+      piDOOR3aPosition = DOOR3a_UP;
+      piDOOR3bPosition = DOOR3b_UP;
+      piDOOR3cPosition = DOOR3c_UP;
+      piDOOR3dPosition = DOOR3d_UP;
+
+      propagate;
+   }
+
+   CreateStandardObjects()
+   {
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_BARREL2),
+           #new_row=20,#new_col=50,#fine_row=16,#fine_col=32,#new_angle=ANGLE_EAST);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_BARREL2),
+           #new_row=19,#new_col=49,#fine_row=0,#fine_col=32,#new_angle=ANGLE_EAST);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_BARREL2),
+           #new_row=21,#new_col=50,#fine_row=48,#fine_col=48,#new_angle=ANGLE_EAST);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_BARREL2),
+           #new_row=20,#new_col=48,#fine_row=16,#fine_col=0,#new_angle=ANGLE_EAST);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_BARREL2),
+           #new_row=20,#new_col=30,#fine_row=32,#fine_col=32,#new_angle=ANGLE_EAST);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_BARREL2),
+           #new_row=20,#new_col=32,#fine_row=32,#fine_col=32,#new_angle=ANGLE_EAST);
+
+      propagate;
+   }
+
+   SetupBossTemplates()
+   {
+      // LEER lassen! Boss wird durch Trigger gespawnt, nicht automatisch
+      plBossTemplate = $;
+
+      return;
+   }
+
+   //////////////////////
+   // Monster death code
+   //////////////////////
+
+   BossKilledTrigger()
+   {
+      local i;
+
+      // Boss ist tot
+      pbBossSpawned = FALSE;
+
+      // Boss wurde getoetet - ALLE 5 Sektoren auf 1 SENKEN
+      Send(self,@SomethingWaveRoom,#wave_rsc=soulforge_door_sound);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR12,
+            #animation=ANIMATE_FLOOR_LIFT,
+            #height=DOOR12_DOWN,
+            #speed=DOOR_DOWN_SPEED);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3a,
+            #animation=ANIMATE_FLOOR_LIFT,
+            #height=DOOR3a_DOWN,
+            #speed=DOOR_DOWN_SPEED);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3b,
+            #animation=ANIMATE_FLOOR_LIFT,
+            #height=DOOR3b_DOWN,
+            #speed=DOOR_DOWN_SPEED);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3c,
+            #animation=ANIMATE_FLOOR_LIFT,
+            #height=DOOR3c_DOWN,
+            #speed=DOOR_DOWN_SPEED);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3d,
+            #animation=ANIMATE_FLOOR_LIFT,
+            #height=DOOR3d_DOWN,
+            #speed=DOOR_DOWN_SPEED);
+
+      // Setze Position-Variablen auf DOWN (wichtig!)
+      piDOOR12Position = DOOR12_DOWN;
+      piDOOR3aPosition = DOOR3a_DOWN;
+      piDOOR3bPosition = DOOR3b_DOWN;
+      piDOOR3cPosition = DOOR3c_DOWN;
+      piDOOR3dPosition = DOOR3d_DOWN;
+
+      // Starte 5-Minuten Timer (20000ms) - danach heben sich die Sektoren wieder
+      if ptSectorTimer <> $
+      {
+         DeleteTimer(ptSectorTimer);
+         ptSectorTimer = $;
+      }
+      ptSectorTimer = CreateTimer(self,@SectorAutoRaise,90000);
+
+      // Nachricht an alle Spieler
+      foreach i in plActive
+      {
+         Send(First(i),@MsgSendUser,#message_rsc=soulforge_boss_dead);
+      }
+
+      // 5-Minuten Warnung (sofortige Warnung im Moment des Boss-Todes)
+      foreach i in plActive
+      {
+         Send(First(i),@MsgSendUser,#message_rsc=soulforge_warning_5min);
+      }
+
+      propagate;
+   }
+
+   ////////////////////////
+   // Boss resetting code
+   ////////////////////////
+
+   ResetBoss()
+   {
+      // Setze alle Sektoren sofort auf Normalhoehe (UP)
+      Send(self,@SetSector,#sector=SECTOR_DOOR12,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR12_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR13,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR13_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3a,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3a_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3b,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3b_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3c,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3c_UP,
+            #speed=0);
+
+      Send(self,@SetSector,#sector=SECTOR_DOOR3d,
+            #animation=ANIMATE_CEILING_LIFT,
+            #height=DOOR3d_UP,
+            #speed=0);
+
+      // Setze Position-Variablen auf UP
+      piDOOR12Position = DOOR12_UP;
+      piDOOR13Position = DOOR13_UP;
+      piDOOR3aPosition = DOOR3a_UP;
+      piDOOR3bPosition = DOOR3b_UP;
+      piDOOR3cPosition = DOOR3c_UP;
+      piDOOR3dPosition = DOOR3d_UP;
+
+      // Loesche Sektor-Timer falls aktiv
+      if ptSectorTimer <> $
+      {
+         DeleteTimer(ptSectorTimer);
+         ptSectorTimer = $;
+      }
+
+      // Boss kann wieder gespawnt werden (durch Trigger)
+      pbBossSpawned = FALSE;
+      pbBossCanSpawn = TRUE;
+
+      // NICHT propagate - wir wollen KEINEN automatischen Boss-Spawn!
+      // Die Basisklasse wuerde den Boss sofort spawnen.
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

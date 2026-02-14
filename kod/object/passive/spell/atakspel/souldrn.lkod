@@ -1,0 +1,9 @@
+SoulDrain_name_rsc = de "Seelenentzug"
+SoulDrain_desc_rsc = de \
+   "Greift in die Seele des Ziels und reisst Fragmente der Lebensenergie "
+   "heraus, die dem Zaubernden zugefuehrt werden. "
+   "Benoetigt eine Holunderbeere."
+SoulDrain_death = de \
+   "Du reisst den letzten Fetzen von %s%s's Seele heraus."
+SoulDrain_health_gain = de \
+   "Dunkle Energie durchstroemt Dich und stellt ~g~B%i~B~n Lebenspunkte wieder her."

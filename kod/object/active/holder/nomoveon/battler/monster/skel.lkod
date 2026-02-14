@@ -1,0 +1,13 @@
+skeleton_koc_name_rsc = de "chaleoc"
+skeleton_name_rsc = de "Das Skelett"
+skeleton_desc_rsc = de \
+   "Nur wenige Brocken aus fauligem Fleisch haften an dieser Sammlung von "
+   "Knochen. Das Skelett, normalerweise leblos, ist von dunkler Magie mit "
+   "Leben erfüllt."
+skeleton_dead_name_rsc = de "Der Knochenhaufen"
+
+skeleton_name_rsc = pt "esqueleto"
+skeleton_desc_rsc = pt \
+      "Alguns pedaços de carne podre se agarram a esta coleção de "
+      "ossos. O esqueleto, embora sem vida, é animado por magias negras."
+skeleton_dead_name_rsc = pt "monte de ossos"

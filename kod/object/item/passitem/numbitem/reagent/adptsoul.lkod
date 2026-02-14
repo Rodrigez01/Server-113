@@ -1,0 +1,5 @@
+AdeptSoul_name_rsc = de "Adeptseelenstein"
+AdeptSoul_desc_rsc = de \
+   "Eine stabile Kugel spiritueller Energie, geerntet von einer "
+   "beachtlichen Kreatur. Sie leuchtet mit einem starken inneren Licht."
+AdeptSoul_name_plural_rsc = de "Adeptseelensteine"

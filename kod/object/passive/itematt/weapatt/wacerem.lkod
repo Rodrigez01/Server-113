@@ -1,0 +1,9 @@
+weapattcerem_desc = de \
+   "  Schön und reich verziert, ist diese Waffe für einen blutigen Kampf scheinbar "
+   "ungeeignet. Die Waffe verschafft aber einen %s Vorteil in Spielen und Turnieren."
+weapatt_ceremonial_name = de "Zeremoniell %s"
+ceremonial_dm = de "Zeremoniell"
+
+weapattcerem_desc = pt "\n\nBonito e ornamentado, esta arma é obviamente inadequada para combate sangrento, embora possa proporcionar uma %s em jogos e torneios."
+weapatt_ceremonial_name = pt "cerimonial %s"
+ceremonial_dm = pt "cerimonial"

@@ -1,0 +1,13 @@
+Kriipa_name_rsc = de "Die Kriipa"
+Kriipa_desc_rsc = de \
+   "Dieses storchenbeinige Geschöpf huscht durch die Baumkronen des Waldes "
+   "auf der Suche nach ahnungsloser Beute, zu der fast alles gehört, was "
+   "sich bewegt. Die Inselbesucher werden gewarnt, das, was über ihnen liegt, "
+   "vorsichtig im Auge zu behalten, da die tödlich grinsenden Eidechsen dafür "
+   "bekannt sind, einen erwachsenen Menschen mit einem einzigen Hieb ihrer "
+   "rasiermesserscharfen Klauen enthaupten zu können."
+kriipa_cant_attack = de "Die Kriipa ist außerhalb deiner Reichweite!"
+
+Kriipa_name_rsc = pt "kriipa"
+Kriipa_desc_rsc = pt "Esta criatura de pernas finas se arrasta ao longo do dossel da selva em busca de presas desprevenidas, que incluem praticamente tudo que se move. Os viajantes da ilha são avisados para ficarem atentos acima, pois os lagartos sorrateiros e mortais são conhecidos por decapitar um homem adulto com um único golpe de suas garras afiadas como punhais."
+kriipa_cant_attack = pt "O kriipa está fora do seu alcance!"

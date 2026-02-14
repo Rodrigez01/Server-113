@@ -1,0 +1,19 @@
+KocatanBowMaker_name_rsc = de "Hanla zax'Ta"
+KocatanBowMaker_desc_rsc = de \
+   "Diese schickliche, junge Frau erscheint neuen Gesichtern kalt und schroff. "
+   "Nichtsdestotrotz ist es offensichtlich, daß ihre wahre Leidenschaft der "
+   "Herstellung schöner Bogen gilt."
+KocatanBowMaker_KriipaClaw_sale = de \
+   "Ich habe Kriipa Krallen von Kriipas, die ich im Jungle getötet habe. "
+   "Die Kriipa ist eine wirklich furchterregende Bestie, und du weißt, dass "
+   "ein Jäger mit seinem BLut im Kampf für ihre Krallen bezahlen muss. Du "
+   "wirst daher verstehen, das mein Preis für die Krallen sehr hoch ist"
+KocatanBowMaker_unwanted_give = de \
+   "~k%s%s teilt dir mit, \"Ich habe genug vom dem Zeug, dass es uns durch "
+   "den Sommer bringt.~n~k\""
+
+KocatanBowMaker_name_rsc = pt "Hanla zax'Ta"
+KocatanBowMaker_desc_rsc = pt "Esta jovem e atraente mulher parece fria e brusca para os novos rostos. Apesar disso, é óbvio para todos que sua verdadeira paixão está na confecção de arcos finos."
+KocatanBowMaker_KriipaClaw_sale = pt "Tenho garras de vários Kriipa que matei na selva. O Kriipa é uma besta verdadeiramente temível, como você deve saber, e um caçador que deseja obter suas garras deve pagá-las com sangue derramado em batalha. Você entenderá, então, que meu preço por elas é alto."
+KocatanBowMaker_unwanted_give = pt "~k%s%s diz-lhe: \"Eu tenho o suficiente desse tipo de suprimentos para nos manter durante o verão.~n~k\""
+KocatanBowMaker_already_have_spell = pt "Você já tem conhecimento do feitiço %s. Você está desperdiçando meu tempo."

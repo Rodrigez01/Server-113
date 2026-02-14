@@ -1,0 +1,29 @@
+Melancholy_name_rsc = de "Traurigkeit"
+Melancholy_desc_rsc = de \
+   "Eine traurige Melodie, welche Gefühle von Verlust und Sehnsucht weckt. "
+   "Der Zuhörer wird von einer solchen Trauer und Leere erfasst, dass diese "
+   "nicht selten zu depressiven Stimmungen führen. Ein Lied, welches zu Beerdigungen "
+   "und dem Kampf gegen gute Mächte passt. Um ihre Wirkung zu entfalten, "
+   "wird ein Saphir benötigt. "
+Melancholy_cast = de "Du fängst an ein Trauriges Lied zu spielen."
+Melancholy_starts = de "%s%s beginnt einen Trauriges Lied zu spielen."
+Melancholy_ends = de "Das Lied der Traurigkeit, gespielt von %s%s verstummt."
+Melancholy_caster_ends = de "Das Lied der Traurigkeit verstummt."
+Melancholy_caster_enter = de \
+   "Dein Herz fühlt sich schwer an, du fühlst dich bereit für den Kampf gegen "
+   "die guten Mächte."
+Melancholy_enter = de \
+   "%s%s's Lied der Traurigkeit lässt dich dein Herz schwerer anfühlen, du "
+   "fühlst dich bereit für den Kampf gegen das Gute."
+Melancholy_leave = de \
+   "Du kannst das Lied der Traurigkeit, gesungen von %s%s, nicht mehr hören."
+
+Melancholy_name_rsc = pt "melancolia"
+Melancholy_desc_rsc = pt "Esta é uma canção triste, invocando sentimentos de perda e tristeza. Causa na maioria das pessoas que a ouvem uma tristeza avassaladora, frequentemente levando a humores sombrios. Esta música é apropriada para funerais e para lutar contra as forças do bem. Requer um safira para ser lançada."
+Melancholy_cast = pt "Você começa a tocar uma música melancólica."
+Melancholy_starts = pt "%s%s começa a tocar uma música melancólica."
+Melancholy_ends = pt "A música melancólica tocada por %s%s desaparece."
+Melancholy_caster_ends = pt "Sua música melancólica desaparece."
+Melancholy_caster_enter = pt "Seu coração se sente pesado."
+Melancholy_enter = pt "A música melancólica de %s%s faz seu coração se sentir pesado."
+Melancholy_leave = pt "Você não consegue mais ouvir as notas melancólicas da música de %s%s."

@@ -1,0 +1,106 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+Bunnykiller is QuestTemplate
+// Quest template QST_ID_BUNNYKILLER
+// Quest nodes: QNT_ID_BUNNYKILLER_1, QNT_ID_BUNNYKILLER_2
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   // Quest description.
+   bunnykiller_icon_rsc = carrot.bgf
+   bunnykiller_name_rsc = "Bunnykiller"
+   bunnykiller_desc_rsc = "Bunnykiller"
+
+
+   // Node 1 dialogs
+   bunnykiller_accept_1 = "ok move"
+   bunnykiller_assign_1 = "I have a task for you. Will you help me?"
+   // Node 2 dialogs
+   bunnykiller_success_2 = "thx a lot fuckin bunnykiller"
+
+classvars:
+
+   vrIcon = bunnykiller_icon_rsc
+   vrName = bunnykiller_name_rsc
+   vrDesc = bunnykiller_desc_rsc
+
+   // The QST_ID constant for this quest.
+   viQuestID = QST_ID_BUNNYKILLER
+
+properties:
+
+   piNumPlayers = 1
+   piPlayerRestrict = Q_PLAYER_NOTSUCCEEDED
+   piMaxPlayers = 30
+   piSchedulePct = 100
+
+messages:
+
+   Constructor()
+   {
+      // Quest node list to send to QuestEngine.
+      plQuestNodes = [QNT_ID_BUNNYKILLER_ONE, QNT_ID_BUNNYKILLER_TWO];
+
+      propagate;
+   }
+
+   SendQuestNodeTemplates()
+   {
+      local oQE;
+
+      oQE = Send(SYS,@GetQuestEngine);
+
+      // Template #1 - Bunnykiller
+      // QNT_ID_BUNNYKILLER_ONE
+      if Send(oQE,@AddQuestNodeTemplate,#questnode_type=QN_TYPE_SHOWUP,
+               #NPC_modifier=QN_NPCMOD_NONE,
+               #quest_node_index=QNT_ID_BUNNYKILLER_ONE)
+      {
+         Send(oQE,@SetQuestNodeNPCList,#index=QNT_ID_BUNNYKILLER_ONE,
+               #new_NPC_list=Send(Send(SYS,@GetLibrary),@GetOccupationList,
+                                    #cNPC_class=&RazaBanker));
+         Send(oQE,@SetQuestNodeAssignHint,#index=QNT_ID_BUNNYKILLER_ONE,
+               #new_hint=bunnykiller_assign_1);
+      }
+      else
+      {
+         Debug("Error building QN: QNT_ID_BUNNYKILLER_ONE");
+      }
+
+      // Template #2 - Bunnykiller
+      // QNT_ID_BUNNYKILLER_TWO
+      if Send(oQE,@AddQuestNodeTemplate,#questnode_type=QN_TYPE_MONSTER,
+               #NPC_modifier=QN_NPCMOD_SAME,
+               #monsterlist=[ &Bunny ],
+               #amount_needed=1,
+               #prizelist=[ [ QN_PRIZETYPE_SPELL, &SummonFog ], [ QN_PRIZETYPE_SPELL, &Light ], [ QN_PRIZETYPE_SPELL, &Meditate ], [ QN_PRIZETYPE_SPELL, &MysticTouch ], [ QN_PRIZETYPE_SPELL, &Sweep ], [ QN_PRIZETYPE_SPELL, &Zap ], [ QN_PRIZETYPE_SPELL, &BrambleWall ], [ QN_PRIZETYPE_SPELL, &IcyFingers ], [ QN_PRIZETYPE_SPELL, &ResistCold ], [ QN_PRIZETYPE_SPELL, &ResistFire ], [ QN_PRIZETYPE_SPELL, &TouchOfFlame ], [ QN_PRIZETYPE_SPELL, &Freezing ], [ QN_PRIZETYPE_SPELL, &Heat ], [ QN_PRIZETYPE_SPELL, &ManaFocus ], [ QN_PRIZETYPE_SPELL, &ResistShock ], [ QN_PRIZETYPE_SPELL, &ShockingFury ], [ QN_PRIZETYPE_SPELL, &SummonWeb ], [ QN_PRIZETYPE_SPELL, &Winds ], [ QN_PRIZETYPE_SPELL, &BlastOfFire ], [ QN_PRIZETYPE_SPELL, &Brittle ], [ QN_PRIZETYPE_SPELL, &ExplosiveFrost ], [ QN_PRIZETYPE_SPELL, &FireWall ], [ QN_PRIZETYPE_SPELL, &Fireball ], [ QN_PRIZETYPE_SPELL, &IceWall ], [ QN_PRIZETYPE_SPELL, &Iceshard ], [ QN_PRIZETYPE_SPELL, &Earthquake ], [ QN_PRIZETYPE_SPELL, &IceNova ], [ QN_PRIZETYPE_SPELL, &Lightning ], [ QN_PRIZETYPE_SPELL, &ManaShield ], [ QN_PRIZETYPE_SPELL, &RingOfFlames ], [ QN_PRIZETYPE_SPELL, &SandStorm ], [ QN_PRIZETYPE_SPELL, &Shatter ], [ QN_PRIZETYPE_SPELL, &FireStorm ], [ QN_PRIZETYPE_SPELL, &LightningWall ], [ QN_PRIZETYPE_SPELL, &SporeBurst ] ],
+               #quest_node_index=QNT_ID_BUNNYKILLER_TWO)
+      {
+         Send(oQE,@SetQuestNodeNPCList,#index=QNT_ID_BUNNYKILLER_TWO,
+               #new_NPC_list=Send(Send(SYS,@GetLibrary),@GetOccupationList,
+                                    #cNPC_class=&RazaBanker));
+         Send(oQE,@SetQuestNodeSuccessHint,#index=QNT_ID_BUNNYKILLER_TWO,
+               #new_hint=bunnykiller_success_2);
+      }
+      else
+      {
+         Debug("Error building QN: QNT_ID_BUNNYKILLER_TWO");
+      }
+
+      return;
+   }
+
+end
+/////////////////////////////////////////////////////////////////////////////////

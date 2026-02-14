@@ -1,0 +1,12 @@
+FarenCharm_name_rsc = de "Ein Medaillon aus Bronze"
+FarenCharm_desc_rsc = de \
+   "Diese Halskette besteht aus mehreren aneinander geschmiedeten, bronzenen "
+   "Medallions.In das größte der Medaillons wurde sorgfältig das Bild eines "
+   "Sturms eingraviert."
+FarenCharm_whisper = de \
+   "Eine Stimme flüstert, \"~I...der Meister des Windes muss seinem stärksten "
+   "Feind wiederstehen ... sich selbst...\""
+
+FarenCharm_name_rsc = pt "medalhão de latão"
+FarenCharm_desc_rsc = pt "Este colar é uma longa sequência de medalhões de latão cuidadosamente trabalhados juntos. No maior dos medalhões, a imagem de uma tempestade foi delicadamente gravada.\n\nEstatísticas de Bônus:\n+10 Resistência\n+4 Precisão\n\n"
+FarenCharm_whisper = pt "Uma voz sussurra, \"~Eu... o mestre da tempestade deve resistir ao seu inimigo mais forte... ele mesmo...\""

@@ -1,0 +1,58 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+CraftDaemonHelm is Crafting
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include cdaemhelm.lkod
+
+   CraftDaemonHelm_name_rsc = "craft daemon helm"
+   CraftDaemonHelm_icon_rsc = icraftdaemhelm.bgf
+   CraftDaemonHelm_desc_rsc = \
+      "Craft a daemon at goad's anvil with a blacksmith's hammer. "
+      "Requires 15 iron ingots and 20 leather. "
+
+   CraftDaemonHelmet_sound = kraanan.ogg
+
+classvars:
+
+   vrName = CraftDaemonHelm_name_rsc
+   vrIcon = CraftDaemonHelm_icon_rsc
+   vrDesc = CraftDaemonHelm_desc_rsc
+
+   viSpell_num = SID_CRAFTDAEMONHELM
+   viSpell_level = 6
+   viMeditate_ratio = 120
+   viSpellExertion = 5
+
+   vrGear   = &DaemonHelm
+   voTool   = &BlackSmithsHammer
+   viBench  = &GoadsAnvil
+
+properties:
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&IronIngot,15],plReagents);
+      plReagents = Cons([&Leather,20],plReagents);
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

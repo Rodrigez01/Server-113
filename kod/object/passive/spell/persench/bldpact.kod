@@ -1,0 +1,140 @@
+// Meridian 59 - Necromantie Spell School
+// Blood Pact (Blutpakt) - Level 5 Personal Enchantment
+// Sacrifice 15% HP for +30% damage for 10 seconds.
+
+
+////////////////////////////////////////////////////////////////////////////////
+BloodPact is PersonalEnchantment
+
+constants:
+
+   include blakston.khd
+
+   HEALTH_SACRIFICE_PCT = 15
+   DAMAGE_BONUS_PCT = 30
+   PACT_DURATION = 10000
+
+resources:
+
+   include bldpact.lkod
+
+   BloodPact_name_rsc = "blood pact"
+   BloodPact_icon_rsc = inecro15.bgf
+   BloodPact_desc_rsc = \
+      "Seals a pact in blood, sacrificing 15 percent of your health "
+      "to gain 30 percent increased damage for 10 seconds.  "
+      "Requires two shaman blood and one dark angel feather to cast."
+
+   BloodPact_enchantment_rsc = \
+      "\n\nYour current %s increases damage by %i percent."
+
+   BloodPact_already_enchanted_rsc = \
+      "You have already sealed a blood pact."
+   BloodPact_on_rsc = \
+      "Blood wells from your palms as dark power surges through you! "
+      "Your attacks are devastatingly powerful."
+   BloodPact_off_rsc = \
+      "The blood pact expires. Your power returns to normal."
+   BloodPact_success_rsc = \
+      "Blood streams from the hands of %s%s as dark power engulfs them."
+   BloodPact_sacrifice_rsc = \
+      "The blood pact demands sacrifice! You lose ~r~B%i~B~n health."
+
+   BloodPact_spell_intro = \
+      "Necromantie Lv. 5: Sacrifice health for greatly increased "
+      "damage output."
+
+classvars:
+
+   viPersonal_ench = True
+
+   vrName = BloodPact_name_rsc
+   vrIcon = BloodPact_icon_rsc
+   vrDesc = BloodPact_desc_rsc
+
+   vrAlreadyEnchanted = BloodPact_already_enchanted_rsc
+   vrEnchantment_On = BloodPact_On_rsc
+   vrEnchantment_Off = BloodPact_Off_rsc
+   vrSuccess = BloodPact_Success_rsc
+
+   viSpell_num = SID_BLOOD_PACT
+
+   vrSpell_intro = BloodPact_spell_intro
+
+   viMana = 18
+
+   viSpell_level = 5
+   viSchool = SS_NECROMANTIE
+
+   viChance_To_Increase = 10
+   viMeditate_ratio = 50
+
+   viFlash = FLASH_BAD
+
+   viHarmful = TRUE
+
+properties:
+
+   viPurgeFactor = 30
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&ShamanBlood,2],plReagents);
+      plReagents = Cons([&DarkAngelFeather,1],plReagents);
+
+      return;
+   }
+
+   GetStateValue(iSpellpower=$,who=$,target=$)
+   {
+      local iSacrifice;
+
+      Send(target,@AddAttackModifier,#what=self);
+
+      // Sacrifice 15% health on cast
+      iSacrifice = Send(target,@GetMaxHealth) * HEALTH_SACRIFICE_PCT / 100;
+      iSacrifice = Bound(iSacrifice,1,$);
+      Send(target,@LoseHealth,#amount=iSacrifice*100,#precision=TRUE);
+      Send(target,@MsgSendUser,#message_rsc=BloodPact_sacrifice_rsc,
+           #parm1=iSacrifice);
+
+      return iSpellpower;
+   }
+
+   GetDuration(iSpellPower=0)
+   {
+      // Fixed 10 second duration
+      return PACT_DURATION;
+   }
+
+   EndEnchantment(who=$,report=TRUE,state=0)
+   {
+      Send(who,@RemoveAttackModifier,#what=self);
+
+      propagate;
+   }
+
+   ModifyHitRoll(who=$,what=$,hit_roll=$)
+   {
+      return hit_roll;
+   }
+
+   ModifyDamage(who=$,what=$,damage=$)
+   {
+      // +30% damage
+      return (damage * (100 + DAMAGE_BONUS_PCT)) / 100;
+   }
+
+   EffectDesc(who=$)
+   {
+      AddPacket(4,BloodPact_enchantment_rsc, 4,Send(self,@GetName),
+                4,DAMAGE_BONUS_PCT);
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

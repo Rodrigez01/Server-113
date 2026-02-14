@@ -1,0 +1,169 @@
+// Meridian 59 - Necromantie Spell School
+// Soul Gorge - Level 1 Necromantie Heal Spell
+// Consumes a soul from inventory to heal 3-6 HP.
+// Priority: LesserSoul first, then AdeptSoul, then MasterSoul.
+
+
+////////////////////////////////////////////////////////////////////////////////
+SoulGorge is Heal
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include soulgrge.lkod
+
+   SoulGorge_name_rsc = "soul gorge"
+   SoulGorge_icon_rsc = inecro18.bgf
+   SoulGorge_desc_rsc = \
+      "Devours a soul from your possession, converting its spiritual "
+      "energy into healing.  Consumes the weakest available soul first.  "
+      "Requires no reagents, but you must carry at least one soul."
+
+   SoulGorge_cast_self = \
+      "You devour a soul and dark energy mends your wounds, restoring "
+      "~g~B%i~B~n hitpoints."
+   SoulGorge_no_soul_rsc = \
+      "You have no souls to devour."
+
+   SoulGorge_spell_intro = \
+      "Necromantie Lv. 1: Devours a harvested soul to restore health."
+
+classvars:
+
+   vrName = SoulGorge_name_rsc
+   vrIcon = SoulGorge_icon_rsc
+   vrDesc = SoulGorge_desc_rsc
+   vrCastSelf = SoulGorge_cast_self
+   vrSpell_intro = SoulGorge_spell_intro
+
+   viSpell_num = SID_SOUL_GORGE
+   viSchool = SS_NECROMANTIE
+   viSpell_level = 6
+   viMana = 3
+
+   viMeditate_ratio = 10
+
+   viFlash = FLASH_GOOD_SELF
+
+properties:
+
+messages:
+
+   ResetReagents()
+   {
+      // No standard reagents - we consume a soul manually.
+      plReagents = $;
+
+      return;
+   }
+
+   GetNumSpellTargets()
+   {
+      return 0;
+   }
+
+   FindSoulInInventory(who=$)
+   "Find the weakest soul in the caster's inventory."
+   {
+      local i, oSoul;
+
+      oSoul = $;
+
+      // Check for LesserSoul first (weakest)
+      foreach i in Send(who,@GetHolderPassive)
+      {
+         if IsClass(i,&LesserSoul)
+         {
+            return i;
+         }
+      }
+
+      // Then AdeptSoul
+      foreach i in Send(who,@GetHolderPassive)
+      {
+         if IsClass(i,&AdeptSoul)
+         {
+            return i;
+         }
+      }
+
+      // Then MasterSoul (strongest - last resort)
+      foreach i in Send(who,@GetHolderPassive)
+      {
+         if IsClass(i,&MasterSoul)
+         {
+            return i;
+         }
+      }
+
+      return $;
+   }
+
+   CanPayCosts(who=$,lTargets=$,bItemCast=FALSE)
+   {
+      local oSoul;
+
+      // Check if the player has a soul to consume
+      oSoul = Send(self,@FindSoulInInventory,#who=who);
+      if oSoul = $
+      {
+         if NOT bItemCast
+         {
+            Send(who,@MsgSendUser,#message_rsc=SoulGorge_no_soul_rsc);
+         }
+
+         return FALSE;
+      }
+
+      // Check health - don't heal if full
+      if Send(who,@GetHealth) >= Send(who,@GetMaxHealth)
+      {
+         if NOT bItemCast
+         {
+            Send(who,@MsgSendUser,#message_rsc=heal_unnecessary_rsc,
+                  #parm1=Send(who,@GetCapDef),
+                  #parm2=Send(who,@GetName));
+         }
+
+         return FALSE;
+      }
+
+      propagate;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellPower=0)
+   {
+      local oSoul, iHeal;
+
+      // Find and consume a soul
+      oSoul = Send(self,@FindSoulInInventory,#who=who);
+
+      if oSoul = $
+      {
+         Send(who,@MsgSendUser,#message_rsc=SoulGorge_no_soul_rsc);
+
+         return;
+      }
+
+      // Consume one soul
+      Send(oSoul,@SubtractNumber,#number=1);
+
+      // Heal 3-6 HP (300-600 in precision)
+      iHeal = Random(300,600);
+      iHeal = Send(who,@GainHealthNormal,#amount=iHeal,#precision=TRUE);
+
+      Send(who,@MsgSendUser,#message_rsc=vrCastSelf,#parm1=iHeal/100);
+
+      propagate;
+   }
+
+   GetHealAmount(oTarget=$,iSpellPower=1)
+   {
+      return Random(300,600);
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,10 @@
+snack_name_rsc = de "Der Genießbare Pilz"
+snack_desc_rsc = de \
+   "Diese großen, braunen Pilze stellen einen essbaren Verwandten der magischen "
+   "Varianten dar. Sie bieten einen gewissen Nährwert, dieser jedoch bleibt "
+   "mehr als fragwürdig."
+snack_name_plural_rsc = de "genießbare Pilze"
+
+snack_name_rsc = pt "cogumelo comestível"
+snack_desc_rsc = pt "Esses cogumelos grandes e acastanhados são primos comestíveis da variedade mais mágica. Eles fornecem algum sustento, embora seu valor nutricional seja questionável."
+snack_name_plural_rsc = pt "cogumelos comestíveis"

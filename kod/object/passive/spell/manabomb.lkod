@@ -1,0 +1,25 @@
+manabomb_name_rsc = de "Magische Bombe"
+manabomb_desc_rsc = de \
+   "Zündet eine weiße, heiße Explosion, welche die gesamte magische Kraft "
+   "des Zaubernden und die Hälfte der Kraft aller anderen im Raum verbrennt. "
+   "Der Zauber benötigt zwei Saphire. "
+manabomb_cast = de "%s%ss Zauberkraft explodiert mit ungeheurer Wucht!"
+manabomb_hit_some = de \
+   "Du fühlst, wie die magische Kraft Deinem Körper entzogen wird und "
+   "~b~B%i~B~n Mana unkontrolliert verbrennt."
+manabomb_hit_all = de \
+   "Deine gesamte magische Kraft verbrennt in einer magischen Kettenreaktion!"
+manabomb_took_some = de \
+   "%s%s schreit auf, als deine Magische Bombe%s$0 explodierte, und verliert ~b~B%i~B~n "
+   "Mana!"
+manabomb_took_all = de \
+   "%s%s schreit auf, als deine Magische Bombe explodierte, und hinterlässt "
+   "deinen Gegner ohne jegliches Mana!%s$0%s$0"
+
+manabomb_name_rsc = pt "bomba de mana"
+manabomb_desc_rsc = pt "Inicia uma explosão de calor branco que queima todo o mana do conjurador e consome metade desse valor de todos os outros na sala. Requer dois safiras para lançar."
+manabomb_cast = pt "O mana de %s%s explode violentamente!"
+manabomb_hit_some = pt "Você sente seu espírito sendo arrancado do seu corpo, queimando ~b~B%i~B~n de mana em uma reação em cadeia mágica."
+manabomb_hit_all = pt "Todo o seu mana queima em uma reação em cadeia mágica!"
+manabomb_took_some = pt "%s%s grita enquanto sua bomba de mana queima o espírito de %s, removendo ~b~B%i~B~n de mana!"
+manabomb_took_all = pt "%s%s grita enquanto sua bomba de mana queima o espírito de %s, deixando %s desprovido de mana!"

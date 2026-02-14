@@ -1,0 +1,14 @@
+testsword_name_rsc = de "Testschwert"
+testsword_desc_rsc = de \
+   "You're not sure how much damage you could actually do with this thing.\n\nUse "
+   "ChangeWeaponSkill to change the weapon to use another skill. SKID_PROFICIENCY_SWORD "
+   "is fencing (default), change to either AXE, HAMMER, MACE, SHORT_SWORD "
+   "or SCIMITAR as required.\n\nUse SetWeaponDamageType(what=$) to change the "
+   "weapon's damage type to that of the desired weapon, by sending the following "
+   "numbers:\nHammer and mace (bludgeon): 1\nSword (covers long and short; "
+   "thrust): 2\nScimitar, axe or riija sword (slash): 3\nNerudite (thrust and "
+   "nerudite dmg): 4\nMystic (thrust and magic dmg): 5\nOther options can be "
+   "edited in the object properties."
+
+testsword_name_rsc = pt "espada de teste"
+testsword_desc_rsc = pt "Você não tem certeza de quanto dano poderia realmente causar com isso.\n\nUse ChangeWeaponSkill para mudar a arma para usar outra habilidade. SKID_PROFICIENCY_SWORD é esgrima (padrão), mude para AXE, HAMMER, MACE, SHORT_SWORD ou SCIMITAR conforme necessário.\n\nUse SetWeaponDamageType(what=$) para mudar o tipo de dano da arma para o da arma desejada, enviando os seguintes números:\nMartelo e maça (contusão): 1\nEspada (cobrindo longa e curta; estocada): 2\nScimitar, machado ou espada de Riija (corte): 3\nNerudite (estocada e dano nerudita): 4\nMystic (estocada e dano mágico): 5\nOutras opções podem ser editadas nas propriedades do objeto."

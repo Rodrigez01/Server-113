@@ -1,0 +1,25 @@
+shadowAmulet_name_rsc = de "Das Schattenamulett"
+shadowAmulet_desc_rsc = de \
+   "Du kannst das Amulett nicht näher betrachten, da es selbst im Sonnenlicht "
+   "von Schatten umgeben ist."
+shadowAmulet_used_rsc = de \
+   "Als Du das Amulett umlegst, scheinen Dich Schatten zu umgeben. Du fühlst "
+   "Dich verwundbar und das Amulett fängt an, sich kalt anzufühlen... sehr, "
+   "sehr kalt..."
+shadowAmulet_try_unuse_rsc = de \
+   "Schmerzvolle Funken sprühen vom Amulett, als Du versuchst, es von Deinem "
+   "Hals abzunehmen!"
+shadowAmulet_unused_rsc = de \
+   "Ein Schwindelanfall überkommt Dich. Plötzlich merkst Du, dass sich das "
+   "Schattenamulett in Deiner Hand, nicht mehr um Deinen Hals befindet!"
+
+shadowAmulet_name_rsc = pt "Amuleto das Sombras"
+shadowamulet_desc_rsc = pt "Você não consegue dar uma boa olhada no amuleto. "
+                           "Sombras parecem grudar nele mesmo sob luz solar direta."
+shadowAmulet_used_rsc = pt "Ao colocar o amuleto, sombras parecem se reunir ao seu redor. "
+                           "Você se sente vulnerável ao mundo e o amuleto começa "
+                           "a ficar frio... muito, muito frio..."
+shadowAmulet_try_unuse_rsc = pt "Faíscas dolorosas voam do amuleto quando você tenta "
+                                 "removê-lo do seu pescoço!"
+shadowAmulet_unused_rsc = pt "Você sente uma onda de vertigem. De repente, você percebe que o "
+                               "Amuleto das Sombras está em suas mãos, não em volta do seu pescoço!"

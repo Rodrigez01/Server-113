@@ -1,0 +1,62 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+////////////////////////////////////////////////////////////////////////////////
+Pit is MonsterRoom
+constants:
+   include blakston.khd
+resources:
+   // include Pit.lkod
+   room_Pit = pit.roo
+   room_name_Pit ="The Pit"
+   Pit_music = forest.ogg
+  
+classvars:
+   vrName = room_name_Pit
+   viTeleport_row = 20
+   viTeleport_col = 50
+   viTerrain_type = TERRAIN_CAVES
+   viWeatherZone = WEATHER_ZONE_MARION
+
+properties:
+
+   prRoom = room_Pit
+   prMusic = Pit_music
+   piRoom_num = RID_Pit
+///////////////////////////////////////////////////////////////////////////////////////
+messages:
+
+    CreateStandardExits()
+   {
+   plExits = $;
+   
+	  plExits = $;
+   plExits = Cons([ 2, 41, RID_NECROAREA1, 14, 43, SET_ANGLE_EAST ],plExits);
+   plExits = Cons([ 1, 4, rid_Soulforge, 1, 1, SET_ANGLE_EAST ],plExits);
+   plExits = Cons([ 22, 11, rid_sl_haven, 1, 12, SET_ANGLE_EAST ],plExits);
+   
+   propagate;
+   }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+//  CreateStandardObjects()
+//  {
+//    Send(self,@NewHold,#what=Create(&ManaNode,#node_num=NODE_Pit),
+//         #new_row=20,#new_col=17,#fine_row=0,#fine_col=0);
+//        
+//   propagate;
+// }
+
+
+  
+
+end
+////////////////////////////////////////////////////////////////////////////////

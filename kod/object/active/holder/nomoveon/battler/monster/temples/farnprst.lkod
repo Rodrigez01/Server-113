@@ -1,0 +1,27 @@
+farenpriestess_name_rsc = de "Priesterin Tenuval"
+farenpriestess_desc_rsc = de \
+   "Die Haare ungekämmt und voll kaum unterdrückter Wut. Manche sagen, sie "
+   "sei auf der Schwelle zum Wahnsinn, andere meinen, daß sie eine fürchterliche "
+   "Bedrohung ist, die nur darauf wartet, wie ein wütender Sturm loszubrechen. "
+   "Sie verabscheut die Zivilisation und hat das Gefühl, daß die Menschen "
+   "zu ihren wilden Ursprüngen zurückkehren müssen."
+Faren_forget_potion_sale = de \
+   "~B~gDu hast dich dazu entschlossen Lord Faren zu vergessen? So soll es "
+   "sein, %s%s ist deins wenn du eins kaufen möchtest.  Beachte jedoch, die "
+   "die Kraft der Amnesie ist permanent.~n~k"
+faren_teach = de "Von Farens Feuer kannst du lernen %s%s%s%s%s%s%s%s%s%s%s%s "
+   "ab diesem Zirkel."
+
+farenpriestess_name_rsc = pt "Sacerdotisa Tenuv'vyal"
+farenpriestess_desc_rsc = pt \
+   "Cabelos desalinhados e raiva mal contida. Alguns dizem que ela está à "
+   "beira da loucura, outros dizem que é uma terrível ameaça esperando para "
+   "ser libertada como uma tempestade furiosa. Ela despreza a civilização e "
+   "acredita que os humanos devem voltar aos caminhos das selvas."
+Faren_forget_potion_sale = pt \
+   "~B~gVocê escolheu abandonar o Senhor Faren? Assim seja, %s%s é seu se "
+   "desejar comprar um. Cuidado, no entanto, os poderes do amnésico são "
+   "permanentes.~n~k"
+faren_teach = pt \
+   "Do fogo de Faren, você pode aprender %s%s%s%s%s%s%s%s%s%s%s%s "
+   "naquele nível."

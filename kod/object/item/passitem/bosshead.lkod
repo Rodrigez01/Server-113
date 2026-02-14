@@ -1,0 +1,12 @@
+OrcPitBossHead_name_rsc = de "Der Orkhäuptlingskopf"
+OrcPitBossHead_desc_rsc = de \
+   "Dieser riesengroße Schädel, der fast dreimal soviel wiegt wie ein menschlicher "
+   "Schädel und aus dem die Gehirnmasse heraussickert, fängt an, Fliegen "
+   "anzulocken. Allein der Gestank läßt Dir jeglichen Appetit vergehen, den "
+   "Du gehabt haben magst."
+
+OrcPitBossHead_name_rsc = pt "cabeça do chefe orc da arena"
+OrcPitBossHead_desc_rsc = pt \
+	"Quase três vezes o peso de uma cabeça humana, esta massa de crânio espesso "
+	"e cérebros em decomposição começa a atrair moscas. O mau cheiro por si só "
+	"interrompe qualquer apetite que você possa ter tido."

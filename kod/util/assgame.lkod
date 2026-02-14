@@ -1,0 +1,62 @@
+assgame_impact = de "~IDer schwarze Dolch zersplittert beim Aufprall!"
+assgame_blade_shivers = de \
+   "~IDer schwarze Dolch fröstelt beunruhigt in der Hand."
+assgame_Mail_reset = de \
+   "Es stellt sich heraus das der Mann den Du als Roq kennst, ein Betrüger "
+   "ist.  Natürlich wurde der Heuchler ermordet.  Eine neue Partie wird bald "
+   "erneut gestartet.\n\n-- Roq, die Dunkelklinge"
+assgame_winner = de \
+   "~B~U~k[###]~n ~B~v%s hat die Herausforderung der dunklen Klinge gewonnen"
+assgame_prize = de \
+   "~BDu wurdest für den Sieg des Meuchelmörder Spiels belohnt %s%s."
+assgame_go = de "~IDein Dolch umgibt ein unheimliches glühen.."
+assgame_urge = de "~IDu hast diesen Drang Roq besuchen zu wollen."
+assgame_mail_not_enough = de \
+   "Betreff: Du wurdes verstoßen\nDu wurdest vom Kreis der Meuchelmörder verstoßen, "
+   "da Du zu feige warst um Zeit aufzuwenden um teilzuhaben an dem Handlungsablauf.\n\n-- "
+   "Roq, die Dunkelklinge"
+assgame_mail_no_kills = de \
+   "Betreff: Ich erwarte mehr Action.\nZwei Tage sind vergangen ohne einen "
+   "Mord im Meuchelmörderspiel.  Sollte ein Dritter folgen, werde ich meine "
+   "Verachtung zeigen und das Spiel ohne einen Gewinner beenden.\n\n-- Roq, "
+   "die Dunkelklinge"
+AssGame_mail_disgrace = de \
+   "Betreff: Das Spiel endete mit einer Blamage.\nDie Schande steht Dir ins "
+   "Gesicht geschrieben.  Wegen mangelhafter Beteiligung, habe ich das Meuchelmörderspiel "
+   "beendet.  Niemand trägt den Mantel der Assassin Supreme.\n\n-- Roq, die "
+   "Dunkelklinge"
+AssGame_mail_winner = de \
+   "Betreff: Einer ragt vor allen Anderen heraus.\n%q hat die Herausforderung "
+   "der dunklen Klinge gewonnen.\n\n-- Roq, die Dunkelklinge"
+AssGame_roq = de "Roq, die Dunkelklinge"
+
+assgame_impact = pt "~I A adaga negra se despedaça ao impacto!"
+assgame_blade_shivers = pt "~I A adaga negra treme sinistramente em sua mão."
+assgame_Mail_reset = pt \
+   "Acontece que o homem que você conhecia como Roq era um impostor. Naturalmente, "
+   "o impostor foi assassinado. Uma nova partida começará em breve."
+   "\n\n"
+   "-- Roq, a Lâmina Sombria"
+assgame_winner = pt "~B~U~k[###]~n ~B~v%s venceu o desafio das lâminas negras."
+assgame_prize = pt \
+   "~BPor sua vitória no jogo dos assassinos, você foi premiado com %s%s."
+assgame_go = pt "~I Sua adaga ganha um brilho sobrenatural ao seu redor."
+assgame_urge = pt "~I Você sente uma vontade de ir visitar Roq."
+assgame_mail_not_enough = pt "Assunto: Você foi expulso.\n"
+   "Você foi expulso do Círculo dos Assassinos, pois parece covarde demais "
+   "para gastar tempo neste mundo e participar dos eventos."
+   "\n\n-- Roq, a Lâmina Sombria"
+assgame_mail_no_kills = pt "Assunto: Espero mais ação em breve.\n"
+   "Dois dias se passaram sem um assassinato no Jogo dos Assassinos. "
+   "Se um terceiro passar, mostrarei meu desprezo encerrando o "
+   "jogo sem declarar um vencedor."
+   "\n\n-- Roq, a Lâmina Sombria"
+AssGame_mail_disgrace = pt "Assunto: O jogo termina em desgraça.\n"
+   "Conheça o rosto de sua própria desgraça. Por falta de ação, "
+   "terminei o Jogo dos Assassinos. Ninguém veste o manto de "
+   "Assassino Supremo."
+   "\n\n-- Roq, a Lâmina Sombria"
+AssGame_mail_winner = pt "Assunto: Um se destacou entre os outros.\n"
+   "%q venceu o desafio das lâminas sombrias."
+   "\n\n-- Roq, a Lâmina Sombria"
+AssGame_roq = pt "Roq, a Lâmina Sombria"

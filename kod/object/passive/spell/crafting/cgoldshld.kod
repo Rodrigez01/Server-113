@@ -1,0 +1,58 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+CraftGoldShield is Crafting
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include cgoldshld.lkod
+
+   CraftGoldShield_name_rsc = "craft gold round shield"
+   CraftGoldShield_icon_rsc = icraftgoldshld.bgf
+   CraftGoldShield_desc_rsc = \
+      "Craft a gold round shield at a anvil with a blacksmith's hammer. "
+      "Requires 10 iron ingots and 5 lumber. "
+
+   CraftGoldShield_sound = kraanan.ogg
+
+classvars:
+
+   vrName = CraftGoldShield_name_rsc
+   vrIcon = CraftGoldShield_icon_rsc
+   vrDesc = CraftGoldShield_desc_rsc
+
+   viSpell_num = SID_CRAFTGOLDSHIELD
+   viSpell_level = 4
+   viMeditate_ratio = 80
+   viSpellExertion = 5
+
+   vrGear = &GoldShield
+   voTool = &BlackSmithsHammer
+   viBench  = &CraftingAnvil
+
+properties:
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&IronIngot,10],plReagents);
+      plReagents = Cons([&Lumber,5],plReagents);
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

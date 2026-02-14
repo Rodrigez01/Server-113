@@ -1,0 +1,14 @@
+BarloqueBartender_name_rsc = de "Meidei"
+BarloqueBartender_desc_rsc = de \
+   "Meidei ist ein lustiger Geselle mit kräftigen Armen und standfestem Trinkvermögen"
+BaBar_entry_welcome = de \
+   "Hail %s%s, und willkommen in meiner bescheidenen Kneipe!  Shal'ill sei "
+   "gepriesen!"
+BaBar_unwanted_keep = de \
+   "~k%s%s teilt dir mit, \"Ich danke dir für dein Angebot.  ich werde es "
+   "an die Armen und Bedürftigen verteilen.~n~k\""
+
+BarloqueBartender_name_rsc = pt "Meidei"
+BarloqueBartender_desc_rsc = pt "Em tempos passados, Meidei só servia os ricos ou aqueles que davam gorjeta generosa, até recentemente quando ele \"encontrou\" Shal'ille. Agora um crente fervoroso, ele quase afasta seus próprios clientes de sua cerveja."
+BaBar_entry_welcome = pt "Salve %s%s, e bem-vindo ao meu humilde taverna! Louvado seja Shal'ille!"
+BaBar_unwanted_keep = pt "~k%s%s te diz, \"Agradeço pela tua oferta. Vou distribuí-la aos pobres e necessitados.~n~k\""

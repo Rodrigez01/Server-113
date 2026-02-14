@@ -1,0 +1,24 @@
+fire_name_rsc = de "Zielen"
+fire_desc_rsc = de \
+   "Zielen ist die grundlegendste Technik, um eine Schusswaffe abzufeuern. "
+   "Es ist nicht sehr schwer zu lernen, doch nur die, die es ernsthaft betreiben, "
+   "werden diese Fertigkeit meistern."
+fire_only_missile_weapon = de \
+   "Du kannst Zielen nur in Verbindung mit einem Bogen anwenden."
+fire_need_weapon = de \
+   "Du musst einen Bogen in den Händen halten, um damit auf jemanden zu schießen."
+fire_wrong_ammo = de "%s%s benötigt noch die passende Munition."
+fire_new_ammo = de \
+   "Du greifst nach einem Deiner Pfeile und spannst Deinen Bogen.%s$0"
+fire_skill_intro = de \
+   "Waffenfertigkeit Zirkel 3: Der Schlüssel, um alle Fernwaffen zu beherrschen."
+fire_no_ammo = de "Du hast keine Munition für diese Waffe!"
+
+fire_name_rsc = pt "fogo"
+fire_desc_rsc = pt "O fogo é a técnica mais básica usada para disparar uma arma de mísseis. Não é muito difícil de aprender, mas apenas aqueles com boa mira serão capazes de dominar essa habilidade."
+fire_only_missile_weapon = pt "Você só pode usar a habilidade 'fogo' com uma arma de mísseis em mãos."
+fire_need_weapon = pt "Você deve ter uma arma de mísseis em mãos para 'disparar' contra alguém."
+fire_wrong_ammo = pt "Você não tem a munição adequada equipada para usar com %s%s."
+fire_new_ammo = pt "Você alcança sua %s e coloca uma flecha para um tiro."
+fire_skill_intro = pt "Artesanato de Armas Nv. 4: Chave para dominar qualquer tipo de arma de mísseis."
+fire_no_ammo = pt "Você não tem munição pronta para esta arma!"

@@ -1,0 +1,34 @@
+frozjewel_name_rsc = de "Das Juwel von Froz"
+frozjewel_desc_rsc = de \
+   "Der Edelstein wurde vom großen Alchemisten Froz auf geheime Weise erschaffen, "
+   "die nur ihm selbst bekannt ist. Gerüchte besagen, dass er mystische Agressionen "
+   "kanalisieren kann, um mit rohem Mana elementare Griffzauber zu verstärken. "
+   "Deine Hand beginnt zu kribbeln als du ihn anfasst."
+jof_condition_exc = de " ist in einem einwandfreiem Zustand."
+jof_condition_good = de " ist leicht zerkratzt."
+jof_condition_med = de " ist zerkratzt und leuchtet schwacher."
+jof_condition_poor = de " ist stark zerkratzt und leuchtet kaum noch."
+frozjewel_desc_broken_rsc = de \
+   "Das Juwel wirkt sehr gewöhnlich und ist glanzlos."
+frozjewel_broken = de \
+   "Das Juwel von Froz macht jetzt einen sehr gewöhnlichen Eindruck."
+frozjewel_recharge_rsc = de \
+   "Dein Juwel von Froz gewinnt an Stärke aus der Lebenskraft deines "
+   "getöteten Feindes."
+
+frozjewel_name_rsc = pt "Jóia de Froz"
+frozjewel_desc_rsc = pt \
+   "Este gem foi criado pelo grande alquimista, Froz, em um processo secreto " 
+   "conhecido apenas por ele. Rumores dizem que é um condutor para agressão mística, " 
+   "usando mana bruta para aumentar os feitiços de toque elemental. " 
+   "Sua mão dá formigamento quando você o segura."
+jof_condition_exc = pt " está em condição imaculada."
+jof_condition_good = pt " está levemente arranhado."
+jof_condition_med = pt \
+   " está moderadamente arranhado e parece ligeiramente opaco."
+jof_condition_poor = pt \
+   " está bastante arranhado e parece estar perdendo seu brilho."
+frozjewel_desc_broken_rsc = pt "A jóia parece comum e sem brilho."
+frozjewel_broken = pt "A Jóia de Froz agora parece bastante comum."
+frozjewel_recharge_rsc = pt \
+   "Sua Jóia de Froz ganha força a partir da força vital de seu inimigo morto."

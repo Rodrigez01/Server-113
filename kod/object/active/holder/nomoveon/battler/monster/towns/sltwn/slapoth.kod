@@ -1,0 +1,99 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Brennar Kraeuterfaust - Apotheker in Silver Light Haven
+////////////////////////////////////////////////////////////////////////////////
+SLApothecary is SLTown
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include slapoth.lkod
+
+   slapothecary_name_rsc = "Brennar"
+   slapothecary_icon_rsc = Brennar.bgf
+   slapothecary_desc_rsc = \
+      "An elderly, weather-beaten man with deep wrinkles and a greenish-tinted "
+      "leather apron covered in many glass ampoules. His eyes sparkle with "
+      "knowing wisdom, surrounded by herbs and small vials. Brennar has spent "
+      "decades mastering the art of potion brewing and herbal remedies."
+
+   SLAp_entry_welcome = "Welcome, traveler. Looking for remedies or perhaps some rare reagents?"
+   SLAp_unwanted_give = \
+      "~k%s%s tells you, \"I have no use for this. Perhaps you should try "
+      "another merchant.~n~k\""
+
+classvars:
+
+   vrName = slapothecary_name_rsc
+   vrIcon = slapothecary_icon_rsc
+   vrDesc = slapothecary_desc_rsc
+   viMerchant_markup = MERCHANT_DISCOUNT
+   viAttributes = \
+      MOB_NOFIGHT | MOB_TEACHER | MOB_NOMOVE | MOB_RANDOM | \
+      MOB_LISTEN | MOB_BUYER | MOB_SELLER | MOB_LAWFUL | MOB_COND_SELLER
+   viOccupation = MOB_ROLE_APOTHECARY
+
+   vrUnwanted_give = SLAp_unwanted_give
+
+properties:
+
+messages:
+
+   ObjectDesired(what=$)
+   {
+      if Send(self,@IsObjectReagent,#what=what)
+         AND NOT Send(self,@IsObjectGem,#what=what)
+      {
+         return TRUE;
+      }
+
+      return FALSE;
+   }
+
+   SetForSale()
+   {
+      plFor_sale = [
+         [
+            Create(&RemoveCursePotion,#labelled=TRUE),
+            Create(&CurePoisonPotion,#labelled=TRUE),
+            Create(&CureDiseasePotion,#labelled=TRUE),
+            Create(&Torch),
+            Create(&BlueMushroom,#number=4),
+            Create(&RedMushroom,#number=4),
+            Create(&Mushroom,#number=5),
+            Create(&Elderberry,#number=4),
+            Create(&Herbs,#number=5),
+            Create(&Flask),
+            Create(&Solagh,#number=2)
+         ],
+         $,
+         [
+            SID_HOSPICE,
+            SID_MINOR_HEAL
+         ],
+      $];
+
+      return;
+   }
+
+   UserEntered(who=$)
+   {
+      Post(who,@SomeoneSaid,#what=self,#string=SLAp_entry_welcome,
+              #type = SAY_RESOURCE);
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

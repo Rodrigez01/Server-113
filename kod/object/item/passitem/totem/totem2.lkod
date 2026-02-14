@@ -1,0 +1,15 @@
+TotemTwo_name_rsc = de "Die Goldene Urne"
+TotemTwo_desc_rsc = de \
+   "Die Urne, die während des Baus des Palastes der dunklen Prinzessin Venya'cyr "
+   "ausgegraben wurde, ging schnell als wertvoller Schatz in ihren Besitz "
+   "über. Alte Gerüchte behaupten, die Urne sei verflucht. Diejenigen, die "
+   "dieses unbezahlbare Relikt schufen, sind unbekannt, doch sicherlich lebten "
+   "sie noch vor den Meridianischen Siedlern. Eine ungewöhnliche Präsenz "
+   "bewahrte dieses Objekt davor, in einer Kiste verwahrt oder lange behalten "
+   "zu werden."
+
+TotemTwo_name_rsc = pt "Urna de Ouro"
+TotemTwo_desc_rsc = pt "Escavada durante a construção do palácio da sombria Princesa Venya'cyr, a Urna "
+    "rapidamente caiu em sua posse como um tesouro valioso. Rumores antigos sugerem que a Urna é amaldiçoada. "
+    "A maestria artesanal desta relíquia inestimável vem de origens desconhecidas, certamente anteriores aos colonizadores "
+    "da Meridian. Uma presença incomum impede que este objeto seja guardado em um baú ou mantido por muito tempo."

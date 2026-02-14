@@ -1,0 +1,176 @@
+// Meridian 59 - Necromantie Spell School
+// Soul Annihilation (Seelenvernichtung) - Level 6 Attack Spell
+// Extreme single target nuke. Consumes ALL soul fragments.
+// More damage per fragment consumed.
+
+
+////////////////////////////////////////////////////////////////////////////////
+SoulAnnihilation is AttackSpell
+
+constants:
+
+   include blakston.khd
+
+   DAMAGE_PER_FRAGMENT = 500
+
+resources:
+
+   include solannih.lkod
+
+   SoulAnnihilation_name_rsc = "soul annihilation"
+   SoulAnnihilation_icon_rsc = inecro11.bgf
+   SoulAnnihilation_desc_rsc = \
+      "Channels every collected soul fragment into a devastating "
+      "blast of necrotic energy. Damage increases with each "
+      "fragment consumed. Consumes ALL soul fragments.  "
+      "Requires at least one soul fragment."
+
+   SoulAnnihilation_death = \
+      "The annihilating wave of soul energy obliterates %s%s."
+   SoulAnnihilation_no_soul_rsc = \
+      "You have no soul fragments to fuel annihilation."
+   SoulAnnihilation_consume_rsc = \
+      "You channel %i soul fragments into a devastating blast!"
+
+   SoulAnnihilation_sound = qor.ogg
+   SoulAnnihilation_proj_rsc = blindring.bgf
+
+classvars:
+
+   vrName = SoulAnnihilation_name_rsc
+   vrIcon = SoulAnnihilation_icon_rsc
+   vrDesc = SoulAnnihilation_desc_rsc
+
+   viSchool = SS_NECROMANTIE
+   viSpell_num = SID_SOUL_ANNIHILATION
+
+   viSpell_level = 6
+   viMana = 20
+   viSpellExertion = 4
+
+   viAttack_spell = ATCK_SPELL_ALL + ATCK_SPELL_UNHOLY
+
+   vrSucceed_wav = SoulAnnihilation_sound
+   vrProjectile_icon = SoulAnnihilation_proj_rsc
+
+   viPostCast_time = 4
+
+   viChance_To_Increase = 5
+   viMeditate_ratio = 60
+
+properties:
+
+   piDamageMin = 5
+   piDamageMax = 10
+
+   piRange = 6 * FINENESS
+
+   // Stored fragment count from last cast for damage calculation
+   piFragmentsConsumed = 0
+
+messages:
+
+   ResetReagents()
+   {
+      // No standard reagents - consumes all soul fragments
+      plReagents = $;
+
+      return;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellPower=0)
+   {
+      local i, iSoulCount, oOwner, oTarget;
+
+      oTarget = First(lTargets);
+      oOwner = Send(who,@GetOwner);
+
+      if oOwner <> $
+      {
+         Send(oOwner,@SomethingShot,#who=who,#target=oTarget,#projectile=self);
+      }
+
+      // Count and consume ALL soul fragments
+      iSoulCount = 0;
+      foreach i in Send(who,@GetHolderPassive)
+      {
+         if IsClass(i,&LesserSoul)
+            OR IsClass(i,&AdeptSoul)
+            OR IsClass(i,&MasterSoul)
+         {
+            iSoulCount = iSoulCount + Send(i,@GetNumber);
+            Send(i,@SubtractNumber,#number=Send(i,@GetNumber));
+         }
+      }
+
+      piFragmentsConsumed = iSoulCount;
+
+      Send(who,@MsgSendUser,#message_rsc=SoulAnnihilation_consume_rsc,
+           #parm1=iSoulCount);
+
+      propagate;
+   }
+
+   CanPayCosts(who=$,lTargets=$,bItemCast=FALSE)
+   {
+      local i, iSoulCount;
+
+      iSoulCount = 0;
+      foreach i in Send(who,@GetHolderPassive)
+      {
+         if IsClass(i,&LesserSoul)
+            OR IsClass(i,&AdeptSoul)
+            OR IsClass(i,&MasterSoul)
+         {
+            iSoulCount = iSoulCount + Send(i,@GetNumber);
+         }
+      }
+
+      if iSoulCount < 1
+      {
+         Send(who,@MsgSendUser,#message_rsc=SoulAnnihilation_no_soul_rsc);
+
+         return FALSE;
+      }
+
+      propagate;
+   }
+
+   GetBaseDamage(who=$,iSpellpower=0)
+   {
+      local iDamage;
+
+      // Base damage + DAMAGE_PER_FRAGMENT per soul consumed
+      iDamage = Random(piDamageMin*100,piDamageMax*100);
+      iDamage = iDamage + (piFragmentsConsumed * DAMAGE_PER_FRAGMENT);
+
+      return iDamage;
+   }
+
+   SendLookAnimation()
+   {
+      AddPacket(1,ANIMATE_NONE, 2,2);
+
+      return;
+   }
+
+   SendProjectileAnimation()
+   {
+      // 40ms between animations, between frames 1-2
+      AddPacket(1,ANIMATE_CYCLE, 4,80, 2,1, 2,6);
+
+      return;
+   }
+
+   GetProjectileIcon()
+   {
+      return vrProjectile_Icon;
+   }
+
+   GetProjectileSpeed()
+   {
+      return 10;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

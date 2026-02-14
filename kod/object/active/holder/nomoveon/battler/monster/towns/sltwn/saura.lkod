@@ -1,0 +1,10 @@
+Saura_name_rsc = de "Saura"
+Saura_desc_rsc = de \
+   "Eine freundliche Verkaeuferin mit warmen Mahlzeiten und frischem Brot."
+Saura_entry_welcome = de "Hunger? Ich habe etwas Warmes fuer dich."
+Saura_unwanted_keep = de \
+   "~k%s%s sagt dir, \"Danke, aber das kann ich nicht gebrauchen.\"~n~k"
+Saura_unwanted_pay = de \
+   "~k%s%s sagt dir, \"Dafuer kann ich dir etwas zahlen.\"~n~k"
+Saura_unwanted_give = de \
+   "~k%s%s sagt dir, \"Das kaufe ich nicht.\"~n~k"

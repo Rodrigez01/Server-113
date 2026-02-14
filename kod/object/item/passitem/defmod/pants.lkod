@@ -1,0 +1,23 @@
+pants_name_rsc = de "Die Hose"
+pants_desc_rsc = de \
+   "Diese Hose ist ein attraktives Kleidungsstück, schützt Dich aber kaum "
+   "bei Angriffen."
+pants_condition_exc = de " ist in makellosem Zustand."
+pants_condition_exc_mended = de \
+   " ist in makellosem Zustand, wurde allerdings bereits repariert."
+pants_condition_good = de " ist leicht abgetragen."
+pants_condition_med = de " hat ein paar Risse."
+pants_condition_poor = de \
+   " besteht nur noch aus Fetzen und hält kaum noch zusammen."
+pants_condition_broken = de \
+   " ist mit Dreck bedeckt und zerrissen, so dass man sie nicht mehr benutzen "
+   "kann."
+
+pants_name_rsc = pt "calças"
+pants_desc_rsc = pt "Estas calças cobrirão suas pernas, mas não ajudarão muito em termos de proteção."
+pants_condition_exc = pt " estão em condição imaculada."
+pants_condition_exc_mended = pt " estão em excelente condição, mas já foram remendadas antes."
+pants_condition_good = pt " estão arranhadas e ligeiramente desgastadas."
+pants_condition_med = pt " têm alguns rasgos desagradáveis."
+pants_condition_poor = pt " estão em farrapos e mal se seguram."
+pants_condition_broken = pt " estão cobertas de sujeira e rasgadas além de serem utilizáveis."

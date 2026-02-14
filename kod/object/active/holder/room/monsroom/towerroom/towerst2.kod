@@ -1,0 +1,75 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 2 - HALL OF WARRIORS
+// Typ: Standard Boss Fight
+////////////////////////////////////////////////////////////////////////////////
+TowerSt2 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   room_towerst2 = st2.roo
+   room_name_towerst2 = "Tower of Quests - Hall of Warriors"
+
+   towerst2_boss_spawn = "~r~BEin maechtiger Waechter erwacht!"
+
+classvars:
+
+   vrName = room_name_towerst2
+
+   viTeleport_row = 50
+   viTeleport_col = 102
+
+properties:
+
+   prRoom = room_towerst2
+   piRoom_num = RID_TOWER_ST2
+
+   piNextFloor = RID_TOWER_ST3
+   piPrevFloor = RID_TOWER_ST1
+
+   // Boss System
+   pbBossSpawned = FALSE
+   pbBossCanSpawn = TRUE
+   poBoss = $
+
+messages:
+
+   Constructed()
+   {
+      // Standard Monster (vor Boss)
+      plMonsters = [ [&Skeleton, 100] ];
+      plGenerators = [ [8,8], [8,12], [12,10] ];
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      // Treppe runter zu Stockwerk 1
+      plExits = Cons([ 2, 10, RID_TOWER_ST1, 15, 10, ROTATE_NONE ],plExits);
+
+      // Treppe hoch zu Stockwerk 3 (nur wenn Boss tot)
+      plExits = Cons([ 18, 10, RID_TOWER_ST3, 5, 10, ROTATE_NONE ],plExits);
+
+      propagate;
+   }
+
+   // Boss Trigger - TODO: Implementieren
+   // SomethingKilled(), BossKilledTrigger(), etc.
+
+end
+////////////////////////////////////////////////////////////////////////////////

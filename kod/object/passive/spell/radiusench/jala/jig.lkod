@@ -1,0 +1,31 @@
+jig_name_rsc = de "Zwingtanz"
+jig_desc_rsc = de \
+   "Dieser Zauber bringt jeden Anwesenden dazu, wie wild loszutanzen und "
+   "ist ein riesen Spaß auf Festen. Man benötigt einen Diamanten, um dieses Magische "
+   "Lied zu singen."
+Jig_cast = de "Du beginnst ein überwältigend süchtig machendes Lied zu spielen!"
+Jig_starts = de \
+   "%s%s beginnt ein überwältigendes süchtig machendes Lied zu spielen!"
+Jig_ends = de \
+   "Das Liedchen, gespielt von %s%s endet mit einem fröhlichen Ton zum Abschluss."
+Jig_caster_ends = de "Du hörst auf, deinen Zwingtanz zu spielen."
+Jig_caster_enter = de \
+   "Du fühlst dich gezwungen, nach deiner eigenen Nase zu tanzen!"
+Jig_enter = de \
+   "Als %s%ss auf Deine Ohren trifft, bist du einfach dazu gewungen zu tanzen!"
+Jig_leave = de \
+   "Du bist außerhalb des Bereichs von %s%ss Song, und verlierst den Drang "
+   "zu tanzen."
+Jig_cannot_do_that = de \
+   "Du kannst das nicht tun, solange Du nach %s%ss Song tanzt!"
+
+jig_name_rsc = pt "dança"
+jig_desc_rsc = pt "Este feitiço faz com que todos na sala comecem a dançar e é muito divertido em festas. Requer um diamante para lançar."
+Jig_cast = pt "Você começa a tocar uma melodia extremamente viciante!"
+Jig_starts = pt "%s%s começa a tocar uma melodia extremamente viciante!"
+Jig_ends = pt "A melodia tocada por %s%s termina com uma nota alta e alegre final."
+Jig_caster_ends = pt "Você para de tocar sua pequena dança."
+Jig_caster_enter = pt "Você se sente compelido a dançar ao som de sua própria música!"
+Jig_enter = pt "Quando a música de %s%s atinge seus ouvidos, você se sente compelido a dançar!"
+Jig_leave = pt "Você saiu do alcance da música de %s%s, você perde sua compulsão para dançar."
+Jig_cannot_do_that = pt "Você não pode fazer isso enquanto dança ao som da música de %s%s!"

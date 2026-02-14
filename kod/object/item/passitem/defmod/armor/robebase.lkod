@@ -1,0 +1,24 @@
+robe_name_rsc = de "Die Robe"
+robe_desc_rsc = de \
+   "Schwer und warm, wie sie sind, verraten diese langen Roben im allgemeinen, "
+   "dass sich ihre Träger der hohen Kunst des Wissens, der Zauberei oder "
+   "der Religion widmen."
+robe_condition_exc = de " ist in makellosem Zustand."
+robe_condition_exc_mended = de \
+   " sind in einem perfektem Zustand, wurden aber bereits repariert"
+robe_condition_good = de " ist leicht abgetragen."
+robe_condition_med = de " hat ein paar Risse."
+robe_condition_poor = de \
+   " besteht nur noch aus Fetzen und hält kaum noch zusammen."
+robe_condition_broken = de \
+   " ist mit Dreck bedeckt und zerrissen, so dass man sie nicht mehr benutzen "
+   "kann."
+
+robe_name_rsc = pt "túnica"
+robe_desc_rsc = pt "Pesadas e quentes, essas túnicas de comprimento total geralmente denotam a dedicação de alguém às artes superiores do conhecimento, magia ou religião."
+robe_condition_exc = pt "estão em condição imaculada."
+robe_condition_exc_mended = pt "estão em excelente estado, mas foram remendadas anteriormente."
+robe_condition_good = pt "estão desgastadas e levemente gastas."
+robe_condition_med = pt "têm alguns rasgos feios."
+robe_condition_poor = pt "estão em farrapos e mal conseguem se manter juntas."
+robe_condition_broken = pt "estão cobertas de sujeira e rasgadas além do uso."

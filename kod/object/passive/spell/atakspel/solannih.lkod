@@ -1,0 +1,12 @@
+SoulAnnihilation_name_rsc = de "Seelenvernichtung"
+SoulAnnihilation_desc_rsc = de \
+   "Leitet jedes gesammelte Seelenfragment in einen verheerenden "
+   "Stoss nekrotischer Energie. Der Schaden steigt mit jedem "
+   "verbrauchten Fragment. Verbraucht ALLE Seelenfragmente. "
+   "Benoetigt mindestens ein Seelenfragment."
+SoulAnnihilation_death = de \
+   "Die vernichtende Welle der Seelenenergie pulverisiert %s%s."
+SoulAnnihilation_no_soul_rsc = de \
+   "Du hast keine Seelenfragmente fuer die Vernichtung."
+SoulAnnihilation_consume_rsc = de \
+   "Du leitest %i Seelenfragmente in einen verheerenden Stoss!"

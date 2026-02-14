@@ -1,0 +1,27 @@
+winds_name_rsc = de "Sturm"
+winds_desc_rsc = de \
+   "Ruft kraftvolle Winde hervor, die Angriffe aus der Ferne für einige Minuten "
+   "erschweren. Der Zauber benötigt drei Holunderbeeren und einen lila Pilz."
+winds_already_enchanted = de "Magischer Winde sind bereits aktiv."
+winds_on = de \
+   "Heftige Winde erscheinen plötzlich in der Gegend und werfen sich gegen "
+   "deine Gliedmaßen."
+winds_off = de "Der Wind wird weniger bis er verschwindet."
+winds_new_entrant = de \
+   "Heftige Winde erscheinen plötzlich in der Gegend und werfen sich gegen "
+   "deine Gliedmaßen."
+winds_miss_rsc = de "Der heftige Wind bläst deinen Schuss fort."
+winds_spell_intro = de \
+   "Faren Level 3: Ruft kraftvolle Winde hervor, die Angriffe aus der Ferne "
+   "für einige Minuten erschweren. "
+
+winds_name_rsc = pt "ventos"
+winds_desc_rsc = pt \
+   "Invoca ventos poderosos que tornam os ataques à distância mais difíceis por vários minutos. Requer três sabugueiros e um cogumelo roxo para ser lançado."
+winds_already_enchanted = pt "Ventos mágicos já estão presentes."
+winds_on = pt "Ventos violentos varrem repentinamente a área e agitam seus membros."
+winds_off = pt "Os ventos diminuem e então cessam."
+winds_new_entrant = pt "Ventos violentos varrem a área e agitam seus membros."
+winds_miss_rsc = pt "Os ventos poderosos desviam seu tiro."
+winds_spell_intro = pt \
+   "Nível 3 de Faren: Invoca ventos violentos, tornando o combate à distância menos eficaz."

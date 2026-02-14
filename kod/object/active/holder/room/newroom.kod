@@ -1,0 +1,70 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+NewRoom is Room
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   room_Newroom = tos.roo
+   room_name_Newroom ="New room"
+   Newroom_music = main.ogg
+
+classvars:
+
+   vrName = room_name_Newroom
+   viTerrain_type = TERRAIN_MYSTICAL | TERRAIN_WATERFALL
+   viPermanent_flags = ROOM_SAFELOGOFF
+
+   viTeleport_row = 17
+   viTeleport_col = 18
+
+properties:
+
+   prRoom = room_Newroom
+   piRoom_num = RID_NEWROOM
+   prMusic = Newroom_music
+
+   piBaseLight = LIGHT_NICE
+   piOutside_factor = 8
+   pimove = TRUE
+
+messages:
+
+   SomethingMoved(what=$)
+   {
+      if IsClass(what,&User)
+      {
+         if Send(what,@GetSectorIDAtObject,#what=what) = 1
+         {
+            if pimove
+            {
+               pimove = FALSE;
+
+               Send(SYS,@UtilGoNearSquare,#what=what,#where=self,
+                    #new_row=11,#new_col=8);
+
+               propagate;
+            }
+            
+            propagate;
+         }
+      }
+
+      pimove = TRUE;
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

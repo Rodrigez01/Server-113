@@ -1,0 +1,21 @@
+RoomKeyCopy_name_rsc = de "Ein silberner Zimmerschlüssel"
+RoomKeyCopy_desc_rsc = de \
+   "Dieser silberne Schlüssel trägt die Inschrift:\n%q's Zimmer in der %s."
+RoomKeyCopy_vanishes = de \
+   "Dein silberner Zimmerschlüssel schmilzt zu einer seltsam silbrigen Flüssigkeit, "
+   "und verdampft wenig später in einer blauen Dunstwolke."
+RoomKeyCopy_teleport = de \
+   "Als Du den Schlüssel ins Schlüsselloch steckst, umgibt Dich ein helles "
+   "weißes Licht und Du befindest Dich plötzlich woanders."
+RoomKeyCopy_no_use = de \
+   "Es scheint nichts in der Nähe zu sein, um den Schlüssel zu benutzen."
+RoomKeyCopy_no_drop_room = de "Du kannst Deinen Schlüssel hier nicht ablegen. "
+RoomKeyCopy_no_token = de "Du hast keinen Token um die Tür zu öffnen."
+
+RoomKeyCopy_name_rsc = pt "chave do quarto de prata"
+RoomKeyCopy_desc_rsc = pt "Esta chave de prata maciça tem uma inscrição que diz:\nQuarto de %q em %s."
+RoomKeyCopy_vanishes = pt "Sua chave de quarto de prata se dissolve em um estranho líquido prateado, depois evapora em uma névoa azul e desaparece."
+RoomKeyCopy_teleport = pt "Ao inserir a chave na fechadura, um estranho brilho branco o envolve e você se vê em outro lugar."
+RoomKeyCopy_no_use = pt "Você não consegue encontrar uma fechadura que se encaixe nesta chave."
+RoomKeyCopy_no_drop_room = pt "Você não pode largar sua chave aqui."
+RoomKeyCopy_no_token = pt "Você não pode soltar seu token para encaixar sua chave na fechadura."

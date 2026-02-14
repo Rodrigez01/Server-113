@@ -1,0 +1,49 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+InstrumentGift is Gift
+
+constants:
+
+   include blakston.khd
+   include protocol.khd
+
+resources:
+
+   InstrumentGift_name_rsc = "instrument box"
+   InstrumentGift_icon_rsc = lootboxes.bgf
+   InstrumentGift_desc_rsc = \
+      "This is a gift from the gods, it contains a random instrument!\n\n"
+      "This box has a chance to contain the following items : \n"
+      "necklace of Jala, lute, fine lute, true lute. \n\n"
+      "These items have a chance to be enchanted with :\n bond, bonus xp."
+
+classvars:
+
+   vrName = InstrumentGift_name_rsc
+   vrIcon = InstrumentGift_icon_rsc
+   vrDesc = InstrumentGift_desc_rsc
+   
+   viValue_average = 2000
+properties:
+
+messages:
+
+   Constructor()
+   {
+      plContents = [ &JalaNecklace, &FineLute, &TrueLute, &Lute ];
+
+      plItematt = [ IA_TRANSCENDANT, IA_XP_KILL_BONUS ];
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

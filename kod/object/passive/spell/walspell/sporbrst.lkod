@@ -1,0 +1,19 @@
+SporeBurst_name_rsc = de "Sporenwolke"
+SporeBurst_desc_rsc = de \
+   "Lähmt vorübergehend jedem in der Wolke, einschließlich den Beschwörer selbst. "
+   "Man braucht zwei lila Pilze sowie ein Schamanenblut, um den Zauber zu sprechen. " 
+SporeBurst_cast_rsc = de \
+   "Nach einem lauten Knall, ist der Raum mit einer Sporenwolke gefüllt."
+SporeBurst_failed_rsc = de \
+   "Es gibt zu viel Beschwörungsmagie in diesem Raum. Du kannst diesen Zauber "
+   "nicht ausführen."
+
+SporeBurst_name_rsc = pt "explosão de esporos"
+SporeBurst_desc_rsc = pt \
+   "Invoca nuvens nocivas que paralisam qualquer um dentro de seus limites. "
+   "Requer reagentes potentes específicos tanto para Qor quanto para Faren."
+SporeBurst_cast_rsc = pt \
+   "Após um som alto de estouro, a sala é preenchida com uma nuvem de "
+   "bolor de esporos sufocante."
+SporeBurst_failed_rsc = pt \
+   "Há muita magia de invocação concentrada aqui para causar uma explosão de esporos."

@@ -1,0 +1,17 @@
+GhostMark_name_rsc = de "Geistermal"
+GhostMark_desc_rsc = de \
+   "Brandmarkt das Ziel mit einem spektralen Zeichen, das es "
+   "anfaellig fuer nekromantische Energien macht und den "
+   "nekromantischen Schaden um 10 Prozent erhoeht. "
+   "Benoetigt eine Dunkle Engelsfeder."
+GhostMark_already_enchanted = de "%s%s ist bereits von Geistern gezeichnet."
+GhostMark_caster = de \
+   "Ein spektrales Brandmal erscheint auf %s%s und zeichnet sie fuer den Tod!"
+GhostMark_on = de \
+   "Ein brennendes Mal brennt sich in Dein Fleisch! Du fuehlst Dich "
+   "anfaellig fuer dunkle Energien."
+GhostMark_off = de \
+   "Das Geistermal verblasst von Deiner Haut."
+GhostMark_spell_intro = de \
+   "Nekromantie Lv. 2: Brandmarkt das Ziel fuer erhoehten "
+   "nekromantischen Schaden."

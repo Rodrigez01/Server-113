@@ -1,0 +1,14 @@
+UndeadServant_name_rsc = de "Untoter Diener"
+UndeadServant_desc_rsc = de \
+   "Erweckt einen maaechtigen Skelettkrieger aus der Erde, der "
+   "20 Sekunden lang an Deiner Seite kaempft. "
+   "Benoetigt zwei Dunkle Engelsfedern und ein Schamanenblut."
+UndeadServant_cast_rsc = de \
+   "Ein Skelettkrieger graaebt sich aus der Erde!"
+UndeadServant_limit_rsc = de \
+   "Du befehligst bereits einen untoten Diener."
+UndeadServant_expire_rsc = de \
+   "Dein untoter Diener zerfaellt zu Staub."
+UndeadServant_spell_intro = de \
+   "Nekromantie Lv. 4: Beschwoert einen Skelettkrieger fuer "
+   "20 Sekunden."

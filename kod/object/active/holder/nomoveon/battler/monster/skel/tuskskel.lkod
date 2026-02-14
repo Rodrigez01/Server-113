@@ -1,0 +1,16 @@
+TuskedSkeleton_koc_name_rsc = de "ha'chaleoc"
+TuskedSkeleton_name_rsc = de "Das Stoßzahn Skelett"
+TuskedSkeleton_desc_rsc = de \
+   "Einige Streifen verfaulten Fleisches hängen an dieser Sammlung vonmenschlichen "
+   "Knochen, die von einem Schädel gekrönt sind dem großeStoßzähnen aus dem "
+   "Mund ragen.Du schauderst, als Du daran denkst,was für ein dunkles Ritual "
+   "diese Abnormalität zum Leben erweckt hat."
+TuskedSkeleton_dead_name_rsc = de "Ein Knochenhaufen"
+
+TuskedSkeleton_name_rsc = pt "esqueleto com presas"
+TuskedSkeleton_desc_rsc = pt \
+   "Alguns pedaços de carne podre aderem a esta coleção de ossos humanos "
+   "coroados por um crânio com presas grandes saindo de sua boca. Você "
+   "estremece ao pensar em que ritual obscuro trouxe esta abominação à "
+   "existência."
+TuskedSkeleton_dead_name_rsc = pt "monte de ossos"

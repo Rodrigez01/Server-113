@@ -1,0 +1,115 @@
+// Meridian 59 - Necromantie Spell School
+// Dark Rebirth (Dunkle Wiedergeburt) - Level 6 Personal Enchantment
+// Self-revive: when you die, restore to 25% HP instead (once per cast).
+
+
+////////////////////////////////////////////////////////////////////////////////
+DarkRebirth is PersonalEnchantment
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include dkrebirt.lkod
+
+   DarkRebirth_name_rsc = "dark rebirth"
+   DarkRebirth_icon_rsc = inecro17.bgf
+   DarkRebirth_desc_rsc = \
+      "Prepares a contingency of dark energy that will restore the "
+      "caster from death once. When you would be killed, you are "
+      "instead revived with 25 percent of your health. The spell "
+      "then expires.  "
+      "Requires three shaman blood and two dark angel feathers to cast."
+
+   DarkRebirth_enchantment_rsc = \
+      "\n\nYour %s is ready. Death will not claim you yet."
+
+   DarkRebirth_already_enchanted_rsc = \
+      "Dark rebirth is already prepared."
+   DarkRebirth_on_rsc = \
+      "You feel a dark contingency take hold. Should death come, "
+      "you will rise again."
+   DarkRebirth_off_rsc = \
+      "The contingency of dark rebirth has expired."
+   DarkRebirth_success_rsc = \
+      "Dark energy cocoons %s%s, ready to restore them from death."
+   DarkRebirth_trigger_rsc = \
+      "~BDark energy erupts around you! You are reborn from death!~n"
+
+   DarkRebirth_spell_intro = \
+      "Necromantie Lv. 6: Prepares a dark contingency that revives "
+      "the caster once upon death."
+
+classvars:
+
+   viPersonal_ench = True
+
+   vrName = DarkRebirth_name_rsc
+   vrIcon = DarkRebirth_icon_rsc
+   vrDesc = DarkRebirth_desc_rsc
+
+   vrAlreadyEnchanted = DarkRebirth_already_enchanted_rsc
+   vrEnchantment_On = DarkRebirth_On_rsc
+   vrEnchantment_Off = DarkRebirth_Off_rsc
+   vrSuccess = DarkRebirth_Success_rsc
+
+   viSpell_num = SID_DARK_REBIRTH
+
+   vrSpell_intro = DarkRebirth_spell_intro
+
+   viMana = 25
+
+   viSpell_level = 6
+   viSchool = SS_NECROMANTIE
+
+   viChance_To_Increase = 5
+   viMeditate_ratio = 60
+
+   viFlash = FLASH_GOOD_SELF
+
+properties:
+
+   viPurgeFactor = 20
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&ShamanBlood,3],plReagents);
+      plReagents = Cons([&DarkAngelFeather,2],plReagents);
+
+      return;
+   }
+
+   GetStateValue(iSpellpower=$,who=$,target=$)
+   {
+      return iSpellpower;
+   }
+
+   GetDuration(iSpellPower=0)
+   {
+      local iDuration;
+
+      // Long duration: 120-720 seconds (the revive is the value)
+      iDuration = (120 + (iSpellPower*6)) * 1000;
+
+      return iDuration;
+   }
+
+   EndEnchantment(who=$,report=TRUE,state=0)
+   {
+      propagate;
+   }
+
+   EffectDesc(who=$)
+   {
+      AddPacket(4,DarkRebirth_enchantment_rsc, 4,Send(self,@GetName));
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

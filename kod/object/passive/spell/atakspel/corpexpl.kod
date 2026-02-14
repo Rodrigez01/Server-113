@@ -1,0 +1,77 @@
+// Meridian 59 - Necromantie Spell School
+// Corpse Explosion (Leichenexplosion) - Level 3 Attack Spell
+// AoE damage (requires nearby corpse/dead monster).
+
+
+////////////////////////////////////////////////////////////////////////////////
+CorpseExplosion is AttackSpell
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include corpexpl.lkod
+
+   CorpseExplosion_name_rsc = "corpse explosion"
+   CorpseExplosion_icon_rsc = inecro6.bgf
+   CorpseExplosion_desc_rsc = \
+      "Detonates residual death energy in the area, causing an "
+      "explosion of necrotic force that damages all nearby enemies.  "
+      "Requires two dark angel feathers and one shaman blood to cast."
+
+   CorpseExplosion_death = \
+      "The necrotic explosion tears %s%s apart."
+
+   CorpseExplosion_sound = fbolt.ogg
+
+classvars:
+
+   vrName = CorpseExplosion_name_rsc
+   vrIcon = CorpseExplosion_icon_rsc
+   vrDesc = CorpseExplosion_desc_rsc
+
+   viSchool = SS_NECROMANTIE
+   viSpell_num = SID_CORPSE_EXPLOSION
+
+   viSpell_level = 3
+   viMana = 15
+   viSpellExertion = 3
+
+   viAttack_spell = ATCK_SPELL_ALL + ATCK_SPELL_UNHOLY
+
+   vrSucceed_wav = CorpseExplosion_sound
+
+   viPostCast_time = 3
+
+   viChance_To_Increase = 20
+   viMeditate_ratio = 30
+
+   vbIsAreaEffect = TRUE
+
+properties:
+
+   piDamageMin = 10
+   piDamageMax = 18
+
+   piRange = 6 * FINENESS
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&DarkAngelFeather,2],plReagents);
+      plReagents = Cons([&ShamanBlood,1],plReagents);
+
+      return;
+   }
+
+   GetNumSpellTargets()
+   {
+      return 0;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

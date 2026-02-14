@@ -1,0 +1,14 @@
+SnowRat_name_rsc = de "Die Schneeratte"
+SnowRat_desc_rsc = de \
+   "Dies ist der im Schnee geborene Vetter des Festlandungeziefers. Er ist "
+   "von Natur aus weniger abstoﬂend, ist jedoch als Gegner viel ernster zu "
+   "nehmen."
+SnowRat_koc_name_rsc = de "shonapyijoa"
+SnowRat_dead_name_rsc = de "tote Schneeratte"
+
+SnowRat_name_rsc = pt "rato da neve"
+SnowRat_desc_rsc = pt \
+      "Este È o primo nascido no gelo dos vermes do continente. … "
+      "menos repugnante por natureza, mas de longe um oponente mais desafiador."
+SnowRat_koc_name_rsc = pt "shonapyijoa"
+SnowRat_dead_name_rsc = pt "rato da neve morto"

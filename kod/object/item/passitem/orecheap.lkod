@@ -1,0 +1,12 @@
+CheapOreChunk_name_rsc = de "Der Erzklumpen"
+CheapOreChunk_desc_rsc = de \
+   "Dies ist ein riesiger, unhandlicher Stein, von ein paar dünnen Metalladern "
+   "durchzogen. Du würdest Dich über das riesige Labor wundern, das man bräuchte, "
+   "um genügend Metall zu extrahieren, das nötig wäre, um etwas Sinnvolles "
+   "damit herzustellen."
+
+CheapOreChunk_name_rsc = pt "pedaço de minério"
+CheapOreChunk_desc_rsc = pt \
+      "Este é um enorme e desajeitado pedaço de rocha, com algumas veias finas de metal "
+      "apenas visíveis. Você se pergunta sobre a quantidade massiva de trabalho necessária para extrair "
+      "metal suficiente dele para criar algo útil."

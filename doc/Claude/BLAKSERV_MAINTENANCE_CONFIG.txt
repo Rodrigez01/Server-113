@@ -1,0 +1,204 @@
+===========================================================
+BLAKSERV.CFG - MAINTENANCE MODE KONFIGURATION
+===========================================================
+
+BENÖTIGTE EINSTELLUNGEN IN BLAKSERV.CFG:
+-----------------------------------------
+
+Fügen Sie diese Zeilen im [Socket] Abschnitt ein:
+
+[Socket]
+Port                 5959
+MaintenancePort      9998
+MaintenanceMask      ::ffff:127.0.0.1
+
+
+ERKLÄRUNG DER EINSTELLUNGEN:
+----------------------------
+
+1. Port (Standard: 5959)
+   - Port für normale Spieler-Clients
+   - Clients verbinden sich hierher
+
+2. MaintenancePort (Standard: 9998)
+   - Port für Maintenance-Verbindungen
+   - Administratoren verbinden sich hierher
+   - Wird von account_manager.php verwendet
+
+3. MaintenanceMask (Standard: ::ffff:127.0.0.1)
+   - Definiert welche IP-Adressen sich zum Maintenance-Port
+     verbinden dürfen
+   - Standardwert erlaubt nur localhost (IPv4 und IPv6)
+
+
+IPv6 UNTERSTÜTZUNG:
+------------------
+
+Der Server unterstützt IPv6 nativ. Die MaintenanceMask verwendet
+IPv6-Adressen bzw. IPv4-mapped-IPv6-Adressen.
+
+BEISPIELE FÜR MaintenanceMask:
+
+1. NUR LOCALHOST (IPv4 und IPv6):
+   MaintenanceMask      ::ffff:127.0.0.1
+
+2. NUR IPv6 LOCALHOST:
+   MaintenanceMask      ::1
+
+3. MEHRERE IP-ADRESSEN (mit Semikolon trennen):
+   MaintenanceMask      ::ffff:127.0.0.1;::ffff:192.168.1.100
+
+4. IPv6 UND IPv4 LOCALHOST:
+   MaintenanceMask      ::1;::ffff:127.0.0.1
+
+5. LOKALES NETZWERK (IPv4):
+   MaintenanceMask      ::ffff:192.168.1.0/24
+
+6. BESTIMMTE IPv6 ADRESSE:
+   MaintenanceMask      2001:db8::1
+
+7. ALLE ADRESSEN ERLAUBEN (NICHT EMPFOHLEN!):
+   MaintenanceMask      ::
+
+
+VOLLSTÄNDIGE SOCKET-KONFIGURATION:
+----------------------------------
+
+[Socket]
+Port                 5959                    # Client Port
+MaintenancePort      9998                    # Maintenance Port
+MaintenanceMask      ::ffff:127.0.0.1        # Erlaubte IPs
+DNSLookup            No                       # DNS Lookup aktivieren
+Nagle                Yes                      # Nagle-Algorithmus
+BlockTime            300                      # Block-Zeit in Sekunden
+
+
+WICHTIGE HINWEISE:
+-----------------
+
+SICHERHEIT:
+✓ Lassen Sie MaintenanceMask auf localhost, wenn möglich!
+✓ Öffnen Sie den Maintenance-Port NICHT ins Internet
+✓ Verwenden Sie eine Firewall für zusätzlichen Schutz
+
+IPv6 KOMPATIBILITÄT:
+✓ Der Server bindet an IPv6 (::)
+✓ IPv4-Clients werden automatisch als IPv6-mapped behandelt
+✓ Format: ::ffff:x.x.x.x (IPv4) oder xxxx:xxxx::xxxx (IPv6)
+
+FEHLERSUCHE:
+? Verbindung verweigert → Prüfen Sie MaintenanceMask
+? Port bereits verwendet → Ändern Sie MaintenancePort
+? Keine IPv6 Verbindung → Prüfen Sie Windows IPv6 Einstellungen
+
+
+BEISPIEL-KONFIGURATION FÜR VERSCHIEDENE SZENARIEN:
+-------------------------------------------------
+
+1. ENTWICKLUNGSSERVER (Nur lokaler Zugriff):
+
+[Socket]
+Port                 5959
+MaintenancePort      9998
+MaintenanceMask      ::ffff:127.0.0.1
+
+
+2. DEDIZIERTER SERVER (Admin von bestimmter IP):
+
+[Socket]
+Port                 5959
+MaintenancePort      9998
+MaintenanceMask      ::ffff:127.0.0.1;::ffff:203.0.113.50
+
+
+3. LAN SERVER (Zugriff aus lokalem Netzwerk):
+
+[Socket]
+Port                 5959
+MaintenancePort      9998
+MaintenanceMask      ::ffff:192.168.1.0/24;::1
+
+
+4. DUAL-STACK SERVER (IPv4 und IPv6):
+
+[Socket]
+Port                 5959
+MaintenancePort      9998
+MaintenanceMask      ::1;::ffff:127.0.0.1;2001:db8::100
+
+
+WINDOWS IPv6 AKTIVIEREN:
+------------------------
+
+Falls IPv6 deaktiviert ist:
+
+1. Öffnen Sie cmd als Administrator
+2. Führen Sie aus:
+   netsh interface ipv6 install
+
+3. Prüfen Sie IPv6:
+   ipconfig /all
+
+4. IPv6 Loopback testen:
+   ping ::1
+
+
+TESTEN DER KONFIGURATION:
+-------------------------
+
+1. Starten Sie den Blakserv Server
+
+2. Testen Sie IPv4 Verbindung:
+   telnet 127.0.0.1 9998
+
+3. Testen Sie IPv6 Verbindung:
+   telnet ::1 9998
+
+4. Prüfen Sie Listening Ports:
+   netstat -an | findstr 9998
+
+5. Erwartete Ausgabe:
+   TCP    [::]:9998              [::]:0                 LISTENING
+
+
+WEB-INTERFACE ANPASSUNG:
+------------------------
+
+Wenn Sie den MaintenancePort ändern, passen Sie auch
+account_manager.php an (Zeile 9):
+
+$MAINTENANCE_PORT = 9998;  // Ihr neuer Port
+
+
+HÄUFIGE PROBLEME:
+-----------------
+
+Problem: "Connection refused" beim Telnet
+Lösung:
+  - Server läuft nicht
+  - Falscher Port
+  - MaintenanceMask blockiert Ihre IP
+
+Problem: IPv6 funktioniert nicht
+Lösung:
+  - IPv6 in Windows aktivieren
+  - Firewall-Regeln für IPv6 prüfen
+  - Server mit :: binden lassen
+
+Problem: account_manager.php kann nicht verbinden
+Lösung:
+  - MaintenanceMask muss ::ffff:127.0.0.1 enthalten
+  - PHP socket-Funktionen aktiviert?
+  - Port korrekt in PHP-Datei?
+
+
+STANDARDWERTE WIEDERHERSTELLEN:
+-------------------------------
+
+Falls Sie die Standardwerte wiederherstellen möchten,
+entfernen Sie einfach die Zeilen aus [Socket].
+Der Server verwendet dann diese Defaults:
+
+Port                 5959
+MaintenancePort      9998
+MaintenanceMask      ::ffff:127.0.0.1

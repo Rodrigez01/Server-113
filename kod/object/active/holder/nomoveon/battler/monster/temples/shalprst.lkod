@@ -1,0 +1,63 @@
+shalpriestess_name_rsc = de "Priesterin Xiana"
+shalpriestess_desc_rsc = de \
+   "Sauber und formell spricht diese Priesterin voll friedlicher Gelassenheit "
+   "nur freundliche Worte. Sie wünscht sogar den Anhängern Qors Frieden und "
+   "betet für ihre Erlösung."
+shal_forget_potion_sale = de \
+   "~bDurch die Nutzung von %s%s, wird Shal'ill dich segnen, und all Spuren "
+   "Qors aus deinen Gedanken verdrängen.~n~k"
+priestess_token_delivered_rsc = de \
+   "~bAhhh. Ich werde dafür sorgen, dass es zu dem rechtmäßigem Ratsmitglied "
+   "gebracht wird. %s~n~k"
+priestess_faction_delivered_rsc = de \
+   "~bDu siehst wie eine gerechte Person aus, warum schließt du dich diesen "
+   "Fraktionen an? Wir werden uns darum kümmern.~n~k"
+priestess_neutral_delivered_rsc = de \
+   "~bEiner so rein, und selten gesehen in diesen Tagen politischer IntrigenEs "
+   "ist so erfrischend.~n~k"
+shalpriestess_already_have_spell = de \
+   "~bSchau in dich selbst, %s, und du wirst das Licht finden, welches bereits "
+   "in deinem Gedanken leuchtet.~n~k"
+shalpriestess_not_ready = de \
+   "~bDie Feinheiten des Heiligen Hammers, kann nur von jemandem gelernt "
+   "werden, der die Art und Weise des Gottes der Schlacht vertraut ist.Such "
+   "weiter Kind, und kehre zurück, wenn dein Geist dem Weg folgt.~n~k"
+shalillepriestess_teach_song = de \
+   "Oh, du bist ein Anhänger Jalas? Ich weiß von einer schönen alten Hymne, "
+   "die angeblichdas in der Lage ist die Zauber der Dunkelheit zu unterbinden.Ich "
+   "bin bereit es zu lehren, wenn du in der Lage dazu bist."
+shalillepriestess_teach = de \
+   "Durch das Wohlwollen Shal'ills lernst du %s%s%s%s%s%s%s%s%s%s%s%s "
+   "ab diesem Zirkel."
+
+shalpriestess_name_rsc = pt "Sacerdotisa Xiana"
+shalpriestess_desc_rsc = pt \
+   "Limpa e primorosa, esta sacerdotisa de serenidade pacífica fala apenas "
+   "palavras gentis. Ela até deseja paz para aqueles de Qor e reza por "
+   "sua redenção."
+shal_forget_potion_sale = pt \
+   "~bCaso você compre e beba %s%s, Shal'ille o abençoará exorcizando todos "
+   "os vestígios de Qor de seus pensamentos.~n~k"
+priestess_token_delivered_rsc = pt \
+   "~bAhhh. Eu me assegurarei de que isso seja devolvido ao seu "
+   "conselheiro legítimo. %s~n~k"
+priestess_faction_delivered_rsc = pt \
+   "~bVós pareces uma pessoa justa, por que te alinhar com "
+   "essas facções políticas? Nós vamos cuidar disso.~n~k"
+priestess_neutral_delivered_rsc = pt \
+   "~bUm tão puro como vós é raramente visto nestes dias de intriga "
+   "política. É tão refrescante.~n~k"
+shalpriestess_already_have_spell = pt \
+   "~bOlhe dentro de si, %s, e você encontrará que a luz já está "
+   "brilhando dentro de sua mente.~n~k"
+shalpriestess_not_ready = pt \
+   "~bAs complexidades do martelo espiritual só podem ser compreendidas por "
+   "aquele que está versado nos caminhos do Deus da Batalha. Buscai mais, "
+   "filho, e retornai quando vossa mente tiver seguido Seu caminho por "
+   "mais tempo.~n~k"
+shalillepriestess_teach_song = pt \
+   "Oh, sois um dos seguidores de Jala? Eu conheço um belo hino antigo que "
+   "dizem ser capaz de atrapalhar os feitiços que vêm das trevas. Estou "
+   "disposta a ensiná-lo àqueles que são capazes de aprendê-lo."
+shalillepriestess_teach = pt \
+   "A benevolência de Shal'ille oferece %s%s%s%s%s%s%s%s%s%s%s%s nesse nível."

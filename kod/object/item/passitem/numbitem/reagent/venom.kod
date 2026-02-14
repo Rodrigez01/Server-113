@@ -1,0 +1,187 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+VialOfVenom is Reagent
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   VialOfVenom_name_rsc = "vial of venom"
+   VialOfVenom_icon_rsc = venom.bgf
+   VialOfVenom_desc_rsc = \
+      "A vial of corrosive venom. Can be applied to heartstones to make pigments. "
+   VialOfVenom_name_plural_rsc = "vials of venom"
+   VialOfVenom_vial_name_plural_rsc = "vials of venom"
+   VialOfVenom_vial_name_rsc = "vial of venom"
+
+   Not_Enough_Venom = "You need 30 venom to break down a heartstone!"
+   Made_Dust  = "You turn the heartstone into %s."
+
+classvars:
+
+   vrName = VialOfVenom_name_rsc
+   vrIcon = VialOfVenom_icon_rsc
+   vrDesc = VialOfVenom_desc_rsc
+
+   vrName_plural = VialOfVenom_name_plural_rsc
+
+   viUse_type = ITEM_SINGLE_USE
+
+   viValue_average = 70
+   viWeight = 4
+   viBulk = 5
+
+properties:
+
+   viObject_flags = OF_GETTABLE | OF_APPLYABLE
+
+   piNumber = 3
+   pbGathered = TRUE
+
+messages:
+
+   Constructor(Gathered=TRUE)
+   {
+      pbGathered = Gathered;
+
+      propagate;
+   }
+
+   NewOwner(what = $)
+   {
+      if poOwner <> $
+         AND (what = $ OR IsClass(what,&Battler))
+      {
+         pbGathered = TRUE;
+      }
+
+      propagate;
+   }
+
+   SendAnimation()
+   {
+      if pbGathered
+      {
+         if poOwner <> $ AND IsClass(poOwner,&Player)
+         {
+            AddPacket(1,ANIMATE_NONE,2,1);
+         }
+         else
+         {
+            AddPacket(1,ANIMATE_NONE,2,2);
+         }
+      }
+      else
+      {
+         AddPacket(1,ANIMATE_NONE,2,3);
+      }
+
+      return;
+   }
+
+   SendLookAnimation()
+   {
+      if pbGathered
+      {
+         if poOwner <> $ AND IsClass(poOwner,&player)
+         {
+            AddPacket(1,ANIMATE_NONE,2,1);
+         }
+         else
+         {
+            AddPacket(1,ANIMATE_NONE,2,2);
+         }
+      }
+      else
+      {
+         AddPacket(1,ANIMATE_NONE,2,3);
+      }
+
+      return;
+   }
+
+   SendInventoryAnimation()
+   {
+      AddPacket(1,ANIMATE_NONE,2,1);
+
+      return;
+   }
+
+   GetName()
+   {
+      if pbGathered
+      {
+         if piNumber = 1
+         {
+            return VialOfVenom_vial_name_rsc;
+         }
+         else
+         {
+            return VialOfVenom_vial_name_plural_rsc;
+         }
+      }
+      else
+      {
+         if piNumber = 1
+         {
+            return vrName;
+         }
+         else
+         {
+            return vrName_plural;
+         }
+      }
+
+      propagate;
+   }
+
+   ReqNewApply(what = $, apply_on = $)
+   {
+      if IsClass(apply_on,&Heartstone)
+      {
+         if piNumber < 30
+         {
+            Send(what,@MsgSendUser,#message_rsc=Not_Enough_Venom);
+
+            propagate;
+         }
+
+	      return TRUE;
+      }
+
+      propagate;
+   }
+
+   NewApplied(what = $,apply_on = $)
+   {
+      local NewDust;
+      
+      if IsClass(apply_on,&HeartStone)
+      {
+         NewDust = Create(Send(apply_on,@GetDustColor));
+
+         Send(poOwner,@NewHold,#what=NewDust);
+
+         Send(what,@MsgSendUser,#message_rsc=Made_Dust,#parm1=send(NewDust,@GetName));
+
+         Send(apply_on,@SubtractNumber,#number=1);
+
+         Send(self,@SubtractNumber,#number=30);
+
+      }
+      
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

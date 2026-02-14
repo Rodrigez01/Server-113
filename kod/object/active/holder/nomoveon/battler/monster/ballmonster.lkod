@@ -1,0 +1,13 @@
+ballmonster_koc_name_rsc = de "kocballmonster"
+ballmonster_name_rsc = de "BallMonster"
+ballmonster_desc_rsc = de "Eine schnelle rollende Kugel, die alles rammt."
+ballmonster_dead_name_rsc = de "verbrannte Kugel"
+ballmonster_collision_rsc = de "~B~rDie Kugel rammt dich!"
+ballmonster_unaffected_rsc = de "Du entgehst der Kugel."
+
+ballmonster_koc_name_rsc = pt "monstrobola"
+ballmonster_name_rsc = pt "BallMonster"
+ballmonster_desc_rsc = pt "Uma esfera rapida que atropela tudo em seu caminho."
+ballmonster_dead_name_rsc = pt "esfera queimada"
+ballmonster_collision_rsc = pt "~B~rA esfera te atinge!"
+ballmonster_unaffected_rsc = pt "Voce evita a esfera."

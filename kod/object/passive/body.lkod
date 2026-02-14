@@ -1,0 +1,12 @@
+deadbody_desc_rsc = de \
+   "Dies ist ein toter, sich zersetzender Körper von %s, getötet von %q."
+deadbody_named_mob_rsc = de "Der toter Körper von %s, getötet durch %q."
+deadbody_player_desc_rsc = de \
+   "Der tote Körper von %q, zerfällt schnell an der Luft in Meridian."
+deadbody_assassinated_rsc = de \
+   "Hier liegt %q, getötet von einem unbekannten Meuchelmörder."
+
+deadbody_desc_rsc = pt "Este é um(a) %s morto(a) e em decomposição, abatido(a) por %q."
+deadbody_named_mob_rsc = pt "O corpo morto de %s, abatido por %q."
+deadbody_player_desc_rsc = pt "O corpo morto de %q, decompondo rapidamente no ar vivo de Meridian."
+deadbody_assassinated_rsc = pt "Aqui jaz %q, abatido por um assassino desconhecido."

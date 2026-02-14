@@ -1,0 +1,14 @@
+SpectralChill_name_rsc = de "Geisterkaelte"
+SpectralChill_desc_rsc = de \
+   "Sendet eine Welle toedlicher Kaelte durch das Ziel, verlangsamt "
+   "seine Bewegungen und schwaecht seine Angriffe. "
+   "Benoetigt zwei lila Pilze und eine dunkle Engelsfeder."
+SpectralChill_already_enchanted = de \
+   "%s%s ist bereits von Geisterkaelte eingefroren."
+SpectralChill_caster = de \
+   "Eine toedliche Kaelte umgibt %s%s und verlangsamt seine Bewegungen."
+SpectralChill_on = de \
+   "Eine eisige Kaelte aus dem Jenseits sickert in Deine Knochen. "
+   "Deine Bewegungen werden traege."
+SpectralChill_off = de \
+   "Die Geisterkaelte verblasst und Waerme kehrt in Deine Glieder zurueck."

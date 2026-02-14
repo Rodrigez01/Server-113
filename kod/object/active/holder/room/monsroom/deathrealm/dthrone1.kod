@@ -1,0 +1,107 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+DeathRealmThrone1 is DeathRealm
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   DeathRealm_room_throne1 = throne1.roo
+
+classvars:
+
+   viTeleport_row = 10
+   viTeleport_col = 5
+
+properties:
+
+   prRoom = DeathRealm_room_throne1
+   piRoom_num = RID_DTHRONE1
+
+   prMapChanges = FALSE
+
+messages:
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 23, 4, RID_DCASTLE1, 7, 18, ROTATE_NONE ],plExits);
+      plExits = Cons([ 23, 5, RID_DCASTLE1, 7, 19, ROTATE_NONE ],plExits);
+      plExits = Cons([ 1, 4, ROOM_LOCKED_DOOR, Needs_key],plExits);
+      plExits = Cons([ 1, 5, ROOM_LOCKED_DOOR, Needs_key],plExits);
+      plExits = Cons([ 1, 6, ROOM_LOCKED_DOOR, Needs_key],plExits);
+
+      propagate;
+   }
+
+   CreateStandardObjects()
+   {
+      // left row of pillars 
+      Send(self,@NewHold,#what=Create(&Pillar),#new_row=16,#new_col=3,#fine_col=56);
+      Send(self,@NewHold,#what=Create(&Pillar),#new_row=13,#new_col=3,#fine_col=56);
+      Send(self,@NewHold,#what=Create(&Pillar),#new_row=10,#new_col=3,#fine_col=56);
+      Send(self,@NewHold,#what=Create(&Pillar),#new_row=7,#new_col=3,#fine_col=56);
+      Send(self,@NewHold,#what=Create(&Pillar),#new_row=4,#new_col=3,#fine_col=56);
+      Send(self,@NewHold,#what=Create(&Pillar),#new_row=1,#new_col=3,#fine_col=56);
+
+      // right row of pillars
+      Send(self,@NewHold,#what=Create(&Pillar),#new_row=16,#new_col=7,#fine_col=8);
+      Send(self,@NewHold,#what=Create(&Pillar),#new_row=13,#new_col=7,#fine_col=8);
+      Send(self,@NewHold,#what=Create(&Pillar),#new_row=10,#new_col=7,#fine_col=8);
+      Send(self,@NewHold,#what=Create(&Pillar),#new_row=7,#new_col=7,#fine_col=8);
+      Send(self,@NewHold,#what=Create(&Pillar),#new_row=4,#new_col=7,#fine_col=8);
+      Send(self,@NewHold,#what=Create(&Pillar),#new_row=1,#new_col=7,#fine_col=8);
+
+      return;
+   }
+
+   SomethingTryGo(what=$,row=$,col=$)
+   {
+      local i, each_obj;
+
+      if (IsClass(what,&User)
+         AND (row = 1 AND col = 4) OR (row = 1 AND col = 5) OR (row = 1 AND col = 6))
+      {
+         if send(what,@HasBeatDR)
+		      OR IsClass(what,&DM)
+		   {
+			   Send(what,@MsgSendUser,#message_rsc=Beat_DR);
+
+            Send(SYS,@UtilGoNearSquare,#what=what,
+               #where=Send(SYS,@FindRoomByNum,#num=RID_DTHRONE2),
+               #new_row=22,#new_col=8,#new_angle=ANGLE_NORTH);
+			 
+			   return TRUE;
+		   }
+      	  
+   		foreach i in Send(what,@GetHolderPassive)
+         {
+            each_obj = Send(what,@HolderExtractObject,#data=i);
+
+            if IsClass(each_obj,&Throne2Key)
+            {
+               Send(what,@MsgSendUser,#message_rsc=Key_Open);
+               Send(SYS,@UtilGoNearSquare,#what=what,
+                   #where=Send(SYS,@FindRoomByNum,#num=RID_DTHRONE2),
+                   #new_row=22,#new_col=8,#new_angle=ANGLE_NORTH);
+
+               return TRUE;
+            }
+         }
+		}
+ 		propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,127 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 9 - LEVER LABYRINTH
+// Typ: Hebel-Puzzle (richtige Reihenfolge)
+////////////////////////////////////////////////////////////////////////////////
+TowerSt9 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   room_towerst9 = st9.roo
+   room_name_towerst9 = "Tower of Quests - Lever Labyrinth"
+
+   towerst9_lever_pulled = "~kEin Hebel wurde gezogen..."
+   towerst9_wrong_sequence = "~r~BFalsche Reihenfolge! Das Puzzle wird zurueckgesetzt."
+   towerst9_correct_sequence = "~g~BDie richtige Sequenz! Die Tuer oeffnet sich."
+   towerst9_punishment = "~r~BMonster erscheinen als Strafe!"
+
+classvars:
+
+   vrName = room_name_towerst9
+
+   viTeleport_row = 50
+   viTeleport_col = 102
+
+properties:
+
+   prRoom = room_towerst9
+   piRoom_num = RID_TOWER_ST9
+
+   piNextFloor = RID_TOWER_ST10
+   piPrevFloor = RID_TOWER_ST8
+
+   // Richtige Reihenfolge: Hebel 3, 1, 4, 2
+   plLeverSequence = $
+   plCurrentSequence = $
+
+   poLever1 = $
+   poLever2 = $
+   poLever3 = $
+   poLever4 = $
+
+messages:
+
+   Constructed()
+   {
+      plLeverSequence = [ 3, 1, 4, 2 ];
+      plCurrentSequence = $;
+
+      plMonsters = $;
+      plGenerators = $;
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 2, 10, RID_TOWER_ST8, 18, 10, ROTATE_NONE ],plExits);
+      plExits = Cons([ 18, 10, RID_TOWER_ST10, 5, 10, ROTATE_NONE ],plExits);
+
+      propagate;
+   }
+
+   CreateStandardObjects()
+   {
+      // TODO: Erstelle 4 Hebel
+      // poLever1 = Create(&Lever);
+      // Send(self,@NewHold,#what=poLever1,#new_row=8,#new_col=6);
+      // ... etc.
+
+      propagate;
+   }
+
+   SomethingChanged(what=$)
+   {
+      local i, iLeverNum;
+
+      // TODO: Implementiere Hebel-Logik
+      // Pruefe welcher Hebel gezogen wurde
+      // Fuege zur Sequenz hinzu
+      // Pruefe ob Sequenz korrekt
+
+      propagate;
+   }
+
+   ResetAllLevers()
+   {
+      plCurrentSequence = $;
+
+      // TODO: Setze alle Hebel zurueck
+
+      return;
+   }
+
+   SpawnPunishmentMonsters()
+   {
+      local i;
+
+      // Spawne Monster als Strafe
+      // TODO: Implementieren
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst9_punishment);
+         }
+      }
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

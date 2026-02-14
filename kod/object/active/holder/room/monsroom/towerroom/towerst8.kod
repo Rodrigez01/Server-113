@@ -1,0 +1,176 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 8 - INFERNO
+// Typ: Lava + bewegliche Plattformen
+////////////////////////////////////////////////////////////////////////////////
+TowerSt8 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+   LAVA_CHECK_TIME = 1000
+   PLATFORM_CYCLE_TIME = 10000
+
+   SECTOR_LAVA = 10
+   SECTOR_PLATFORM_A = 20
+   SECTOR_PLATFORM_B = 21
+   SECTOR_PLATFORM_C = 22
+   SECTOR_PLATFORM_D = 23
+
+   PLATFORM_UP = 200
+   PLATFORM_DOWN = 50
+
+resources:
+
+   room_towerst8 = st8.roo
+   room_name_towerst8 = "Tower of Quests - Inferno"
+
+   towerst8_lava_death = "~r~BDu verbrennst in der Lava!"
+   towerst8_platform_warning = "~kDie Plattformen bewegen sich..."
+
+classvars:
+
+   vrName = room_name_towerst8
+
+   viTeleport_row = 50
+   viTeleport_col = 102
+
+properties:
+
+   prRoom = room_towerst8
+   piRoom_num = RID_TOWER_ST8
+
+   piNextFloor = RID_TOWER_ST9
+   piPrevFloor = RID_TOWER_ST7
+
+   ptLavaTimer = $
+   ptPlatformTimer = $
+   piActivePlatform = 1
+
+messages:
+
+   Constructed()
+   {
+      plMonsters = $;
+      plGenerators = $;
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 2, 10, RID_TOWER_ST7, 18, 10, ROTATE_NONE ],plExits);
+      plExits = Cons([ 18, 10, RID_TOWER_ST9, 5, 10, ROTATE_NONE ],plExits);
+
+      propagate;
+   }
+
+   FirstUserEntered()
+   {
+      if ptLavaTimer = $
+      {
+         ptLavaTimer = CreateTimer(self,@CheckLava,LAVA_CHECK_TIME);
+      }
+
+      if ptPlatformTimer = $
+      {
+         ptPlatformTimer = CreateTimer(self,@PlatformCycle,PLATFORM_CYCLE_TIME);
+      }
+
+      propagate;
+   }
+
+   LastUserLeft()
+   {
+      if ptLavaTimer <> $
+      {
+         DeleteTimer(ptLavaTimer);
+         ptLavaTimer = $;
+      }
+
+      if ptPlatformTimer <> $
+      {
+         DeleteTimer(ptPlatformTimer);
+         ptPlatformTimer = $;
+      }
+
+      propagate;
+   }
+
+   CheckLava()
+   {
+      local i, oVictim, iSector;
+
+      ptLavaTimer = $;
+
+      foreach i in plActive
+      {
+         oVictim = First(i);
+         if IsClass(oVictim,&User)
+         {
+            // TODO: Pruefe ob Spieler auf Lava-Sektor steht
+            // iSector = Send(oVictim,@GetSectorIDAtObject);
+            // if iSector = SECTOR_LAVA
+            // {
+            //    Send(oVictim,@MsgSendUser,#message_rsc=towerst8_lava_death);
+            //    Send(oVictim,@Killed,#what=self);
+            // }
+         }
+      }
+
+      ptLavaTimer = CreateTimer(self,@CheckLava,LAVA_CHECK_TIME);
+
+      return;
+   }
+
+   PlatformCycle()
+   {
+      local i;
+
+      ptPlatformTimer = $;
+
+      // TODO: Implementiere Plattform-Rotation
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst8_platform_warning);
+         }
+      }
+
+      ptPlatformTimer = CreateTimer(self,@PlatformCycle,PLATFORM_CYCLE_TIME);
+
+      return;
+   }
+
+   Delete()
+   {
+      if ptLavaTimer <> $
+      {
+         DeleteTimer(ptLavaTimer);
+         ptLavaTimer = $;
+      }
+
+      if ptPlatformTimer <> $
+      {
+         DeleteTimer(ptPlatformTimer);
+         ptPlatformTimer = $;
+      }
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

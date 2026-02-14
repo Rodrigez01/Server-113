@@ -1,0 +1,24 @@
+icenova_name_rsc = de "Eisstern"
+icenova_desc_rsc = de \
+   "Ruft die Magie von Faren herbei und wirft eine Explosion von "
+   "Eissternen auf die Haut von deinen Gegner in naher Umgebung. "
+   "Dazu braucht man einen roten und zwei blaue Pilze."
+icenova_first_rsc = de \
+   "Du rufst die Magie Farens herbei und eine Flut von Eissternen trifft deine Gegner!"
+icenova_third_rsc = de \
+   "%s%s ruft die Magie Farens herbei und erzeugt eine Flut von Eissternen!"
+icenova_killed_someone = de "Die Eissterne treffen %s%s tödlich."
+icenova_cast_rsc = de \
+   "Du schreist vor Schmerzen, als die Eissterne auf deine Haut treffen! Die Eissterne "
+   "verursachen ~r~B%i~n Schaden."
+icenova_hit_rsc = de \
+   "%s%s schreit vor Schmerzen, als die Eissterne auf %s Haut treffen und "
+   "~k~B%i~n Schaden verursachen."
+
+icenova_name_rsc = pt "nova de gelo"
+icenova_desc_rsc = pt "Chama a magia de Faren e lança uma explosão de gelo, gelando e queimando a pele daqueles ao seu redor. Requer quatro cogumelos vermelhos, quatro cogumelos azuis e dois cogumelos roxos para conjurar."
+icenova_first_rsc = pt "Você canaliza o poder de Faren e desencadeia uma saraivada de fragmentos de gelo!"
+icenova_third_rsc = pt "%s%s canaliza o poder de Faren e desencadeia uma saraivada de fragmentos de gelo!"
+icenova_killed_someone = pt "Os fragmentos de gelo ferem fatalmente %s%s."
+icenova_cast_rsc = pt "Você solta um grito de dor enquanto os fragmentos de gelo perfuram sua pele, causando ~r~B%i~n de dano."
+icenova_hit_rsc = pt "%s%s solta um grito de dor enquanto os fragmentos de gelo perfuram a pele de %s, causando ~k~B%i~n de dano."

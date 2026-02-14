@@ -1,0 +1,15 @@
+BoneShield_name_rsc = de "Knochenschild"
+BoneShield_desc_rsc = de \
+   "Beschwoert eine wirbelnde Barriere aus Geisterknochen um den "
+   "Zaubernden, die eingehende Angriffe abwehrt. "
+   "Benoetigt zwei Feuersand und einen polierten Seraphym."
+BoneShield_enchantment_rsc = de \
+   "\n\nDeine aktuelle %s Verzauberung gibt %i Verteidigung."
+BoneShield_already_enchanted_rsc = de \
+   "Eine Barriere aus Knochen umgibt Dich bereits."
+BoneShield_on_rsc = de \
+   "Geisterhafte Knochen materialisieren sich um Dich und bilden eine schuetzende Barriere."
+BoneShield_off_rsc = de \
+   "Die Geisterknochen zerfallen zu Staub und die Barriere verblasst."
+BoneShield_success_rsc = de \
+   "Geisterhafte Knochen materialisieren sich um %s%s und bilden eine schuetzende Barriere."

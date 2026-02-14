@@ -1,0 +1,170 @@
+// Meridian 59 - Necromantie Spell School
+// Spectral Chill - Level 3 Necromantie Debuff
+
+
+////////////////////////////////////////////////////////////////////////////////
+SpectralChill is Debuff
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include spctchl.lkod
+
+   SpectralChill_name_rsc = "spectral chill"
+   SpectralChill_icon_rsc = inecro12.bgf
+   SpectralChill_desc_rsc = \
+      "Sends a wave of deathly cold through the target, slowing their "
+      "movements and weakening their attacks.  "
+      "Requires two purple mushrooms and one dark angel feather to cast."
+
+   SpectralChill_already_enchanted = "%s%s is already frozen by spectral chill."
+   SpectralChill_caster = \
+      "A deathly cold surrounds %s%s, slowing their movements."
+   SpectralChill_on = \
+      "An icy chill from beyond the grave seeps into your bones. "
+      "Your movements become sluggish."
+   SpectralChill_off = \
+      "The spectral chill fades and warmth returns to your limbs."
+
+classvars:
+
+   vrName = SpectralChill_name_rsc
+   vrIcon = SpectralChill_icon_rsc
+   vrDesc = SpectralChill_desc_rsc
+
+   vrAlreadyEnchanted = SpectralChill_already_enchanted
+   vrEnchantment_On = SpectralChill_on
+   vrEnchantment_Off = SpectralChill_off
+   vrSuccess = SpectralChill_caster
+
+   viSpell_num = SID_SPECTRAL_CHILL
+   viSchool = SS_NECROMANTIE
+   viSpell_level = 3
+
+   viSpellExertion = 2
+   viMana = 12
+
+   viChance_To_Increase = 20
+   viMeditate_ratio = 30
+
+   viFlash = FLASH_BAD
+
+   viPostCast_time = 1
+
+properties:
+
+   piBaseDuration = 5000
+   piSpellPowerModifier = 50
+   piDeviation = 15
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&PurpleMushroom,2],plReagents);
+      plReagents = Cons([&DarkAngelFeather,1],plReagents);
+
+      return;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellpower=0,report=TRUE)
+   {
+      local oTarget;
+
+      oTarget = First(lTargets);
+
+      Send(self,@DoSpell,#what=who,#oTarget=oTarget,#report=report,
+            #iDuration=Send(self,@GetDuration,#iSpellPower=iSpellPower),
+            #iSpellPower=iSpellPower);
+
+      propagate;
+   }
+
+   DoSpell(what=$,oTarget=$,iDuration=$,report=TRUE,iSpellPower=0)
+   {
+      if oTarget = $
+      {
+         return FALSE;
+      }
+
+      // Check for enchantment already applied
+      if Send(oTarget,@IsEnchanted,#what=self)
+      {
+         return FALSE;
+      }
+
+      if iDuration = $
+      {
+         iDuration = 5000;
+      }
+
+      // Apply the enchantment with spellpower as state
+      Send(oTarget,@StartEnchantment,#what=self,#time=iDuration,
+            #report=report,#state=iSpellPower);
+
+      if IsClass(oTarget,&User)
+      {
+         if report
+         {
+            Send(oTarget,@MsgSendUser,#message_rsc=vrEnchantment_On);
+         }
+      }
+
+      if report
+      {
+         Send(what,@MsgSendUser,#message_rsc=vrSuccess,
+               #parm1=Send(oTarget,@GetCapDef),
+               #parm2=Send(oTarget,@GetName));
+      }
+
+      propagate;
+   }
+
+   GetDuration(iSpellPower=0)
+   {
+      local iDuration;
+
+      iDuration = piBaseDuration + iSpellPower * piSpellPowerModifier;
+      iDuration = Random(iDuration * (100 - piDeviation) / 100,iDuration);
+
+      return iDuration;
+   }
+
+   EndEnchantment(who=$,report=TRUE,state=$)
+   {
+      if IsClass(who,&User)
+      {
+         if report
+         {
+            Send(who,@MsgSendUser,#message_rsc=vrEnchantment_Off);
+         }
+      }
+      else
+      {
+         Post(who,@ResetBehaviorFlags);
+      }
+
+      return;
+   }
+
+   ModifyMonsterBehavior(mob=$)
+   {
+      Send(mob,@SetBehaviorFlag,#flag=AI_NOMOVE,#value=TRUE);
+
+      return;
+   }
+
+   SetSpellPlayerFlag(who=$)
+   {
+      // Slow the player - no fighting allowed while chilled
+      Send(who,@SetPlayerFlag,#flag=PFLAG_NO_FIGHT,#value=TRUE);
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

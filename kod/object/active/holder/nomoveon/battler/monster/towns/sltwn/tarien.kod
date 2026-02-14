@@ -1,0 +1,61 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tarien - Gem merchant
+////////////////////////////////////////////////////////////////////////////////
+SLTarien is SLTown
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include tarien.lkod
+
+   Tarien_name_rsc = "Tarien"
+   Tarien_icon_rsc = Tarien.bgf
+   Tarien_desc_rsc = \
+      "A distinguished merchant in fine clothes, a leather bag full of "
+      "cut gemstones at his side. His look is sly, but charming."
+
+classvars:
+
+   vrName = Tarien_name_rsc
+   vrIcon = Tarien_icon_rsc
+   vrDesc = Tarien_desc_rsc
+   viMerchant_markup = MERCHANT_NORMAL
+   viAttributes = \
+      MOB_NOFIGHT | MOB_RANDOM | MOB_NOMOVE | MOB_LISTEN | \
+      MOB_BUYER | MOB_SELLER | MOB_LAWFUL | MOB_COND_SELLER
+   viOccupation = MOB_ROLE_MERCHANT
+
+properties:
+
+messages:
+
+   SetForSale()
+   {
+      plFor_sale = [
+         [
+            Create(&Diamond,#number=2),
+            Create(&Emerald,#number=2),
+            Create(&PolishedSeraphym,#number=2),
+            Create(&Ruby,#number=2),
+            Create(&Sapphire,#number=2),
+            Create(&UncutSeraphym,#number=2)
+         ],
+      $,$,$];
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

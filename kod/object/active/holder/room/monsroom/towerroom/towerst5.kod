@@ -1,0 +1,134 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 5 - SHIFTING MAZE
+// Typ: Puzzle + Monster (bewegliche Waende)
+////////////////////////////////////////////////////////////////////////////////
+TowerSt5 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+   MAZE_CHANGE_TIME = 30000   // 30 Sekunden
+
+   SECTOR_WALL_A = 20
+   SECTOR_WALL_B = 21
+   SECTOR_WALL_C = 22
+   SECTOR_WALL_D = 23
+
+   WALL_UP = 300
+   WALL_DOWN = 1
+
+resources:
+
+   room_towerst5 = st5.roo
+   room_name_towerst5 = "Tower of Quests - Shifting Maze"
+
+   towerst5_maze_change = "~kDie Waende des Labyrinths bewegen sich..."
+
+classvars:
+
+   vrName = room_name_towerst5
+
+   viTeleport_row = 50
+   viTeleport_col = 102
+
+properties:
+
+   prRoom = room_towerst5
+   piRoom_num = RID_TOWER_ST5
+
+   piNextFloor = RID_TOWER_ST6
+   piPrevFloor = RID_TOWER_ST4
+
+   piMazeState = 0
+   ptMazeTimer = $
+
+messages:
+
+   Constructed()
+   {
+      plMonsters = [ [&Ghost, 100] ];
+      plGenerators = [ [8,8], [8,12], [12,8], [12,12] ];
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 2, 10, RID_TOWER_ST4, 18, 10, ROTATE_NONE ],plExits);
+      plExits = Cons([ 18, 10, RID_TOWER_ST6, 5, 10, ROTATE_NONE ],plExits);
+
+      propagate;
+   }
+
+   FirstUserEntered()
+   {
+      // Starte Maze-Timer
+      if ptMazeTimer = $
+      {
+         ptMazeTimer = CreateTimer(self,@MazeChangeTimer,MAZE_CHANGE_TIME);
+      }
+
+      propagate;
+   }
+
+   LastUserLeft()
+   {
+      // Stoppe Maze-Timer
+      if ptMazeTimer <> $
+      {
+         DeleteTimer(ptMazeTimer);
+         ptMazeTimer = $;
+      }
+
+      propagate;
+   }
+
+   MazeChangeTimer()
+   {
+      local i;
+
+      ptMazeTimer = $;
+
+      // Wechsle Maze-Konfiguration
+      piMazeState = (piMazeState + 1) % 4;
+
+      // TODO: Implementiere Wand-Bewegungen basierend auf piMazeState
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst5_maze_change);
+         }
+      }
+
+      ptMazeTimer = CreateTimer(self,@MazeChangeTimer,MAZE_CHANGE_TIME);
+
+      return;
+   }
+
+   Delete()
+   {
+      if ptMazeTimer <> $
+      {
+         DeleteTimer(ptMazeTimer);
+         ptMazeTimer = $;
+      }
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

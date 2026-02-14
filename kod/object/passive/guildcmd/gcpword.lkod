@@ -1,0 +1,16 @@
+guildsetpassword_name_rsc = de "Passwort setzen"
+guildsetpassword_lieutenant = de "Ändert ein Passwort einer Gildenhalle."
+setpassword_not_guilded = de \
+   "Du bist nicht Mitglied einer Gilde und hast somit kein Passwort was geändert "
+   "werden kann!"
+setpassword_cant_setpassword = de \
+   "Nur Gildenmeister können das Passwort einer Gildenhalle ändern!"
+setpassword_no_hall = de \
+   "Du kannst kein Gildenhallen Passwort ändern, wenn Du keine Gildenhalle "
+   "hast!"
+
+guildsetpassword_name_rsc = pt "Definir senha"
+guildsetpassword_lieutenant = pt "Altera a senha de uma guilda."
+setpassword_not_guilded = pt "Você não é membro de uma guilda e não tem senha para alterar!"
+setpassword_cant_setpassword = pt "Apenas os mestres de guilda podem alterar a senha de uma guilda!"
+setpassword_no_hall = pt "Você não pode definir a senha da sua guilda se não tiver um salão de guilda!"

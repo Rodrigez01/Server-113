@@ -1,0 +1,22 @@
+{
+  "name": "",
+  "version": 10,
+  "shrink": 1,
+  "frames": [
+    {
+      "index": 0,
+      "w": 216,
+      "h": 324,
+      "xoffset": 0,
+      "yoffset": 0,
+      "atlas": {
+        "x": 2,
+        "y": 2,
+        "w": 216,
+        "h": 324
+      },
+      "hotspots": []
+    }
+  ],
+  "groups": []
+}

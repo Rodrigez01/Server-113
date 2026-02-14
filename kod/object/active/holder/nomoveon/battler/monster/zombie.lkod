@@ -1,0 +1,15 @@
+zombie_koc_name_rsc = de "ixleoc"
+zombie_name_rsc = de "Der Zombie"
+zombie_desc_rsc = de \
+   "Das Böse hat die Toten in Form von Zombies zurück ins Leben gebracht. "
+   "Verfaultes Fleisch, weiß und schwammig, hängt an weichen Knochen. Seine "
+   "wäßrigen Augen starren blind ins Leere."
+zombie_dead_name_rsc = de "Ein toter Zombie"
+
+zombie_name_rsc = pt "zombie"
+zombie_desc_rsc = pt \
+   "O mal desenfreado trouxe os mortos de volta à vida na " 
+   "forma deste zumbi. Carne podre, branca e pastosa, " 
+   "gruda nos ossos frágeis. Seus olhos encharcados encaram " 
+   "sem ver."
+zombie_dead_name_rsc = pt "zumbi morto"

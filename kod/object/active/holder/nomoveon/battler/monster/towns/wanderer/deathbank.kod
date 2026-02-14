@@ -1,0 +1,217 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+DeathBanker is Wanderer
+
+constants:
+
+   include blakston.khd
+   TELEPORT_MIN = 600000
+   TELEPORT_MAX = 600000
+
+resources:
+
+   Deathbanker_name_rsc = "Keeper of Souls"
+   Deathbanker_icon_rsc = qw06i.bgf
+   Deathbanker_desc_rsc =  \
+      "You are not sure who...or what it is your looking at. It claims it "
+      "will store your souls for you. But I'm not sure if ''it'' can be trusted. "
+
+   Deathbanker_entry_welcome = \
+      "souls....I know you have them...i can smell the death on you..let me keep the lost "
+      "safe for you."
+
+   DR_bnkr_balance               = "You have %i souls sealed away."
+   DR_bnkr_did_deposit           = "You now have %i souls sealed away."
+   DR_bnkr_no_account            = "There are no souls linked to your spirit."
+   DR_bnkr_acct_full             = "You have to many souls bound to you, your spirit can not handle anymore."
+   DR_bnkr_acct_almost_full      = "Your spirit is almost at its limit, it won't be able to bond with many more souls."
+   DR_bnkr_not_enough_withdraw   = "You only have %i souls bound to you."
+   DR_bnkr_not_enough_deposit    = "You only have %i souls in your possession."
+   DR_bnkr_did_withdraw          = "Here are your %i souls. I hope you treat them better than I have."
+   DR_bnkr_player_full           = "The wieght of %i souls is to much for your mortal body to bear."
+   DR_bnkr_player_all_full       = "The wieght of a single other souls is to much for your mortal body to bear."
+
+   DR_Banker_not_Shils = \
+      "~k%s%s tells you, \"~IGuh~I I don't have any place to put "
+      "that.  Now if it were shillings...~n~k\""
+
+classvars:
+
+   vrName = Deathbanker_name_rsc
+   vrIcon = Deathbanker_icon_rsc
+   vrDesc = Deathbanker_desc_rsc
+   viMerchant_markup = MERCHANT_FLAT
+
+   vrLm_bnkr_balance                = DR_bnkr_balance
+   vrLm_bnkr_did_deposit            = DR_bnkr_did_deposit
+   vrLm_bnkr_no_account             = DR_bnkr_no_account
+   vrLm_bnkr_acct_full              = DR_bnkr_acct_full
+   vrLm_bnkr_acct_almost_full       = DR_bnkr_acct_almost_full
+   vrLm_bnkr_not_enough_withdraw    = DR_bnkr_not_enough_withdraw
+   vrLm_bnkr_not_enough_deposit     = DR_bnkr_not_enough_deposit
+   vrLm_bnkr_did_withdraw           = DR_bnkr_did_withdraw
+   vrLm_bnkr_player_full            = DR_bnkr_player_full
+   vrLm_bnkr_player_all_full        = DR_bnkr_player_all_full
+
+   viAttributes = \
+      MOB_NOFIGHT | MOB_SELLER | MOB_RANDOM | MOB_LISTEN \
+      | MOB_NOMOVE | MOB_RECEIVE | MOB_BANKER
+
+   viOccupation = MOB_ROLE_BANKER
+
+   viBank = BID_DR
+
+   vrUnwanted_give = DR_Banker_not_Shils
+
+properties:
+
+   poCurrency = &Souls
+
+messages:
+
+   Constructor()
+   {
+      plWantedItems = [&Souls];
+
+      propagate;
+   }
+
+   SetForSale()
+   {
+      plFor_sale = [
+         [
+            Create(&OfferingRiija),
+            Create(&GrayMushroom),
+            Create(&CyanMushroom),
+            Create(&YellowMushroom),
+            Create(&GreenMushroom),
+            Create(&InkyCap)
+         ],
+      $,$,$];
+
+      return;
+   }
+
+   CanAcceptOffer()
+   {
+      return TRUE;
+   }
+
+   CreateDestinationList()
+   {
+      plDestinations = [ [RID_DH4, 24, 29],             
+                         [RID_DH3, 32, 35],             
+                         [RID_DI3, 13, 12],       
+                         [RID_DJ3, 14, 18],             
+                         [RID_DCASTLE2B, 8, 13],       
+                         [RID_DBADLAND2, 8, 20],       
+                         [RID_DBADLAND1, 25, 17],       
+                         [RID_DK5, 33, 32],             
+                         [RID_DH5, 26, 12],             
+                         [RID_DH6, 25, 22],         
+                         [RID_DG4, 42, 15],       
+                         [RID_DF4, 27, 35],             
+                         [RID_DF3, 23, 60],             
+                         [RID_DE4, 26, 26],             
+                         [RID_DD5, 24, 63],             
+                         [RID_DD4, 44, 34],             
+                         [RID_DC5, 19, 18],         
+                         [RID_DC4, 30, 21],             
+                         [RID_DTEMPLE, 18, 7],         
+                         [RID_DE2, 19, 32],             
+                         [RID_DF2, 14, 48],      
+                         [RID_DC6, 31, 23],      
+                         [RID_DE5, 9, 3],             
+                         [RID_DC7, 15, 19],             
+                         [RID_DD7, 15, 29],             
+                         [RID_DE7, 22, 21],       
+                         [RID_DF8, 18, 21],             
+                         [RID_DG8, 16, 11],             
+                         [RID_DG6, 87, 59],             
+                         [RID_DH7, 22, 35],             
+                         [RID_DG5, 35, 34],             
+                         [RID_DF7, 25, 15],             
+                         [RID_DF6, 9, 35],             
+                         [RID_DI6, 23, 16],             
+                         [RID_DI7, 23, 19],             
+                         [RID_DI8, 7, 6],             
+                         [RID_DI9, 42, 14],             
+                         [RID_DH9, 34, 26],             
+                         [RID_DG9, 20, 66],             
+                         [RID_DTEMPLE_KRAANAN, 47, 40]   ];
+
+      return;
+   }
+
+   UserEntered(who=$)
+   {
+      if Send(who,@CheckPlayerFlag,#flag=PFLAG_MURDERER)
+      {
+         Send(self,@SetMood,#new_mood=piMood-1);
+
+         // Don't welcome these guys.
+         propagate;
+      }
+
+      if Send(who,@CheckPlayerFlag,#flag=PFLAG_OUTLAW)
+      {
+         Send(self,@SetMood,#new_mood=piMood-1);
+
+         // Don't welcome these guys.
+         propagate;
+      }
+
+      Post(who,@SomeoneSaid,#what=self,#string=Deathbanker_entry_welcome,
+             #type = SAY_RESOURCE);
+
+      propagate;
+   }
+
+   SomethingMoved()
+   {
+      Send(poOwner,@DeleteWallsAroundBattler,#who=self);
+
+      propagate;
+   }
+   
+   GetBankNum()
+   {
+      return viBank;
+   }
+
+   TeleportTimerTrigger(timer = $)
+   {
+      local lActive, i;
+
+      if (ptTeleport <> timer)
+      {
+         DeleteTimer(ptTeleport);
+      }
+
+      ptTeleport = CreateTimer(self,@TeleportTimerTrigger,
+                           Random(TELEPORT_MIN, TELEPORT_MAX) );
+
+      if (piTeleport_Counter > 4)
+      {
+         //Debug("Counter = ",piTeleport_Counter,", teleporting regardless...");
+         Send(self, @NextDest);
+
+         return;
+      }
+
+      lActive = Send(poOwner, @GetHolderActive);
+
+      Send(self,@NextDest);
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

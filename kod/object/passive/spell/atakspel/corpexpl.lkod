@@ -1,0 +1,7 @@
+CorpseExplosion_name_rsc = de "Leichenexplosion"
+CorpseExplosion_desc_rsc = de \
+   "Zuendet Todesenergie in der Umgebung und verursacht eine "
+   "Explosion nekrotischer Kraft, die alle nahen Feinde schaedigt. "
+   "Benoetigt zwei Dunkle Engelsfedern und ein Schamanenblut."
+CorpseExplosion_death = de \
+   "Die nekrotische Explosion zerreisst %s%s."

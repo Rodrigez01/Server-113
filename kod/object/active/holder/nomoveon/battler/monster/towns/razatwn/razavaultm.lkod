@@ -1,0 +1,68 @@
+RazaVaultman_name_rsc = de "Bentu"
+RazaVaultman_desc_rsc = de \
+   "Der Alte Mann mit ungezähmten weißem Haar und ähnlich verwahlosten "
+   "Manieren beäugt dich neugierig aus seinen listigen Augen.  Du bist "
+   "dir nicht ganz sicher, ob du dir Sorgen machen solltest, oder nicht."
+RazaVaultman_entry_welcome = de "Komm rein!"
+RazaVaultman_nogold = de \
+   "Verzieh dich!  Das ist keine Bank!"
+RazaVaultman_nocursed = de "Verflucht nochmal! Ich will mit %s%s nichts zu "
+   "tun haben!"
+RazaVaultman_fullvault = de \
+   "Deine Kiste ist voll!"
+RazaVaultman_thanks_amount = de \
+   "Das kostet %i Schillinge!"
+RazaVaultman_dont_have = de \
+   "Häh? ...%s%s hab ich nicht."
+RazaVaultman_no_room = de \
+   "Wie willste das bitte alles tragen?  Leg erstmal was ab!"
+RazaVaultman_deposit_thanks = de \
+   "Wie neu!"
+RazaVaultman_thanks = de "Da.  Nimm!"
+RazaVaultman_withdraw_failed = de \
+   "Hmm?  Irgendwas stimmt hier nicht...  Momentchen!"
+RazaVaultman_nowithdraw_cash = de \
+   "Das ist nicht umsonst, Freundchen!"
+RazaVaultman_nodeposit_cash = de \
+   "Das kostet %i Schillinge...  Kein Geld? Kein Service!"
+RazaVaultman_cant_part = de \
+   "Ohh, %s sieht mir nur nach Ärger aus.  Lass mich bloß damit in Ruhe!"
+RazaVaultman_noaccount = de "Was willste?"
+RazaVaultman_not_enough = de "Willste mich veräppeln?  Du hast mir nie so viele %s gegeben!"
+
+RazaVaultman_name_rsc = pt "Bentu"
+RazaVaultman_desc_rsc = pt \
+   "Um velho mal-humorado com cabelos brancos indomáveis, Bentu parece lidar "
+   "com as pesadas caixas empilhadas em seu cofre com uma facilidade notável. "
+   "Um brilho travesso dança em seus olhos enquanto ele pousa o olhar "
+   "sobre você e você não consegue decidir se deveria ficar "
+   "perturbado ou não."
+RazaVaultman_entry_welcome = pt "Olá, aí!"
+RazaVaultman_nogold = pt "Isso não é um banco!"
+RazaVaultman_nocursed = pt "Você é louco? De jeito nenhum vou deixar você usar meu "
+   "cofre para %s %s amaldiçoados!"
+RazaVaultman_fullvault = pt \
+   "Não tenho mais espaço para suas coisas!"
+RazaVaultman_thanks_amount = pt \
+   "Isso custará %i xelins!"
+RazaVaultman_dont_have = pt \
+   "Huh, tem certeza de que %s%s está em algum lugar aqui?"
+RazaVaultman_no_room = pt \
+   "Agora olhe só você tentando carregar toda essa porcaria! Talvez leve "
+   "uma coisa de cada vez?"
+RazaVaultman_deposit_thanks = pt \
+   "Assim como você deixou!"
+RazaVaultman_thanks = pt \
+   "Aqui está!"
+RazaVaultman_withdraw_failed = pt \
+   "Huh? Alguma coisa não está bem... Me dê um momento!"
+RazaVaultman_nowithdraw_cash = pt \
+   "Isso não é de graça, amigo!"
+RazaVaultman_nodeposit_cash = pt \
+   "Meus serviços não são de graça. Consiga %i xelins ou caia fora!"
+RazaVaultman_cant_part = pt \
+   "Este %s parece problema! Mantenha-o."
+RazaVaultman_noaccount = pt \
+   "O que você quer?"
+RazaVaultman_not_enough = pt \
+   "Você está tentando me enganar? Você nunca me deu tantos %s!"

@@ -1,0 +1,8 @@
+BoneBreath_name_rsc = de "Knochenhauch"
+BoneBreath_desc_rsc = de \
+   "Haucht einen eisigen Nebel aus dem Jenseits, verursacht Frostschaden "
+   "beim Ziel und verlangsamt es kurz. "
+   "Benoetigt einen blauen Pilz."
+BoneBreath_death = de "Die toedliche Kaelte loescht die letzte Waerme aus %s%s."
+BoneBreath_slow_rsc = de \
+   "Eine eisige Kaelte kriecht in Deine Knochen und verlangsamt Dich."

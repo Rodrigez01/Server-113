@@ -1,0 +1,226 @@
+// Meridian 59 - Necromantie Spell School
+// Army of Bones (Armee der Knochen) - Level 6 Summon Spell
+// Summons 3 skeletons for 15 seconds. Costs 3 soul fragments.
+
+
+////////////////////////////////////////////////////////////////////////////////
+ArmyOfBones is Spell
+
+constants:
+
+   include blakston.khd
+
+   ARMY_DURATION = 15000
+
+resources:
+
+   include armybons.lkod
+
+   ArmyOfBones_name_rsc = "army of bones"
+   ArmyOfBones_icon_rsc = inecro11.bgf
+   ArmyOfBones_desc_rsc = \
+      "Raises an army of three skeletal warriors from the earth to "
+      "fight by your side for 15 seconds. The combined power of "
+      "three soul fragments fuels this dark ritual.  "
+      "Costs three soul fragments."
+
+   ArmyOfBones_cast_rsc = \
+      "Three skeletal warriors claw their way from the earth!"
+   ArmyOfBones_no_soul_rsc = \
+      "You need three soul fragments to raise the army."
+   ArmyOfBones_limit_rsc = \
+      "You already command an army of the dead."
+
+   ArmyOfBones_spell_intro = \
+      "Necromantie Lv. 6: Summons three skeletal warriors for "
+      "15 seconds. Costs three soul fragments."
+
+   ArmyOfBones_sound = qdeathlk.ogg
+
+classvars:
+
+   vrName = ArmyOfBones_name_rsc
+   vrIcon = ArmyOfBones_icon_rsc
+   vrDesc = ArmyOfBones_desc_rsc
+
+   viSpell_num = SID_ARMY_OF_BONES
+   viSchool = SS_NECROMANTIE
+   viSpell_level = 6
+   viMana = 25
+   viMeditate_ratio = 60
+
+   viSpellExertion = 4
+   viCast_time = 2000
+
+   vrSucceed_wav = ArmyOfBones_sound
+
+properties:
+
+messages:
+
+   ResetReagents()
+   {
+      // No standard reagents - consumes soul fragments manually
+      plReagents = $;
+
+      return;
+   }
+
+   GetNumSpellTargets()
+   {
+      return 0;
+   }
+
+   CanPayCosts(who=$)
+   {
+      local i, iSoulCount, iMinionCount;
+
+      // Limit to avoid too many minions
+      iMinionCount = 0;
+      foreach i in Send(who,@GetControlledMinions)
+      {
+         if IsClass(i,&Skeleton)
+         {
+            iMinionCount = iMinionCount + 1;
+         }
+      }
+
+      if iMinionCount >= 3
+      {
+         Send(who,@MsgSendUser,#message_rsc=ArmyOfBones_limit_rsc);
+
+         return FALSE;
+      }
+
+      // Count soul fragments
+      iSoulCount = 0;
+      foreach i in Send(who,@GetHolderPassive)
+      {
+         if IsClass(i,&LesserSoul)
+            OR IsClass(i,&AdeptSoul)
+            OR IsClass(i,&MasterSoul)
+         {
+            iSoulCount = iSoulCount + Send(i,@GetNumber);
+         }
+      }
+
+      if iSoulCount < 3
+      {
+         Send(who,@MsgSendUser,#message_rsc=ArmyOfBones_no_soul_rsc);
+
+         return FALSE;
+      }
+
+      propagate;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellPower=1)
+   {
+      local oRoom, oMinion, i, iToConsume, iCount;
+
+      oRoom = Send(who,@GetOwner);
+
+      if oRoom = $
+      {
+         return;
+      }
+
+      // Consume 3 soul fragments (weakest first)
+      iToConsume = 3;
+      foreach i in Send(who,@GetHolderPassive)
+      {
+         if iToConsume <= 0
+         {
+            break;
+         }
+
+         if IsClass(i,&LesserSoul)
+         {
+            if Send(i,@GetNumber) >= iToConsume
+            {
+               Send(i,@SubtractNumber,#number=iToConsume);
+               iToConsume = 0;
+            }
+            else
+            {
+               iToConsume = iToConsume - Send(i,@GetNumber);
+               Send(i,@SubtractNumber,#number=Send(i,@GetNumber));
+            }
+         }
+      }
+
+      if iToConsume > 0
+      {
+         foreach i in Send(who,@GetHolderPassive)
+         {
+            if iToConsume <= 0
+            {
+               break;
+            }
+
+            if IsClass(i,&AdeptSoul)
+            {
+               if Send(i,@GetNumber) >= iToConsume
+               {
+                  Send(i,@SubtractNumber,#number=iToConsume);
+                  iToConsume = 0;
+               }
+               else
+               {
+                  iToConsume = iToConsume - Send(i,@GetNumber);
+                  Send(i,@SubtractNumber,#number=Send(i,@GetNumber));
+               }
+            }
+         }
+      }
+
+      if iToConsume > 0
+      {
+         foreach i in Send(who,@GetHolderPassive)
+         {
+            if iToConsume <= 0
+            {
+               break;
+            }
+
+            if IsClass(i,&MasterSoul)
+            {
+               if Send(i,@GetNumber) >= iToConsume
+               {
+                  Send(i,@SubtractNumber,#number=iToConsume);
+                  iToConsume = 0;
+               }
+               else
+               {
+                  iToConsume = iToConsume - Send(i,@GetNumber);
+                  Send(i,@SubtractNumber,#number=Send(i,@GetNumber));
+               }
+            }
+         }
+      }
+
+      // Summon 3 skeletons
+      iCount = 0;
+      while iCount < 3
+      {
+         oMinion = Create(&Skeleton,#iSpellpower=iSpellpower,#oMaster=who);
+
+         Send(oRoom,@NewHold,#what=oMinion,#new_row=Send(who,@GetRow),
+               #new_col=Send(who,@GetCol),#fine_row=Send(who,@GetFineRow),
+               #fine_col=Send(who,@GetFineCol));
+
+         Send(who,@NewControlledMinion,#minion=oMinion);
+         Send(oMinion,@SetBehaviorFlag,#flag=AI_MOVE_FOLLOW_MASTER,
+               #value=TRUE);
+         Send(oMinion,@SetMaster,#oMaster=who);
+
+         iCount = iCount + 1;
+      }
+
+      Send(who,@MsgSendUser,#message_rsc=ArmyOfBones_cast_rsc);
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

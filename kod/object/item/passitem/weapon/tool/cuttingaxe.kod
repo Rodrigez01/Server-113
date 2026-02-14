@@ -1,0 +1,51 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+CuttingAxe is Tool
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   CuttingAxe_name_rsc = "wood cutting axe"
+   CuttingAxe_icon_rsc = woodAxe.bgf
+   CuttingAxe_desc_rsc = \
+   "Crafted by Colhorr this axe is made to chop down mature trees.  "
+
+   CuttingAxe_window_overlay_rsc = povwoodAxe.bgf
+   CuttingAxe_player_overlay = woodAxeov.bgf
+
+classvars:
+
+   vrName = CuttingAxe_name_rsc
+   vrIcon = CuttingAxe_icon_rsc
+   vrDesc = CuttingAxe_desc_rsc
+
+   viWeaponType = WEAPON_TYPE_SLASH
+   viWeaponQuality = WEAPON_QUALITY_LOW
+
+   viProficiency_Needed = SKID_LOGGING
+
+   voResource = &ResTree
+
+   vrWeapon_window_overlay = CuttingAxe_window_overlay_rsc
+
+   vrWeapon_overlay = CuttingAxe_player_overlay
+
+properties:
+
+   piAttack_type = ATCK_WEAP_NONMAGIC + ATCK_WEAP_SLASH
+
+messages:
+
+end
+////////////////////////////////////////////////////////////////////////////////

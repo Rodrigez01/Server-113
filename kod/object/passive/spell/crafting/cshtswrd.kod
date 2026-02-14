@@ -1,0 +1,58 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+CraftShortSword is Crafting
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include cshtswrd.lkod
+
+   CraftShortSword_name_rsc = "craft short sword"
+   CraftShortSword_icon_rsc = icraftshortsword.bgf
+   CraftShortSword_desc_rsc = \
+      "Craft a short sword at a anvil with a blacksmith's hammer. "
+      "Requires 10 iron ingots and 5 lumber. "
+
+   CraftShortSword_sound = kraanan.ogg
+
+classvars:
+
+   vrName = CraftShortSword_name_rsc
+   vrIcon = CraftShortSword_icon_rsc
+   vrDesc = CraftShortSword_desc_rsc
+
+   viSpell_num = SID_CRAFTSHORTSWORD
+   viSpell_level = 3
+   viMeditate_ratio = 60
+   viSpellExertion = 5
+
+   vrGear = &ShortSword
+   voTool = &BlackSmithsHammer
+   viBench  = &CraftingAnvil
+
+properties:
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&IronIngot,10],plReagents);
+      plReagents = Cons([&Lumber,5],plReagents);
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

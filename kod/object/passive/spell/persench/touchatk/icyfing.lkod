@@ -1,0 +1,31 @@
+IcyFingers_name_rsc = de "Eisiger Griff"
+IcyFingers_desc_rsc = de \
+   "Gefriert einen Teil des Fleisches des Ziels und zerstört dabei die äußere "
+   "Gewebeschicht auf schmerzvolle Weise. Der Zauber benötigt einen roten Pilz."
+IcyFingers_already_enchanted_rsc = de \
+   "Deine Hände sind bereits von Frost umhüllt."
+IcyFingers_On_rsc = de "Ein fröstige Kälte überzieht deine Hände."
+IcyFingers_Off_rsc = de "Deine Hände sind nicht länger überzogen mit Frost."
+IcyFingers_player_was_hit = de \
+   "%s%s berührt dich und dein Fleisch beginnt zu gefrieren und hinterlässt "
+   "ein Stück schwarzes, lebloses Gewebe."
+IcyFingers_player_hit_something = de \
+   "%sDein Eisiger Griff friert ein Stück von %s%ss Fleisch, und hinterlässt "
+   "es schwarz und leblos."
+IcyFingers_player_killed_something = de \
+   "%s%s findet einen kalten unübertroffenen Tod."
+IcyFingers_player_was_killed = de \
+   "Beim Eisigen Griff von %s%s zitterst du und fällst in einen kalten Tod."
+IcyFingers_spell_intro = de \
+   "Faren Level 2: Gefriert einen Teil des Fleisches des Ziels und zerstört."
+
+IcyFingers_name_rsc = pt "dedos gelados"
+IcyFingers_desc_rsc = pt "Reveste seus dedos com gelo que pode congelar um pedaço de carne em seu alvo, destruindo dolorosamente a camada externa de tecido. Requer um cogumelo vermelho."
+IcyFingers_already_enchanted_rsc = pt "Suas mãos já estão envoltas em gelo."
+IcyFingers_On_rsc = pt "Uma geada de frio absoluto envolve suas mãos."
+IcyFingers_Off_rsc = pt "Suas mãos não estão mais envoltas em gelo."
+IcyFingers_player_was_hit = pt "%s%s te toca, congelando sua carne e deixando uma mancha de tecido preto e sem vida."
+IcyFingers_player_hit_something = pt "%sSeu toque gelado congela um pedaço de carne de %s%s, deixando-o preto e sem vida."
+IcyFingers_player_killed_something = pt "%s%s encontra um frio sem igual em qualquer outra morte."
+IcyFingers_player_was_killed = pt "Ao toque gélido de %s%s, você treme e cai no frio da morte."
+IcyFingers_spell_intro = pt "Nível 2 de Faren: Transforma seu toque no gelo mais frio, permitindo um ataque destrutivo."

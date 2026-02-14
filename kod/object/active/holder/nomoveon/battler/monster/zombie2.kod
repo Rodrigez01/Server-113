@@ -1,0 +1,141 @@
+// Meridian 59 - Zombie2
+// Basiert auf Zombie, mit neuer Grafik und Level 150
+
+////////////////////////////////////////////////////////////////////////////////
+Zombie2 is Monster
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include zombie2.lkod
+
+   zombie2_koc_name_rsc = "ixleoc'tar"
+   zombie2_name_rsc = "Verfluchter Zombie"
+   zombie2_icon_rsc = zombie2.bgf
+   zombie2_desc_rsc = \
+   "Ein uralter Untoter, dessen verdorbene Seele von dunkler Magie "
+   "durchdrungen ist. Seine fauligen Augen gluehen mit unheiliger Macht, "
+   "und giftige Daempfe steigen aus seinem verwesenden Koerper auf."
+
+   zombie2_dead_icon_rsc = zombie2X.bgf
+   zombie2_dead_name_rsc = "toter Verfluchter Zombie"
+
+   zombie2_sound_hit = zmb_atkh.ogg
+   zombie2_sound_miss = zmb_atkm.ogg
+   zombie2_sound_death = zmb_dth.ogg
+   zombie2_sound_aware = zmb_awr.ogg
+
+classvars:
+
+   vrKocName = zombie2_koc_name_rsc
+   vrName = zombie2_name_rsc
+   vrIcon = zombie2_icon_rsc
+   vrDesc = zombie2_desc_rsc
+   vrDead_icon = zombie2_dead_icon_rsc
+   vrDead_name = zombie2_dead_name_rsc
+
+   viSpeed = SPEED_SLOW
+   viAttack_type = ATCK_WEAP_SLASH
+   viDefault_behavior = AI_FIGHT_KARMA_AGGRESSIVE | AI_MOVE_FLEE_FRIGHTENERS | AI_LOOPING_PATROL
+
+   vbIsUndead = TRUE
+   viDifficulty = 9
+   viVisionDistance = 12
+   viKarma = -100
+   viCashmin = 500
+   viCashmax = 1500
+   vrSound_hit = zombie2_sound_hit
+   vrSound_miss = zombie2_sound_miss
+   vrSound_aware = zombie2_sound_aware
+   vrSound_death = zombie2_sound_death
+
+properties:
+
+   viTreasure_type = TID_ZOMBIE
+   viLevel = 150
+
+   piAnimation = ANIM_NONE
+
+   piReputationGroup = REP_UNDEAD
+
+   // Hoehere Patrol-Chance (Standard ist 125, hier 1000 = 10%)
+   piChanceToPatrol = 1000
+
+messages:
+
+   Constructed()
+   {
+      plResistances = [ [-ATCK_SPELL_COLD, 75],
+                        [-ATCK_SPELL_UNHOLY, 50],
+                        [-ATCK_SPELL_HOLY, -50] ];
+
+      plReputationEnemies = [REP_FAROL];
+
+      propagate;
+   }
+
+   MonsterAttack(what = $)
+   {
+      piAnimation = ANIM_ATTACK;
+      Send(poOwner,@SomethingChanged,#what=self);
+      piAnimation = ANIM_NONE;
+
+      return;
+   }
+
+   SendLookAnimation()
+   {
+      // Statisch wenn nicht bewegt (Frame 1)
+      AddPacket(1,ANIMATE_NONE,2,1);
+
+      return;
+   }
+
+   SendMoveAnimation()
+   {
+      // Walk-Animation: Cycle zwischen Frame 1 und 2, 200ms pro Frame
+      AddPacket(1,ANIMATE_CYCLE,4,200,2,1,2,2);
+
+      return;
+   }
+
+   SendAnimation()
+   {
+      if piAnimation = ANIM_ATTACK
+      {
+         // Attack-Animation: schneller cycle
+         AddPacket(1,ANIMATE_CYCLE,4,100,2,1,2,2);
+
+         return;
+      }
+
+      // Standard: statisch
+      AddPacket(1,ANIMATE_NONE,2,1);
+
+      return;
+   }
+
+   HitSideEffect(what = $, who = $)
+   {
+      local oSpell;
+
+      if NOT IsClass(what,&Battler)
+      {
+         return;
+      }
+
+      // 25% Chance auf Poison bei Treffer
+      if Random(1,4) = 1
+      {
+         oSpell = Send(SYS,@FindSpellByNum,#num=SID_POISON);
+         Send(oSpell,@DoSpell,#what=self,#oTarget=what,#iSpellPower=50);
+      }
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

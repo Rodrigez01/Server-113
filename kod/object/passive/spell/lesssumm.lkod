@@ -1,0 +1,17 @@
+LesserSummon_name_rsc = de "Niedere Beschwoerung"
+LesserSummon_desc_rsc = de \
+   "Verbraucht eine Niedere Seele, um einen skelettartigen Diener "
+   "aus dem Boden zu erziehen. Der Diener wird Dir folgen und fuer "
+   "Dich kaempfen. Benoetigt eine Niedere Seele."
+LesserSummon_cast_rsc = de \
+   "Knochen graben sich aus der Erde und fuegen sich zu einem "
+   "Diener zusammen."
+LesserSummon_no_soul_rsc = de \
+   "Du brauchst eine Niedere Seele, um diese Beschwoerung zu naehren."
+LesserSummon_failed_rsc = de \
+   "Hier ist zu viel Beschwoerungsmagie konzentriert."
+LesserSummon_limit_rsc = de \
+   "Du hast bereits einen untoten Diener."
+LesserSummon_spell_intro = de \
+   "Nekromantie Lv. 1: Verbraucht eine Niedere Seele, um einen "
+   "Skelettdiener zu beschwoeren, der fuer Dich kaempft."

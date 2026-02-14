@@ -1,0 +1,15 @@
+earthelemental_name_rsc = de "Der Erdgolem"
+earthelemental_desc_rsc = de \
+   "Ein Wesen aus lebendiger Erde. Der Boden unter ihm bebt bei jedem Schritt.Seine "
+   "Bewegungen klingen wie ein Schleifstein, und der Duft von frischem Boden "
+   "dring in die Nase."
+earthelemental_koc_name_rsc = de "atzmochzhu"
+earthelemental_dead_name_rsc = de "toter Erdgolem"
+
+earthelemental_name_rsc = pt "earth golem"
+earthelemental_desc_rsc = pt \
+   "Uma criatura de terra viva, este monstro imponente se aproxima de você," 
+   " fazendo o chão tremer a cada passo. Cada movimento seu soa como pedra " 
+   "sendo moída, e o aroma de terra fresca enche suas narinas."
+earthelemental_koc_name_rsc = pt "atzmochzhu"
+earthelemental_dead_name_rsc = pt "earth golem morto"

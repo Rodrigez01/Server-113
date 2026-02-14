@@ -1,0 +1,15 @@
+GraveGrip_name_rsc = de "Grabesgriff"
+GraveGrip_desc_rsc = de \
+   "Spektrale Haende brechen aus dem Boden und packen das Ziel, "
+   "verankern es fuer einen kurzen Moment am Platz. "
+   "Benoetigt einen violetten Pilz."
+GraveGrip_already_enchanted = de "%s%s wird bereits vom Grabesgriff gehalten."
+GraveGrip_caster = de \
+   "Geisterhaende brechen aus der Erde und packen %s%s!"
+GraveGrip_on = de \
+   "Skeletthaende brechen aus dem Boden und umklammern Deine Beine! "
+   "Du kannst Dich nicht bewegen!"
+GraveGrip_off = de \
+   "Der spektrale Griff zerbricht und Du kannst Dich wieder bewegen."
+GraveGrip_spell_intro = de \
+   "Nekromantie Lv. 1: Verankert das Ziel kurz am Platz."

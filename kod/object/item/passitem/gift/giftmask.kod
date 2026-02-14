@@ -1,0 +1,64 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+MaskGift is Gift
+
+constants:
+
+   include blakston.khd
+   include protocol.khd
+
+resources:
+
+   MaskGift_name_rsc = "mask box"
+   MaskGift_icon_rsc = lootboxes.bgf
+   MaskGift_desc_rsc = \
+      "This is a gift from the gods, it contains a random mask!\n\n"
+      "MASK  ONLY HAVE 10% CHANCE TO HAVE A ENCHANTMENT.\n\n"
+      "Items have a 30% chance to be colored.\n\n"
+      "This box has a chance to contain the following items : \n"
+      "kriipa mask, stone troll mask, troll mask, ant mask, dusk rat mask, "
+      "rat mask, skull mask, rice hat mask, wolf mask, soldier mask, "
+      "manager mask, worker mask, front man mask, cow mask, mummy mask, "
+      "shrunken head mask, fey elhai mask, fey derhai mask, daemon skeleton mask, "
+      "xeochicatl mask, plague doctor mask, pumpkin mask, horned skull mask, "
+      "verdant veil of the wilds.\n\n"
+      "These items have a chance to be enchanted with :\n bond, bonus xp."
+
+classvars:
+
+   vrName = MaskGift_name_rsc
+   vrIcon = MaskGift_icon_rsc
+   vrDesc = MaskGift_desc_rsc
+   
+   viValue_average = 3000
+
+properties:
+
+messages:
+
+   Constructor()
+   {
+      plContents = [ &KriipaMask,    &StoneTrollMask,   &TrollMask, 
+                     &AntMask,       &DuskRatMask,      &RatMask,
+                     &SkullMask,     &RiceMask,         &WolfMask,
+                     &TriangleMask,  &SquareMask,       &FrontMask,
+                     &CircleMask,    &CowMask,          &ShrunkenHeadMask,
+                     &FeyMaskEvil,   &FeyMask,          &MummyMask,
+                     &DaemonMask,    &XeoMask,          &PlagueMask,
+                     &PumpkinMask,   &HornedSkullMask,  &ForestMask ];
+
+      plItematt = [ IA_TRANSCENDANT, IA_XP_KILL_BONUS ];
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

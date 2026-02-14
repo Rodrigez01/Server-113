@@ -1,0 +1,129 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+Duke3 is Room
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include duke3.lkod
+
+   room_Duke3 = duke3.roo
+   room_name_Duke3_old = "The Chambers of Duke Kalior"
+   room_name_Duke3 = "The Chambers of Duke Akardius"
+
+   Duke3_music = area01.ogg
+
+   duke3_West_Door = \
+      "The Duke shouts angrily at you as you attempt to open the door.  "
+      "You wisely put your efforts to a halt."
+   duke3_East_Door = \
+      "The Duke would have your head if you entered his quarters.  "
+      "You decide you'd rather keep it and leave the door alone."
+
+classvars:
+
+   viPermanent_flags = ROOM_NO_COMBAT | ROOM_SAFELOGOFF
+
+   viTeleport_row = 35
+   viTeleport_col = 32
+
+   viTerrain_Type = TERRAIN_CASTLE
+
+   viWeatherZone = WEATHER_ZONE_TOS
+   viWeatherMask = WEATHER_MASK_DEFAULT_NS
+
+properties:
+
+   vrName = room_name_Duke3
+   prRoom = room_Duke3
+   piRoom_num = RID_DUKE3
+
+   piBaseLight = LIGHT_NICE
+   piOutside_factor = 8
+
+   prMusic = Duke3_music
+
+   pbSnowGroundTexture = TRUE
+
+messages:
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 37, 32, RID_DUKE2, 3, 15, ROTATE_NONE ],plExits);
+      plExits = Cons([ 37, 33, RID_DUKE2, 3, 15, ROTATE_NONE ],plExits);
+      plExits = Cons([ 37, 34, RID_DUKE2, 3, 15, ROTATE_NONE ],plExits);
+      plExits = Cons([ 37, 35, RID_DUKE2, 3, 15, ROTATE_NONE ],plExits);
+
+      plExits = Cons([ 32, 29, ROOM_LOCKED_DOOR, duke3_West_Door ],plExits);
+      plExits = Cons([ 32, 30, ROOM_LOCKED_DOOR, duke3_West_Door ],plExits);
+      plExits = Cons([ 33, 29, ROOM_LOCKED_DOOR, duke3_West_Door ],plExits);
+      plExits = Cons([ 33, 30, ROOM_LOCKED_DOOR, duke3_West_Door ],plExits);
+      plExits = Cons([ 32, 38, ROOM_LOCKED_DOOR, duke3_East_Door ],plExits);
+      plExits = Cons([ 32, 39, ROOM_LOCKED_DOOR, duke3_East_Door ],plExits);
+      plExits = Cons([ 33, 38, ROOM_LOCKED_DOOR, duke3_East_Door ],plExits);
+      plExits = Cons([ 33, 39, ROOM_LOCKED_DOOR, duke3_East_Door ],plExits);
+
+      propagate;
+   }
+
+   CreateStandardObjects()
+   {
+      Send(self,@NewHold,#what=Create(&Brazier),#new_row=25,#new_col=32,
+           #fine_row=48,#fine_col=48);
+      Send(self,@NewHold,#what=Create(&Brazier),#new_row=25,#new_col=36,
+           #fine_row=48,#fine_col=16);
+      Send(self,@NewHold,#what=Create(&Brazier),#new_row=37,#new_col=36,
+           #fine_row=48,#fine_col=16);
+      Send(self,@NewHold,#what=Create(&Brazier),#new_row=37,#new_col=32,
+           #fine_row=48,#fine_col=48);
+
+      Send(self,@NewHold,#what=Create(&Throne),
+           #new_row=26,#new_col=34,#fine_row=32,#fine_col=32,#new_angle=ANGLE_SOUTH);
+
+      Send(self,@NewHold,#what=Create(&Brazier),
+            #new_row=9,#new_col=61,#fine_row=0,#fine_col=8,#new_angle=ANGLE_EAST);
+      Send(self,@NewHold,#what=Create(&Brazier),
+            #new_row=19,#new_col=62,#fine_row=40,#fine_col=48,#new_angle=ANGLE_EAST);
+
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_TALLTREE1),
+            #new_row=21,#new_col=12,#fine_row=32,#fine_col=0,#angle=ANGLE_EAST);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_TALLTREE3),
+            #new_row=8,#new_col=15,#fine_row=24,#fine_col=16,#angle=ANGLE_EAST);
+
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_MIDTREE1),
+            #new_row=20,#new_col=53,#fine_row=0,#fine_col=32);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_MIDTREE3),
+            #new_row=17,#new_col=44,#fine_row=0,#fine_col=32);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_MIDTREE2),
+            #new_row=18,#new_col=42,#fine_row=0,#fine_col=0);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_MIDTREE4),
+            #new_row=20,#new_col=38,#fine_row=0,#fine_col=32);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_MIDTREE2),
+            #new_row=21,#new_col=23,#fine_row=0,#fine_col=0);
+
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_MIDTREE1),
+            #new_row=7,#new_col=20,#fine_row=32,#fine_col=0);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_MIDTREE3),
+            #new_row=8,#new_col=25,#fine_row=0,#fine_col=0);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_MIDTREE2),
+            #new_row=13,#new_col=27,#fine_row=0,#fine_col=0);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_MIDTREE4),
+            #new_row=9,#new_col=31,#fine_row=0,#fine_col=0);
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

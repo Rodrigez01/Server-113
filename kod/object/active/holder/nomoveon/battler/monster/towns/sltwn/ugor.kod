@@ -1,0 +1,236 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Ugor - Blacksmith (Repair NPC)
+// Spieler bietet Item + Geld gleichzeitig an
+////////////////////////////////////////////////////////////////////////////////
+SLUgor is SLTown
+
+constants:
+
+   include blakston.khd
+   UGOR_REPAIR_COST = 5000
+
+resources:
+
+   include ugor.lkod
+
+   Ugor_name_rsc = "Ugor"
+   Ugor_icon_rsc = Ugor.bgf
+   Ugor_desc_rsc = \
+      "A massive blacksmith with a soot-smeared face and muscular arms, "
+      "large hammers hanging from his belt. Sparks fly from the anvil; "
+      "a helm with a nose guard rests upon his brow."
+   Ugor_cant_fix = "I can't repair that %s."
+   Ugor_too_good = "The %s is already in perfect condition."
+   Ugor_need_money = "To repair %s I need %i shillings. Offer the item together with the money."
+   Ugor_not_enough = "That's not enough! Repairing %s costs %i shillings."
+   Ugor_change = "Here's your change."
+   Ugor_success = "There you go! Your %s is as good as new."
+   Ugor_only_one = "Please offer only one item to repair at a time."
+
+   Ugor_entry_welcome = \
+      "~kUgor hammers on glowing metal and looks up.~n "
+      "\"Hail, traveler! Blade dull? Armor dented? "
+      "I'll make it good as new for 5000 shillings!\""
+   Ugor_talk_repair = \
+      "\"Aye, bring me your battered gear! Offer the item "
+      "together with 5000 shillings and I'll work my magic.\""
+   Ugor_talk_hello = \
+      "\"Well met! The name's Ugor. Finest smith in these parts. "
+      "Need something fixed?\""
+
+   // Keywords fuer StringContain
+   Ugor_kw_repair = "repair"
+   Ugor_kw_fix = "fix"
+   Ugor_kw_reparier = "reparier"
+   Ugor_kw_ugor = "ugor"
+   Ugor_kw_hello = "hello"
+   Ugor_kw_hallo = "hallo"
+   Ugor_kw_schmied = "schmied"
+
+classvars:
+
+   vrName = Ugor_name_rsc
+   vrIcon = Ugor_icon_rsc
+   vrDesc = Ugor_desc_rsc
+   viAttributes = \
+      MOB_NOFIGHT | MOB_RANDOM | MOB_NOMOVE | MOB_LISTEN | MOB_RECEIVE | \
+      MOB_LAWFUL
+   viOccupation = MOB_ROLE_BLACKSMITH
+
+properties:
+
+messages:
+
+   CanAcceptOffer(who = $)
+   {
+      return TRUE;
+   }
+
+   // Wenn ein Spieler den Raum betritt
+   UserEntered(who = $)
+   {
+      Post(who,@SomeoneSaid,#what=self,#string=Ugor_entry_welcome,
+           #type=SAY_RESOURCE);
+
+      propagate;
+   }
+
+   // Wenn jemand etwas sagt
+   SomeoneSaid(what=$, string=$, type=$)
+   {
+      // Nur auf Spieler reagieren, nicht auf uns selbst
+      if what = $ OR what = self OR NOT IsClass(what,&User)
+      {
+         propagate;
+      }
+
+      // Reagiere auf verschiedene Stichwoerter
+      if StringContain(string,Ugor_kw_repair)
+         OR StringContain(string,Ugor_kw_fix)
+         OR StringContain(string,Ugor_kw_reparier)
+         OR StringContain(string,Ugor_kw_schmied)
+      {
+         Post(poOwner,@SomeoneSaid,#what=self,#type=SAY_RESOURCE,
+              #string=Ugor_talk_repair);
+
+         return;
+      }
+
+      if StringContain(string,Ugor_kw_ugor)
+         OR StringContain(string,Ugor_kw_hello)
+         OR StringContain(string,Ugor_kw_hallo)
+      {
+         Post(poOwner,@SomeoneSaid,#what=self,#type=SAY_RESOURCE,
+              #string=Ugor_talk_hello);
+
+         return;
+      }
+
+      propagate;
+   }
+
+   // Spieler bietet Items an - wir pruefen auf Item + Geld
+   ReqGive(what = $, item_list = $, notify_about_unwanted_items = TRUE)
+   {
+      local i, oRepairItem, iMoney, iMax, iCurrent, iChange, oRoom;
+
+      if item_list = $
+      {
+         return FALSE;
+      }
+
+      // Finde reparierbares Item und zaehle Geld
+      oRepairItem = $;
+      iMoney = 0;
+
+      foreach i in item_list
+      {
+         if IsClass(i,&Shillings)
+         {
+            iMoney = iMoney + Send(i,@GetValue);
+         }
+         else if IsClass(i,&Item) AND Send(i,@ReqRepair)
+         {
+            // Nur ein Item erlaubt
+            if oRepairItem <> $
+            {
+               Send(what,@MsgSendUser,#message_rsc=Ugor_only_one);
+               return TRUE;
+            }
+            oRepairItem = i;
+         }
+         else
+         {
+            // Nicht reparierbares Item
+            Send(what,@MsgSendUser,#message_rsc=Ugor_cant_fix,#parm1=Send(i,@GetName));
+            return TRUE;
+         }
+      }
+
+      // Kein reparierbares Item gefunden
+      if oRepairItem = $
+      {
+         return FALSE;
+      }
+
+      // Pruefe ob Item repariert werden muss
+      iMax = Send(oRepairItem,@GetMaxHits);
+      iCurrent = Send(oRepairItem,@GetHits);
+
+      if iCurrent >= iMax
+      {
+         Send(what,@MsgSendUser,#message_rsc=Ugor_too_good,#parm1=Send(oRepairItem,@GetName));
+         return TRUE;
+      }
+
+      // Kein Geld dabei?
+      if iMoney = 0
+      {
+         Send(what,@MsgSendUser,#message_rsc=Ugor_need_money,
+              #parm1=Send(oRepairItem,@GetName),#parm2=UGOR_REPAIR_COST);
+         return TRUE;
+      }
+
+      // Nicht genug Geld?
+      if iMoney < UGOR_REPAIR_COST
+      {
+         Send(what,@MsgSendUser,#message_rsc=Ugor_not_enough,
+              #parm1=Send(oRepairItem,@GetName),#parm2=UGOR_REPAIR_COST);
+         return TRUE;
+      }
+
+      // === REPARATUR ERFOLGREICH ===
+
+      // Repariere das Item auf Maximum
+      Send(oRepairItem,@SetHits,#number=iMax);
+
+      // Gib Wechselgeld wenn noetig
+      iChange = iMoney - UGOR_REPAIR_COST;
+      if iChange > 0
+      {
+         Send(what,@MsgSendUser,#message_rsc=Ugor_change);
+         Send(what,@NewHold,#what=Create(&Shillings,#number=iChange));
+      }
+
+      // Gib das reparierte Item zurueck
+      if Send(what,@ReqNewHold,#what=oRepairItem)
+      {
+         Send(what,@NewHold,#what=oRepairItem);
+      }
+      else
+      {
+         // Spieler kann es nicht tragen - auf den Boden legen
+         oRoom = Send(what,@GetOwner);
+         if oRoom <> $
+         {
+            Send(oRoom,@NewHold,#what=oRepairItem,
+                 #new_row=Send(what,@GetRow),#new_col=Send(what,@GetCol));
+         }
+      }
+
+      // Loesche das Geld (wird vom System gehandhabt)
+      foreach i in item_list
+      {
+         if IsClass(i,&Shillings)
+         {
+            Send(i,@Delete);
+         }
+      }
+
+      // Erfolgsmeldung
+      Send(what,@MsgSendUser,#message_rsc=Ugor_success,#parm1=Send(oRepairItem,@GetName));
+
+      return TRUE;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

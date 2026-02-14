@@ -1,0 +1,30 @@
+Umbrella_name_rsc = de "Schirm"
+Umbrella_desc_rsc = de \
+   "Ruft eine Kuppel aus magischer Energie hervor, die alle Spieler im Umkreis "
+   "des Zaubernden für mehrere Minuten beschützt. Der Zauberspruch verliert "
+   "an Wirkung, wenn der Zaubernde durch Laufen oder Kämpfen in seiner Konzentration "
+   "gestört wird. Der Zauber benötigt zwei Smaragde."
+Umbrella_cast = de \
+   "Eine mystische, schimmernde Lichtkuppel strömt aus Deinen Fingerspitzen."
+Umbrella_starts = de \
+   "Eine Kuppel voller mystischem, schimmerndem Licht kommt von %s%ss Fingerspitzen."
+Umbrella_ends = de "Die Kuppel voller magischer Energie, von %s%s verschwindet."
+Umbrella_caster_ends = de "Die Kuppel voller magischer Energie verschwindet."
+Umbrella_caster_enter = de \
+   "Du fühlst, dass dich die Energie des Schirmes schützt."
+Umbrella_enter = de \
+   "Du wirst umfasst von einer Kuppel voller magischer Energie, gezaubert "
+   "von %s%s."
+Umbrella_leave = de "Du bist außerhalb der magischen Kuppel von %s%s."
+Umbrella_deflected = de "%s%ss Schirm, dämpft die Kraft des Angriffs."
+
+Umbrella_name_rsc = pt "guarda-chuva"
+Umbrella_desc_rsc = pt "Cria uma cúpula de energia mágica que protege aqueles próximos ao conjurador por vários minutos. Requer dois esmeraldas para lançar."
+Umbrella_cast = pt "Você estende uma cúpula mística e cintilante de luz a partir de suas pontas dos dedos."
+Umbrella_starts = pt "Uma cúpula mística e cintilante de luz emerge das pontas dos dedos de %s%s."
+Umbrella_ends = pt "A cúpula de energia mágica mantida por %s%s se dissipa."
+Umbrella_caster_ends = pt "Sua cúpula de energia mágica se dissipa."
+Umbrella_caster_enter = pt "Você sente a magia do seu guarda-chuva protegendo você."
+Umbrella_enter = pt "Você está envolto por uma cúpula de energia mágica emanando de %s%s."
+Umbrella_leave = pt "Você saiu da cúpula de energia mágica emanando de %s%s."
+Umbrella_deflected = pt "O guarda-chuva de %s%s ameniza a força de seu ataque."

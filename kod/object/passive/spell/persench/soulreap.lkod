@@ -1,0 +1,19 @@
+SoulReaping_name_rsc = de "Seelenernten"
+SoulReaping_desc_rsc = de \
+   "Stimmt den Zaubernden auf den Fluss scheidender Seelen ein. "
+   "Wenn eine Kreatur durch Deine Hand faellt, besteht die Chance, "
+   "dass ihre Seele lange genug verweilt, um sie zu ernten. "
+   "Benoetigt eine Holunderbeere."
+SoulReaping_already_enchanted_rsc = de \
+   "Deine Sinne sind bereits auf scheidende Seelen eingestimmt."
+SoulReaping_on_rsc = de \
+   "Deine Augen flackern mit einem geisterhaften Licht, als Du die "
+   "Seelen um Dich herum wahrnimmst."
+SoulReaping_off_rsc = de \
+   "Das spektrale Bewusstsein verblasst und die Seelen entziehen sich "
+   "Deiner Reichweite."
+SoulReaping_harvest_rsc = de \
+   "Eine schimmernde Seele erhebt sich aus der gefallenen Kreatur!"
+SoulReaping_spell_intro = de \
+   "Nekromantie Lv. 1: Stimmt den Zaubernden darauf ein, Seelen "
+   "von erschlagenen Kreaturen zu ernten."

@@ -1,0 +1,42 @@
+// Meridian 59 - Necromantie Soul System
+// Master Soul - Dropped by powerful monsters (150+ Max HP)
+
+
+////////////////////////////////////////////////////////////////////////////////
+MasterSoul is Reagent
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include mstrsoul.lkod
+
+   MasterSoul_name_rsc = "meisterseelenstein"
+   MasterSoul_icon_rsc = isoulfragx.bgf
+   MasterSoul_desc_rsc = \
+      "A blazing sphere of spiritual energy torn from a mighty creature.  "
+      "It radiates power and pulses with an almost sentient intensity."
+   MasterSoul_name_plural_rsc = "meisterseelensteine"
+
+classvars:
+
+   vrName = MasterSoul_name_rsc
+   vrIcon = MasterSoul_icon_rsc
+   vrDesc = MasterSoul_desc_rsc
+
+   vrName_plural = MasterSoul_name_plural_rsc
+
+   viValue_average = 200
+   viWeight = 1
+   viBulk = 2
+
+properties:
+
+   piNumber = 1
+
+messages:
+
+end
+////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,38 @@
+earthquake_name_rsc = de "Erdbeben"
+earthquake_desc_rsc = de \
+   "Lässt die Erde erzittern und schadet allen Wesen im Raum. "
+   "Je erfahrener der Zaubernde ist, desto stärker wird der Schaden "
+   "auf das Ziel und weg vom Zaubernden gerichtet. "
+   "Der Zauber benötigt jeweils zwei Rote und Lila Pilze. "   
+earthquake_first_rsc = de \
+   "Du hebst die Arme in den Himmel und rufst die Wut Farens herauf!"
+earthquake_third_rsc = de \
+   "%s%s hebt %s die Arme in den Himmel und ruft die Wut Farens herauf!"
+earthquake_killed_someone = de \
+   "Die Erschütterungen hauen %s%s auf den Boden - %s steht nicht mehr auf!"
+earthquake_killed_self = de \
+   "Du stolperst wegen dem starken Erdbeben und fällst zu Boden und stehst "
+   "nicht wieder auf."
+earthquake_cast_rsc = de \
+   "Die Erde wird erschüttet und wirft Dich herum wie eine Puppe."
+earthquake_hit_rsc = de \
+   "%s%s stößt einen erschrockenen Schmerzschrei aus, als die Erde unter "
+   "den Füßen bebt.%s$0"
+
+earthquake_name_rsc = pt "terremoto"
+earthquake_desc_rsc = pt \
+   "Move a terra violentamente causando dano a todos os seres na sala. " 
+   "Quanto mais experiente o conjurador, melhor o dano é direcionado ao alvo e longe do conjurador. " 
+   "Requer cogumelos vermelhos e cogumelos roxos para conjurar."
+earthquake_first_rsc = pt \
+   "Você ergue os braços para o céu e invoca a fúria de Faren!"
+earthquake_third_rsc = pt \
+   "%s%s ergue %s braços para o céu e invoca a fúria de Faren!"
+earthquake_killed_someone = pt \
+   "Os tremores derrubam %s%s no chão - %s não se levanta!"
+earthquake_killed_self = pt \
+   "Você tropeça enquanto os tremores o derrubam no chão, e tudo fica escuro..."
+earthquake_cast_rsc = pt \
+   "A terra convulsiona sob seus pés, jogando você ao redor como um boneco de pano."
+earthquake_hit_rsc = pt \
+   "%s%s solta um grito de dor e surpresa enquanto a terra convulsiona sob %s pés."

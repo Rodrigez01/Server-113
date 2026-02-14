@@ -1,0 +1,15 @@
+ArmyOfBones_name_rsc = de "Armee der Knochen"
+ArmyOfBones_desc_rsc = de \
+   "Erweckt eine Armee von drei Skelettkriegern aus der Erde, "
+   "die 15 Sekunden lang an Deiner Seite kaempfen. Die vereinte "
+   "Kraft von drei Seelenfragmenten naehrt dieses dunkle Ritual. "
+   "Kostet drei Seelenfragmente."
+ArmyOfBones_cast_rsc = de \
+   "Drei Skelettkrieger graben sich aus der Erde!"
+ArmyOfBones_no_soul_rsc = de \
+   "Du brauchst drei Seelenfragmente, um die Armee zu erwecken."
+ArmyOfBones_limit_rsc = de \
+   "Du befehligst bereits eine Armee der Toten."
+ArmyOfBones_spell_intro = de \
+   "Nekromantie Lv. 6: Beschwoert drei Skelettkrieger fuer "
+   "15 Sekunden. Kostet drei Seelenfragmente."

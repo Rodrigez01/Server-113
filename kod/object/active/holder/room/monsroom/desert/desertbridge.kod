@@ -1,0 +1,76 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+DesertBridge is DesertRoom
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include desertbridge.lkod
+
+   room_desertbridge = desertbridge.roo
+   room_name_desertbridge = "Collapsed Causeway"
+
+classvars:
+
+   vrName = room_name_desertbridge
+
+   viTeleport_row = 5
+   viTeleport_col = 5
+
+properties:
+
+   piBaseLight = LIGHT_DARK
+   piOutside_factor = OUTDOORS_5 
+
+   piDirectional_percent = DIRECTIONAL_PERCENT_OUTDOORS
+
+   prRoom = room_desertbridge
+   piRoom_num = RID_DESERTBRIDGE
+
+messages:
+
+   Constructed()
+   {
+      plMonsters = [ [&BlackDragon, 50],
+                     [&EarthDragon, 50]
+                      ];
+      
+      plGenerators = [ [13, 9], [20, 10], [13, 33], [19, 10], [17, 49], 
+                      [13, 73], [21, 81], [13, 101], [25, 97], [17, 121],
+                      [9, 145], [25, 153], [25, 181], [9, 185] ];
+
+      propagate;
+   }
+ 
+   CreateStandardObjects()
+   {
+      Send(self,@NewHold,#what=Create(&Firepit),#new_row=5,#new_col=192);
+
+      Send(self,@NewHold,#what=Create(&ManaNode,#node_num=NODE_DESERT),
+           #new_row=16,#new_col=167,#new_angle=ANGLE_WEST);
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plEdge_Exits = $;
+      plEdge_Exits = Cons([ LEAVE_WEST, RID_WAYLAYOASIS, 47, 128, ROTATE_NONE ],plEdge_Exits);
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////
+

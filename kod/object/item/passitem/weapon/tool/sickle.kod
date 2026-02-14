@@ -1,0 +1,49 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+Sickle is Tool
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   Sickle_name_rsc = "Sickle"
+   Sickle_icon_rsc = sickle.bgf
+   Sickle_desc_rsc = \
+   "Crafted by Colhorr this Sickle is made to slice plants.  "
+
+   Sickle_window_overlay_rsc = povsickle.bgf
+   Sickle_player_overlay = sickleov.bgf
+
+classvars:
+
+   vrName = Sickle_name_rsc
+   vrIcon = Sickle_icon_rsc
+   vrDesc = Sickle_desc_rsc
+
+   viWeaponType = WEAPON_TYPE_SLASH
+   viWeaponQuality = WEAPON_QUALITY_LOW
+
+   viProficiency_Needed = SKID_GATHERING
+
+   voResource = &ResPlant
+
+   vrWeapon_window_overlay = Sickle_window_overlay_rsc
+
+   vrWeapon_overlay = Sickle_player_overlay
+
+properties:
+
+messages:
+
+end
+////////////////////////////////////////////////////////////////////////////////

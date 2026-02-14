@@ -1,0 +1,10 @@
+SoulTheft_name_rsc = de "Seelenraub"
+SoulTheft_desc_rsc = de \
+   "Reisst einen massiven Brocken Lebensenergie vom Ziel ab, "
+   "verursacht schweren Schaden und heilt den Zauberer erheblich. "
+   "Kostet ein Seelenfragment."
+SoulTheft_death = de "Du verzehrst die letzten Reste der Lebenskraft von %s%s."
+SoulTheft_drain_rsc = de \
+   "Dunkle Energie stroemt in Dich und stellt ~g~B%i~B~n Gesundheit wieder her."
+SoulTheft_no_soul_rsc = de \
+   "Du brauchst ein Seelenfragment, um diesen Zauber zu wirken."

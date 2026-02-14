@@ -1,0 +1,156 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+// Changed by Diggie to be less of a troll spell.
+
+////////////////////////////////////////////////////////////////////////////////
+Swap is Spell
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include swap.lkod 
+   
+   swap_name_rsc = "swap"
+   swap_icon_rsc = iswap.bgf
+   swap_desc_rsc = \
+      "The darker gods grant you the power to swap places with your target. "
+      "Requires a dark angel feather, one vial of yrxl sap, and a purple mushroom to cast."
+
+   swap_cast_rsc = "~B~oYou have swapped places with %s!"
+
+   swap_no_target = "Your target is out of range."
+
+   swap_sound = qswap.ogg
+
+classvars:
+
+   vrName = swap_name_rsc
+   vrIcon = swap_icon_rsc
+   vrDesc = swap_desc_rsc
+
+   viSpell_num = SID_SWAP
+   viSchool = SS_QOR
+   viSpell_level = 5
+   viMana = 9
+
+   viChance_To_Increase = 10
+   viMeditate_ratio = 50
+
+   viOutlaw = TRUE
+   viHarmful = TRUE
+   viNoNewbieOffense = TRUE
+   viFlash = FLASH_BAD
+
+   vrSucceed_wav = swap_sound
+
+   viCast_time = 3000
+
+   // in seconds, since it works off GetTime()
+   viPostCast_time = 5
+
+properties:
+
+messages:
+
+   ResetReagents()
+   {
+      // Separate message so can change, then set from admin mode
+
+      plReagents = $;
+      plReagents = Cons([&DarkAngelFeather,1],plReagents);
+      plReagents = Cons([&Yrxlsap,1],plReagents);
+      plReagents = Cons([&PurpleMushroom,1],plReagents);
+
+      return;
+   }
+
+   GetNumSpellTargets()
+   {
+      return 1;
+   }
+
+   CanPayCosts(who = $, lTargets = $, bItemCast = FALSE)
+   {
+      local target, i;
+
+      target = First(lTargets);
+      if NOT IsClass(target, &User) //OR IsClass(target,&DM)
+      {
+         Send(who,@MsgSendUser,#message_rsc=spell_bad_target,
+              #parm1=vrName,#parm2=Send(target,@GetDef),
+              #parm3=Send(target,@GetName));
+
+         return FALSE;
+      }
+
+      if IsClass(Send(who,@GetOwner),&GuildHall)
+      {
+         Send(who,@MsgSendUser,#message_rsc=spell_bad_location,#parm1=vrName);
+
+         return FALSE;
+      }
+
+      propagate;
+   }
+
+   CastSpell(who = $, lTargets = $)
+   {
+      local oVictim, oCaster, oRoom, p1SwapRow, p1SwapCol, p1SwapFineRow, p1SwapFineCol, p1SwapFineAngle,
+                                  i, p2SwapRow, p2SwapCol, p2SwapFineRow, p2SwapFineCol, p2SwapFineAngle;
+
+      oCaster = who;
+      oVictim = First(lTargets);
+
+      if lTargets = $
+      {
+         Send(who,@MsgSendUser,#message_rsc=swap_no_target);
+
+         return FALSE;
+      }
+
+      oRoom = Send(oCaster,@GetOwner);
+
+      p1SwapRow       = Send(oCaster,@GetRow);
+      p1SwapCol       = Send(oCaster,@GetCol);
+      p1SwapFineRow   = Send(oCaster,@GetFineRow);
+      p1SwapFineCol   = Send(oCaster,@GetFineCol);
+      p1SwapFineAngle = Send(oCaster,@GetAngle);
+
+      p2SwapRow       = Send(oVictim,@GetRow);
+      p2SwapCol       = Send(oVictim,@GetCol);
+      p2SwapFineRow   = Send(oVictim,@GetFineRow);
+      p2SwapFineCol   = Send(oVictim,@GetFineCol);
+      p2SwapFineAngle = Send(oVictim,@GetAngle);
+
+      Send(SYS,@UtilGoToSquare,#what=oVictim,#where=oRoom,#new_angle=p1SwapFineAngle,
+           #new_row=p1SwapRow,#new_col=p1SwapCol,
+           #fine_row=p1SwapFineRow,#fine_col=p1SwapFineCol);
+
+      Send(SYS,@UtilGoToSquare,#what=oCaster,#where=oRoom,#new_angle=p2SwapFineAngle,
+           #new_row=p2SwapRow,#new_col=p2SwapCol,
+           #fine_row=p2SwapFineRow,#fine_col=p2SwapFineCol);
+
+      Send(oCaster,@MsgSendUser,#message_rsc=swap_cast_rsc,
+            #parm1=Send(oVictim,@GetName));
+
+      Send(oVictim,@MsgSendUser,#message_rsc=swap_cast_rsc,
+            #parm1=Send(oCaster,@GetName));
+
+      propagate;
+   }
+
+   SpellBannedInArena()
+   {
+      return TRUE;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

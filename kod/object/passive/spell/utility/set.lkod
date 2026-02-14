@@ -1,0 +1,14 @@
+Set_cast = de "Du registrierst Deine Vorlieben im Inventar mit Frulars Büro."
+Set_name_rsc = de "Inventar"
+Set_desc_rsc = de \
+   "Dieser Zauber wird Deine Vorlieben im Inventar registrieren, und entsprechend "
+   "in Frular's Büro hinterlegen. So wird es dir ermöglicht, den Zauber Ausladen "
+   "zu benutzen. "
+   "Registriert Deinen persönlichen Besitz mit Frulars Büro. Benötigt nichts "
+   "außer den Willen zum Kampf."
+
+set_cast = pt "Você registra suas preferências de inventário."
+set_name_rsc = pt "definir"
+set_desc_rsc = pt \
+   "Registra suas preferências pessoais de equipamento de batalha no escritório de Frular. "
+   "Não requer nada além de vontade de lutar."

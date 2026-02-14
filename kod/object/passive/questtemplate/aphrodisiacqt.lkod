@@ -1,0 +1,53 @@
+aphrodisiacqt_name_rsc = de "Aphrodisiakums Quest"
+aphrodisiacqt_desc_rsc = de \
+   "Besorge ein Aphrodisiakum und helfe einem NPC."
+aphrodisiacqt_nodetwo_rsc = de \
+   "%s%s hat ein paar... persönliche Probleme und es wurde gesagt, dass %s%s "
+   "weiß etwas über ein kräftiges Aphrodisiakum das helfen könnte.  Gehe zu %s%s und frage "
+   "%s nach dem \"Aphrodisiakum\"."
+aphrodisiacqt_nodethree_rsc = de \
+   "Greif Dir das Ei der Spinnenkönigin und bringe es zu %s%s."
+aphrodisiacqt_nodefour_rsc = de \
+   "Nimm das Aphrodisiakum mit zurück zu %s%s."
+aphrodisiacqt_completed_rsc = de \
+   "Du hast das Aphrodisiakum Quest abgeschlossen."
+aphrodisiac_assign_2 = de \
+   "Ja, ich brauche dringend einen Kurier!  Ich versuche es wie folgt auszudrücken.  "
+   "Ich habe ... ähm ... Probleme mit ... nun, Problem man.  Mir wurde gesagt "
+   "das %NPC etwas über ein sehr mächtiges Aphrodisiakum weiß.  Bitte eile "
+   "zu %HIMHER_NPC und frage ihn danach."
+aphrodisiac_failure_2 = de \
+   "Betreff: Dein Auftrag\nIch nehme an, Du hast mich vergessen.  Ich werde "
+   "versuchen, jemanden anderes zu finden der meine Suche beendet."
+aphrodisiac_trigger_2 = de "Aphrodisiakum"
+aphrodisiac_assign_3 = de \
+   "Ja, ich kenne ein mächtiges Aphrodisiakum:  das Ei der Spinnenkönigin.  "
+   "Hol mir eins, und ich werde einen Trank für Dich zubereiten."
+aphrodisiac_failure_3 = de \
+   "Betreff: Das Spinnenei\nIch nehme an, Du hast kein Spinnenei gefunden.  "
+   "Naja, dann werde ich selber versuchen eins zu finden Mach Dir keine Gedanken "
+   "mehr darum."
+aphrodisiac_assign_4 = de \
+   "Ein Prachthexemplar!  Liefere diesen Trank an %NPC.  Ich bin sicher sie "
+   "wird mit dem Resultat sehr zufrieden sein."
+aphrodisiac_failure_4 = de \
+   "Betreff: Das Aphrodisiakum\nIch nehme an, Du hast beschlossen den Trank "
+   "für eigene Zwecke zu verwenden.  Möge er Dir gut bekommen."
+aphrodisiac_success_4 = de \
+   "Du bist mein Retter, %NAME.  Gesegnet sollst Du sein.  Hier, nimm das "
+   "als mein Zeichen des Dankes."
+   
+aphrodisiacqt_name_rsc = pt "aphrodisiac potion quest"
+aphrodisiacqt_desc_rsc = pt "Obtenha uma poção afrodisíaca e ajude o NPC."
+aphrodisiacqt_nodetwo_rsc = pt "%s%s está tendo alguns... problemas pessoais e foi informado de que %s%s sabe de um poderoso afrodisíaco que poderia ajudar. Vá até %s%s e pergunte a %s sobre o \"afrodisíaco\"."
+aphrodisiacqt_nodethree_rsc = pt "Pegue o ovo de uma aranha rainha e traga-o para %s%s."
+aphrodisiacqt_nodefour_rsc = pt "Leve a poção afrodisíaca de volta para %s%s."
+aphrodisiacqt_completed_rsc = pt "Você completou a missão da poção afrodisíaca."
+aphrodisiac_assign_2 = pt "Sim, eu preciso desesperadamente de um mensageiro! Tentarei colocar isso delicadamente. Estou tendo... uh... problemas com... bem, problemas de homem. Me disseram que %NPC conhece um afrodisíaco poderoso. Por favor, vá depressa e pergunte a %HIMHER_NPC sobre isso."
+aphrodisiac_failure_2 = pt "Assunto: Sua tarefa\nSuponho que você me abandonou. Vou procurar outro para cumprir minha missão."
+aphrodisiac_trigger_2 = pt "afrodisíaco"
+aphrodisiac_assign_3 = pt "Sim, eu sei de um afrodisíaco poderoso: o ovo de uma aranha rainha. Traga-me um, e eu prepararei uma poção para ela."
+aphrodisiac_failure_3 = pt "Assunto: O ovo de aranha\nSuponho que você não conseguiu encontrar um ovo de aranha. Muito bem, vou encontrar um eu mesmo e entregar a poção. Não se preocupe com isso."
+aphrodisiac_assign_4 = pt "Um espécime excelente! Entregue esta poção para %NPC. Tenho certeza de que ela ficará satisfeita com os resultados."
+aphrodisiac_failure_4 = pt "Assunto: A poção afrodisíaca\nSuponho que você decidiu usar essa poção para seus próprios propósitos. Que lhe sirva bem."
+aphrodisiac_success_4 = pt "Você é meu salvador, %NAME. Abençoo você. Aqui, pegue isso como um símbolo da minha gratidão."

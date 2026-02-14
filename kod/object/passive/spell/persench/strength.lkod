@@ -1,0 +1,26 @@
+superstrength_on_rsc = de \
+   "Dein Blut prickelt mit der Kraft von Kraanan. Du bist bereit für den "
+   "Kampf!"
+superstrength_off_rsc = de \
+   "Die übermenschliche Kraft von Kraanan verlässt Deinen Körper und Du bleibst "
+   "erneut als Sterblicher zurück."
+superstrength_already_enchanted_rsc = de "Du hast bereits Kraanans Kraft."
+superstrength_success_rsc = de "%s%s's Blut prickelt mit der Kraft von Kraanan."
+superstrength_name_rsc = de "Kraanans Kraft"
+superstrength_desc_rsc = de \
+   "Dein Körper füllt sich mit übermenschlicher Stärke. Der Zauber benötigt "
+   "zwei braune Pilze und einen Orkzahn."
+superstrength_spell_intro = de \
+   "Kraanan Level 2: Dein Körper füllt sich mit übermenschlicher Stärke. "
+   ""
+ss_enchantment_rsc = de \
+   "\n\nDein aktueller %s Zauber fügt %i Stärke hinzu."
+
+superstrength_on_rsc = pt "Seu sangue arde com a força de Kraanan. Você está pronto para a batalha!"
+superstrength_off_rsc = pt "A força sobre-humana de Kraanan deixa seu corpo, deixando você mortal mais uma vez."
+superstrength_already_enchanted_rsc = pt "Você já possui força superior."
+superstrength_success_rsc = pt "%s%s cambaleia sob o impacto do poder de Kraanan."
+ss_enchantment_rsc = pt "\n\nSeu encantamento atual de %s adiciona %i de Força."
+superstrength_name_rsc = pt "super força"
+superstrength_desc_rsc = pt "Infunde seu corpo com força sobre-humana. Requer dois cogumelos e um dente de orc para lançar."
+superstrength_spell_intro = pt "Nível 2 de Kraanan: Infunde seu corpo com força sobre-humana em preparação para a batalha."

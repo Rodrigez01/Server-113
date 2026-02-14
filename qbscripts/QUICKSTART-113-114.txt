@@ -1,0 +1,260 @@
+================================================================================
+  QUICKSTART GUIDE - Build & Deployment Automation für Server 113/114
+================================================================================
+
+Das qbscripts Verzeichnis enthält jetzt vollständige Build-Automation für
+deine Meridian 59 Server 113 (Production) und 114 (Test).
+
+================================================================================
+  WAS WURDE ERSTELLT?
+================================================================================
+
+✅ build-113.ps1 (19 KB)
+   - Vollautomatisches Build & Deployment System
+   - Angepasst für deine Pfade: C:\Users\Rod\Desktop\2\Server-104-main
+   - Unterstützt Server 113 (Production) und 114 (Test)
+   - Kann Server bauen, deployen, starten, stoppen
+
+✅ Perl Scripts (mit Kommentaren):
+   - autopatch.pl (8.8 KB) - GitHub Pull Request Automation
+   - automerge.pl (1.3 KB) - Build Branch Creator
+   - MergeWith.pl (970 B) - Branch Merge Helper
+   - IsBranchMergedWith.pl (1.2 KB) - Merge Checker
+   - getmilestones.pl (1.2 KB) - GitHub Milestones Lister
+   - Alle mit TODO-Kommentaren wo GitHub User/Repo geändert werden muss
+
+✅ README.md (5.5 KB)
+   - Vollständige Dokumentation aller Scripts
+   - Troubleshooting Guide
+   - Workflow Beispiele
+
+================================================================================
+  SOFORT LOSLEGEN (NUR POWERSHELL)
+================================================================================
+
+Die Perl-Scripts sind OPTIONAL. Du kannst sofort mit PowerShell starten:
+
+1. PowerShell als Administrator öffnen
+
+2. Zum qbscripts Verzeichnis wechseln:
+   cd "C:\Users\Rod\Desktop\2\Server-104-main\qbscripts"
+
+3. Server bauen:
+   .\build-113.ps1 -Action build -Server production
+
+4. Server-Dateien kopieren:
+   .\build-113.ps1 -Action copyserver -Server production
+
+5. Server neu starten:
+   .\build-113.ps1 -Action killserver -Server production
+   .\build-113.ps1 -Action startserver -Server production
+
+FERTIG! Dein Server 113 läuft mit neuem Code.
+
+================================================================================
+  ALLE VERFÜGBAREN AKTIONEN
+================================================================================
+
+build-113.ps1 unterstützt folgende Aktionen:
+
+📦 BUILD
+   .\build-113.ps1 -Action build -Server production
+   → Kompiliert den kompletten Server mit nmake
+
+🧹 CLEAN
+   .\build-113.ps1 -Action clean
+   → Löscht alle kompilierten Dateien
+
+📋 COPYSERVER
+   .\build-113.ps1 -Action copyserver -Server production
+   → Kopiert alle .bof, .roo, .rsc Dateien nach C:\Server113\
+
+⏹️ KILLSERVER
+   .\build-113.ps1 -Action killserver -Server production
+   → Stoppt Server via Telnet (Port 9999)
+
+▶️ STARTSERVER
+   .\build-113.ps1 -Action startserver -Server production
+   → Startet Server und führt "recreateall" aus
+
+🔄 CHECKOUT (benötigt Git)
+   .\build-113.ps1 -Action checkout -Branch master
+   → Holt aktuellen Code von Git
+
+📦 PACKAGE (benötigt PatchListGenerator.exe)
+   .\build-113.ps1 -Action package -Server production
+   → Erstellt Client-Patch ZIP und patchinfo.txt
+
+================================================================================
+  PRODUCTION vs TEST SERVER
+================================================================================
+
+-Server production → Server 113
+   Pfad: C:\Server113\
+   IP: 127.0.0.1
+   Für Live-Server
+
+-Server test → Server 114
+   Pfad: C:\Server114\
+   IP: 127.0.0.1
+   Für Test-Server
+
+Beispiel Test-Server:
+   .\build-113.ps1 -Action build -Server test
+   .\build-113.ps1 -Action copyserver -Server test
+   .\build-113.ps1 -Action startserver -Server test
+
+================================================================================
+  HOTFIX MODUS (Ohne Server-Neustart)
+================================================================================
+
+Für schnelle Code-Updates OHNE Neustart:
+
+   .\build-113.ps1 -Action build -Server production -Hotfix true
+   .\build-113.ps1 -Action copyserver -Server production -Hotfix true
+   .\build-113.ps1 -Action startserver -Server production -Hotfix true
+
+Was macht Hotfix-Modus?
+   ✅ Kopiert nur .bof Dateien (kein kodbase.txt)
+   ✅ Server macht "reload system" statt Neustart
+   ✅ Spieler bleiben online
+   ❌ Funktioniert nicht für neue Klassen oder kodbase.txt Änderungen
+
+================================================================================
+  KOMPLETTER WORKFLOW: BUILD → DEPLOY → RESTART
+================================================================================
+
+# Standard Build & Deploy (mit Neustart):
+.\build-113.ps1 -Action build -Server production
+.\build-113.ps1 -Action killserver -Server production
+.\build-113.ps1 -Action copyserver -Server production
+.\build-113.ps1 -Action startserver -Server production
+
+# Oder für Test-Server:
+.\build-113.ps1 -Action build -Server test
+.\build-113.ps1 -Action copyserver -Server test
+.\build-113.ps1 -Action startserver -Server test
+
+================================================================================
+  PERL SCRIPTS VERWENDEN (OPTIONAL)
+================================================================================
+
+Die Perl-Scripts sind für GitHub-Integration. So aktivierst du sie:
+
+1. Perl Module installieren:
+   cpan install LWP::Simple Pithub Git::Repository
+
+2. GitHub Token setzen (nur für autopatch.pl):
+   set TOKEN=dein_github_personal_access_token
+
+   Token erstellen auf: https://github.com/settings/tokens
+   Benötigte Rechte: repo, read:org
+
+3. In allen .pl Dateien die GitHub Repository Einstellungen ändern:
+
+   autopatch.pl - Zeilen 79-80:
+      user  => 'OpenMeridian105',  →  'DeinGitHubUser',
+      repo  => 'Meridian59',        →  'DeinRepository',
+
+   (Suche nach "KONFIGURATION" Kommentaren in den Dateien)
+
+4. Perl Scripts testen:
+   perl getmilestones.pl
+   perl autopatch.pl --change=123 --build=113 --branch=master
+
+================================================================================
+  PFADE ANPASSEN (Optional)
+================================================================================
+
+Falls du andere Pfade verwenden willst, in build-113.ps1 ändern:
+
+Zeile 11: RootPath
+   Aktuell: C:\Users\Rod\Desktop\2\Server-104-main
+
+Zeilen 19-28: Server Pfade
+   ProdServerPath: C:\Server113\
+   TestServerPath: C:\Server114\
+
+Zeilen 31-33: Server IPs
+   ProdServerIP: 127.0.0.1
+   TestServerIP: 127.0.0.1
+
+================================================================================
+  WAS-WÄRE-WENN MODUS
+================================================================================
+
+Willst du sehen was passieren würde OHNE es auszuführen?
+Nutze -WhatIf:
+
+   .\build-113.ps1 -Action build -Server production -WhatIf
+   → Zeigt nur die Befehle an, führt sie aber NICHT aus
+
+Perfekt zum Testen!
+
+================================================================================
+  TROUBLESHOOTING
+================================================================================
+
+❌ "nmake not found"
+   → Visual Studio Command Prompt öffnen
+   → Oder: "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\vsvars32.bat"
+
+❌ "Cannot connect to server at 127.0.0.1:9999"
+   → Server läuft nicht
+   → Telnet Port 9999 ist nicht offen
+   → Firewall prüfen
+
+❌ "File execution disabled"
+   → PowerShell als Administrator öffnen
+   → Set-ExecutionPolicy RemoteSigned
+
+❌ Perl Module fehlen
+   → cpan install LWP::Simple Pithub Git::Repository Data::Dumper
+
+================================================================================
+  NÄCHSTE SCHRITTE
+================================================================================
+
+1. ✅ Scripts sind bereit - sofort nutzbar!
+
+2. 📖 README.md lesen für Details:
+   C:\Users\Rod\Desktop\2\Server-104-main\qbscripts\README.md
+
+3. 🧪 Testen mit Test-Server (114):
+   .\build-113.ps1 -Action build -Server test -WhatIf
+
+4. 🚀 Auf Production (113) ausrollen wenn alles funktioniert
+
+5. ⚙️ Optional: Perl Scripts konfigurieren für GitHub Integration
+
+================================================================================
+  DATEIEN ÜBERSICHT
+================================================================================
+
+C:\Users\Rod\Desktop\2\Server-104-main\qbscripts\
+├── build-113.ps1 ................... PowerShell Build Script (HAUPTDATEI)
+├── README.md ....................... Vollständige Dokumentation
+├── QUICKSTART-113-114.txt .......... Diese Datei
+│
+├── autopatch.pl .................... GitHub PR Automation (optional)
+├── automerge.pl .................... Build Branch Creator (optional)
+├── MergeWith.pl .................... Branch Merge Helper (optional)
+├── IsBranchMergedWith.pl ........... Merge Checker (optional)
+├── getmilestones.pl ................ GitHub Milestones (optional)
+├── getpullsinmilestone.pl .......... GitHub PRs in Milestone (optional)
+├── CheckHaveBranch.pl .............. Branch Checker (optional)
+└── gittest.pl ...................... Git Test (optional)
+
+================================================================================
+  SUPPORT & HILFE
+================================================================================
+
+Bei Fragen:
+1. README.md durchlesen
+2. -WhatIf verwenden um zu sehen was passiert
+3. Log-Ausgaben prüfen
+4. Pfade in build-113.ps1 kontrollieren
+
+Viel Erfolg mit deinen Servern 113 und 114! 🚀
+
+================================================================================

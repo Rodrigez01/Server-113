@@ -1,0 +1,20 @@
+SoulShackle_name_rsc = de "Seelenfessel"
+SoulShackle_desc_rsc = de \
+   "Fesselt die Seele des Ziels mit Ketten des Schreckens, "
+   "sodass es 3 Sekunden lang vor Angst kauert. Kann nicht "
+   "angreifen oder zaubern waehrend gefesselt. "
+   "Kostet zwei Seelenfragmente."
+SoulShackle_already_enchanted = de \
+   "%s%s ist bereits von Angst gefesselt."
+SoulShackle_caster = de \
+   "Spektrale Ketten binden die Seele von %s%s! Sie kauern in Schrecken!"
+SoulShackle_on = de \
+   "Ketten aus purem Schrecken umschlingen Deine Seele! Du kannst "
+   "nichts tun als kauern!"
+SoulShackle_off = de \
+   "Die Seelenfesseln zerbersten und Dein Mut kehrt zurueck."
+SoulShackle_no_soul_rsc = de \
+   "Du brauchst zwei Seelenfragmente, um diesen Zauber zu wirken."
+SoulShackle_spell_intro = de \
+   "Nekromantie Lv. 5: Fesselt die Seele des Ziels mit Furcht. "
+   "Kostet zwei Seelenfragmente."

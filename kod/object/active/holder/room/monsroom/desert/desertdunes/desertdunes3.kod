@@ -1,0 +1,57 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+DesertDunes3 is DesertDunes
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+classvars:
+
+properties:
+
+   piRoom_num = RID_DESERTDUNES3
+
+messages:
+ 
+   Constructed()
+   {
+      plMonsters = [ [&XeoAcid, 10],
+                     [&XeoAir, 10],
+                     [&XeoEarth, 10],
+                     [&XeoFire, 10],
+                     [&XeoHoly, 10],
+                     [&XeoIll, 10],
+                     [&XeoUnholy, 10],
+                     [&XeoWater, 10],
+                     [&EarthElemental, 10],
+                     [&FireElemental, 10]
+                      ];
+
+      propagate;
+   }
+ 
+   CreateStandardExits()
+   {
+      plEdge_Exits = $;
+      plEdge_Exits = Cons([ LEAVE_NORTH, RID_DESERTDUNES2, 60, 102, ROTATE_NONE ],plEdge_Exits);
+      plEdge_Exits = Cons([ LEAVE_SOUTH, RID_DESERTDUNES4, 60, 102, ROTATE_NONE ],plEdge_Exits);
+      plEdge_Exits = Cons([ LEAVE_WEST, RID_DESERTSHORE1, 60, 102, ROTATE_NONE ],plEdge_Exits);
+      plEdge_Exits = Cons([ LEAVE_EAST, RID_DESERTDUNES7, 10, 39, ROTATE_NONE ],plEdge_Exits);
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////
+

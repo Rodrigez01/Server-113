@@ -1,0 +1,54 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+MageGift is Gift
+
+constants:
+
+   include blakston.khd
+   include protocol.khd
+
+resources:
+
+   MageGift_name_rsc = "mage box"
+   MageGift_icon_rsc = lootboxes.bgf
+   MageGift_desc_rsc = \
+      "This is a gift from the gods, it contains a strong item for mages!\n\n"
+      "Items have a 30% chance to be colored.\n\n"
+      "This box has a chance to contain the following items : \n"
+      "light robes of the disciple, robes of the disciple, wizard's hat, "
+      "circlet, ivy circlet, apprentice wand, orc shield. \n\n"
+      "These items have a chance to be enchanted with :\n bond, extra durability,"
+      " indestructible, bonus xp."
+
+classvars:
+
+   vrName = MageGift_name_rsc
+   vrIcon = MageGift_icon_rsc
+   vrDesc = MageGift_desc_rsc
+   
+   viValue_average = 2000
+
+properties:
+
+messages:
+
+   Constructor()
+   {
+      plContents = [ &LightDiscipleRobe, &DiscipleRobe, &Wizardhat, 
+                     &ApprenticeWand, &Circlet, &IvyCirclet, &OrcShield, &ThornCirclet ];
+
+      plItematt = [ IA_TRANSCENDANT, IA_DURABLE, IA_INDESTRUCTIBLE, IA_XP_KILL_BONUS ];
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

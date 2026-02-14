@@ -1,0 +1,166 @@
+// Meridian 59 - Necromantie Spell School
+// Soul Reaping - Level 1 Necromantie Personal Enchantment
+// Buff: when the caster kills a mob, there is a chance a soul drops.
+
+
+////////////////////////////////////////////////////////////////////////////////
+SoulReaping is PersonalEnchantment
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include soulreap.lkod
+
+   SoulReaping_name_rsc = "soul reaping"
+   SoulReaping_icon_rsc = inecro7.bgf
+   SoulReaping_desc_rsc = \
+      "Attunes the caster to the flow of departing souls.  When a "
+      "creature falls by your hand, there is a chance its soul lingers "
+      "long enough for you to harvest it.  "
+      "Requires one elderberry to cast."
+
+   SoulReaping_already_enchanted_rsc = \
+      "Your senses are already attuned to departing souls."
+   SoulReaping_on_rsc = \
+      "Your eyes flicker with a ghostly light as you become aware of "
+      "the souls around you."
+   SoulReaping_off_rsc = \
+      "The spectral awareness fades and souls pass beyond your reach."
+   SoulReaping_harvest_rsc = \
+      "A shimmering soul rises from the fallen creature!"
+
+   SoulReaping_spell_intro = \
+      "Necromantie Lv. 1: Attunes the caster to harvest souls from "
+      "slain creatures."
+
+classvars:
+
+   viPersonal_ench = True
+
+   vrName = SoulReaping_name_rsc
+   vrIcon = SoulReaping_icon_rsc
+   vrDesc = SoulReaping_desc_rsc
+
+   vrAlreadyEnchanted = SoulReaping_already_enchanted_rsc
+   vrEnchantment_On = SoulReaping_On_rsc
+   vrEnchantment_Off = SoulReaping_Off_rsc
+
+   viSpell_num = SID_SOUL_REAPING
+
+   vrSpell_intro = SoulReaping_spell_intro
+
+   viMana = 5
+
+   viSpell_level = 5
+   viSchool = SS_NECROMANTIE
+
+   viChance_To_Increase = 30
+   viMeditate_ratio = 10
+
+   viFlash = FLASH_GOOD_SELF
+
+   vbCanCastOnOthers = FALSE
+
+properties:
+
+   viPurgeFactor = 80
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&ElderBerry,1],plReagents);
+
+      return;
+   }
+
+   GetStateValue(iSpellpower=$,who=$,target=$)
+   {
+      return iSpellpower;
+   }
+
+   CastSpell(who=$,iSpellPower=0,lTargets=$)
+   {
+      if NOT vbCanCastonOthers
+      {
+         lTargets = Cons(who,lTargets);
+      }
+
+      propagate;
+   }
+
+   GetDuration(iSpellPower=0)
+   {
+      local iDuration;
+
+      // Base duration 120-720 seconds.
+      iDuration = (120 + (iSpellPower*6)) * 1000;
+
+      return iDuration;
+   }
+
+   GiveSoulDrop(who=$,victim=$)
+   "Called from player.kod SomethingKilled when Soul Reaping is active."
+   {
+      local iMaxHP, iChance, iState, oSoul, oRoom;
+
+      if who = $ OR victim = $
+      {
+         return;
+      }
+
+      if NOT IsClass(victim,&Monster)
+      {
+         return;
+      }
+
+      iState = Send(who,@GetEnchantedState,#what=self);
+
+      // Base 50% chance, scales with spellpower
+      iChance = 50 + (iState / 5);
+      iChance = Bound(iChance,50,80);
+
+      if Random(1,100) > iChance
+      {
+         return;
+      }
+
+      iMaxHP = Send(victim,@GetMaxHitPoints);
+
+      if iMaxHP >= 150
+      {
+         oSoul = Create(&MasterSoul,#number=1);
+      }
+      else
+      {
+         if iMaxHP >= 75
+         {
+            oSoul = Create(&AdeptSoul,#number=1);
+         }
+         else
+         {
+            oSoul = Create(&LesserSoul,#number=1);
+         }
+      }
+
+      oRoom = Send(who,@GetOwner);
+      Send(oRoom,@NewHold,#what=oSoul,
+            #new_row=Send(victim,@GetRow),
+            #new_col=Send(victim,@GetCol));
+
+      Send(who,@MsgSendUser,#message_rsc=SoulReaping_harvest_rsc);
+
+      return;
+   }
+
+   EndEnchantment(who=$,report=TRUE,state=0)
+   {
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

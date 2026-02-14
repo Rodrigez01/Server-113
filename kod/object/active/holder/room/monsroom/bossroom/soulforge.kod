@@ -1,0 +1,202 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+soulforge is BossRoom
+
+constants:
+
+   include blakston.khd
+   
+   DOOR_RESET_TIME = 90
+   SECTOR_DOOR3a = 7
+//   H_DOOR3a_DOWN = 64
+//   H_DOOR3a_UP = 8
+  // H_DOOR3a_DOWN = 8
+  // H_DOOR3a_UP = 208
+   
+   SECTOR_DOOR3b = 12
+   H_DOOR3b_DOWN = 10
+   H_DOOR3b_UP = 288
+  // H_DOOR3b_DOWN = 288
+  // H_DOOR3b_UP = 10
+   DOOR_UP = 1
+   DOOR_DOWN = 0
+   DOOR_UP_SPEED = 15
+   DOOR_DOWN_SPEED = 8
+   
+   
+   
+   
+///////////////////////////RUMSPIELEN BODEN SECTOR SENKEN///////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////BIS HIER //////////////////////////////////////////////////////////////
+
+
+resources:
+
+   // include soulforge.lkod
+
+   room_Soulforge = soulforge.roo
+   room_name_Soulforge ="The Soulforge"
+   Soulforge_music = forest.ogg
+
+classvars:
+
+   vrName = room_name_Soulforge
+   viTeleport_row = 1
+   viTeleport_col = 1
+   viTerrain_type = TERRAIN_CAVES 
+   viWeatherZone = WEATHER_ZONE_MARION
+
+   // 20 seconds
+   viBossResetTime = 20000
+
+properties:
+ 
+   prBackground = background_chaos_night
+ // piBaseLight = LIGHT_MIN
+   prRoom = room_Soulforge
+   prMusic = Soulforge_music
+   piRoom_num = RID_Soulforge
+   piDoor3Position = DOOR_UP
+   
+   
+///////////////////////////////////////////////////////////////////////////////////////
+messages:
+// 
+   RecalcBackgroundSkyGraphic(iSkyBox=0)
+   {
+      return;
+   }
+
+   CreateStandardExits()
+   {
+         plExits = $;
+        // GRAVEYARD
+        plExits = Cons([ 1, 1, RID_Pit, 1, 4, SET_ANGLE_EAST ],plExits);
+	    propagate;
+   }
+   
+   
+   CreateStandardObjects()
+   {
+      Send(self,@NewHold,#what=Create(&Fountain),#new_row=44,#new_col=45,
+           #fine_row=60,#fine_col=11,#new_angle=ANGLE_EAST);
+		      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_BARREL2),
+           #new_row=33,#new_col=50,#fine_row=16,#fine_col=32,#new_angle=ANGLE_EAST);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_BARREL2),
+           #new_row=34,#new_col=49,#fine_row=0,#fine_col=32,#new_angle=ANGLE_EAST);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_BARREL2),
+           #new_row=35,#new_col=50,#fine_row=48,#fine_col=48,#new_angle=ANGLE_EAST);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_BARREL2),
+           #new_row=33,#new_col=48,#fine_row=16,#fine_col=0,#new_angle=ANGLE_EAST);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_BARREL2),
+           #new_row=22,#new_col=30,#fine_row=32,#fine_col=32,#new_angle=ANGLE_EAST);
+      Send(self,@NewHold,#what=Create(&OrnamentalObject,#type=OO_BARREL2),
+           #new_row=23,#new_col=32,#fine_row=32,#fine_col=32,#new_angle=ANGLE_EAST);
+      propagate;
+   }     
+/////////////////////////////////////////////////////////////////////////////////////////
+   SetupBossTemplates()
+   {
+      plBossTemplate = [ [&IceDragon, 24, 41] ];
+      return;
+   }
+   
+
+
+//////////////////////
+// Monster death code//
+//////////////////////
+//
+  BossKilledTrigger()
+   {
+      local i;
+
+      // Just killed the orc pit boss (opening door, creating treasure...)
+
+      // Raise the gate.
+      Send(self,@SomethingWaveRoom,#wave_rsc=Orcpit1_door_sound);
+   //   Send(self,@SetSector,#sector=SECTOR_DOOR3a,
+   //         #animation=ANIMATE_FLOOR_LIFT,
+   //         #height=H_DOOR3a_DOWN,#speed=DOOR_DOWN_SPEED);
+      Send(self,@SetSector,#sector=SECTOR_DOOR3b,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_DOOR3b_UP,#speed=DOOR_UP_SPEED);
+      piDoor3Position = DOOR_UP;
+
+      propagate;
+   }
+
+
+//
+//////////////////////////
+// end Monster death code//
+//////////////////////////
+
+
+////////////////////////
+// Boss resetting code //
+////////////////////////
+//
+ ResetBoss()
+   {
+      local i;
+	  
+////	  
+
+      // Close the boss door instantaneously.
+    //  Send(self,@SetSector,#sector=SECTOR_DOOR3a,
+    //        #animation=ANIMATE_CEILING_LIFT,#height=H_DOOR3a_UP,#speed=0);
+      Send(self,@SetSector,#sector=SECTOR_DOOR3b,
+            #animation=ANIMATE_CEILING_LIFT,#height=H_DOOR3b_UP,#speed=0);
+      piDoor3Position = DOOR_UP;
+
+      // Delete any boss bodies that may be lying around...
+      foreach i in plActive
+      {
+         if isClass(First(i),&IceDragon)
+         {
+            Send(First(i),@Delete);
+         }
+      }
+
+      propagate;
+   }
+//
+////////////////////////////
+// End Boss resetting code //
+////////////////////////////
+
+
+end
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+		   
+//  CreateStandardObjects()
+//  {
+//    Send(self,@NewHold,#what=Create(&ManaNode,#node_num=NODE_Soulforge),
+//         #new_row=20,#new_col=17,#fine_row=0,#fine_col=0);
+//        
+//   propagate;
+// }

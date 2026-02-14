@@ -1,0 +1,6 @@
+MasterSoul_name_rsc = de "Meisterseelenstein"
+MasterSoul_desc_rsc = de \
+   "Eine lodernde Kugel spiritueller Energie, einer maechtigen Kreatur "
+   "entrissen. Sie strahlt Macht aus und pulsiert mit einer fast "
+   "empfindsamen Intensitaet."
+MasterSoul_name_plural_rsc = de "Meisterseelensteine"

@@ -1,0 +1,169 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 12 - THE DROWNING DEPTHS
+// Typ: Wasser + Timer (Drowning Mechanik)
+////////////////////////////////////////////////////////////////////////////////
+TowerSt12 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+   DROWN_COUNTDOWN = 60000    // 1 Minute bis Wasser steigt
+   DROWN_INTERVAL = 5000     // Schaden alle 5 Sekunden
+   DROWN_DAMAGE = 15
+
+   WATER_LOW = 50
+   WATER_HIGH = 200
+
+   SECTOR_WATER = 10
+
+resources:
+
+   room_towerst12 = st12.roo
+   room_name_towerst12 = "Tower of Quests - The Drowning Depths"
+
+   towerst12_water_rising = "~kDas Wasser beginnt zu steigen..."
+   towerst12_drowning = "~r~BDu ertrinkst! Finde eine erhoehte Plattform!"
+
+classvars:
+
+   vrName = room_name_towerst12
+
+   viTeleport_row = 50
+   viTeleport_col = 102
+
+properties:
+
+   prRoom = room_towerst12
+   piRoom_num = RID_TOWER_ST12
+
+   piNextFloor = RID_TOWER_ST13
+   piPrevFloor = RID_TOWER_ST11
+
+   ptDrownCountdownTimer = $
+   ptDrownIntervalTimer = $
+   pbWaterHigh = FALSE
+
+messages:
+
+   Constructed()
+   {
+      plMonsters = $;
+      plGenerators = $;
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 2, 10, RID_TOWER_ST11, 18, 10, ROTATE_NONE ],plExits);
+      plExits = Cons([ 18, 10, RID_TOWER_ST13, 5, 10, ROTATE_NONE ],plExits);
+
+      propagate;
+   }
+
+   // Nach Boss-Kill: Wasser steigt
+   BossKilledTrigger()
+   {
+      local i;
+
+      pbWaterHigh = TRUE;
+
+      // Hebe Wasserstand
+      Send(self,@SetSector,#sector=SECTOR_WATER,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=WATER_HIGH,
+           #speed=10);
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst12_water_rising);
+         }
+      }
+
+      // Starte Drowning-Timer
+      ptDrownCountdownTimer = CreateTimer(self,@DrownCountdownTrigger,DROWN_COUNTDOWN);
+
+      Send(self,@OpenStairsUp);
+
+      return;
+   }
+
+   DrownCountdownTrigger()
+   {
+      ptDrownCountdownTimer = $;
+
+      // Starte periodischen Schaden
+      Send(self,@DrownIntervalTrigger);
+
+      return;
+   }
+
+   DrownIntervalTrigger()
+   {
+      local i, oUser;
+
+      ptDrownIntervalTimer = $;
+
+      if NOT pbWaterHigh
+      {
+         return;
+      }
+
+      foreach i in plActive
+      {
+         oUser = First(i);
+         if IsClass(oUser,&User)
+         {
+            if Send(self,@IsInWater,#who=oUser)
+            {
+               Send(oUser,@MsgSendUser,#message_rsc=towerst12_drowning);
+               Send(oUser,@AssessDamage,#damage=DROWN_DAMAGE,#report=FALSE);
+            }
+         }
+      }
+
+      ptDrownIntervalTimer = CreateTimer(self,@DrownIntervalTrigger,DROWN_INTERVAL);
+
+      return;
+   }
+
+   IsInWater(who=$)
+   {
+      // TODO: Pruefe ob Spieler im Wasser-Bereich ist
+      // Basierend auf Row/Col oder Sektor-ID
+      return FALSE;
+   }
+
+   Delete()
+   {
+      if ptDrownCountdownTimer <> $
+      {
+         DeleteTimer(ptDrownCountdownTimer);
+         ptDrownCountdownTimer = $;
+      }
+
+      if ptDrownIntervalTimer <> $
+      {
+         DeleteTimer(ptDrownIntervalTimer);
+         ptDrownIntervalTimer = $;
+      }
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

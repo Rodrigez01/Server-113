@@ -1,0 +1,106 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+BabySpider is QuestTemplate
+// Quest template QST_ID_BABYSPIDER
+// Quest nodes: QNT_ID_BABYSPIDER_1, QNT_ID_BABYSPIDER_2
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   // Quest description.
+   babyspider_icon_rsc = cowboyhat.bgf
+   babyspider_name_rsc = "BabySpider"
+   babyspider_desc_rsc = "BabySpider"
+
+   babyspider_trigger_1 = "spider"
+
+   // Node 1 dialogs
+   babyspider_assign_1 = "I have a task for you. Will you help me?"
+   // Node 2 dialogs
+   babyspider_success_2 = "Spider kill"
+
+classvars:
+
+   vrIcon = babyspider_icon_rsc
+   vrName = babyspider_name_rsc
+   vrDesc = babyspider_desc_rsc
+
+   // The QST_ID constant for this quest.
+   viQuestID = QST_ID_BABYSPIDER
+
+properties:
+
+   piNumPlayers = 1
+   piPlayerRestrict = Q_PLAYER_NOTSUCCEEDED
+   piMaxPlayers = 30
+   piSchedulePct = 100
+
+messages:
+
+   Constructor()
+   {
+      // Quest node list to send to QuestEngine.
+      plQuestNodes = [QNT_ID_BABYSPIDER_ONE, QNT_ID_BABYSPIDER_TWO];
+
+      propagate;
+   }
+
+   SendQuestNodeTemplates()
+   {
+      local oQE;
+
+      oQE = Send(SYS,@GetQuestEngine);
+
+      // Template #1 - BabySpider
+      // QNT_ID_BABYSPIDER_ONE
+      if Send(oQE,@AddQuestNodeTemplate,#questnode_type=QN_TYPE_MESSAGE,
+               #NPC_modifier=QN_NPCMOD_NONE,#cargolist=[babyspider_trigger_1],
+               #quest_node_index=QNT_ID_BABYSPIDER_ONE)
+      {
+         Send(oQE,@SetQuestNodeNPCList,#index=QNT_ID_BABYSPIDER_ONE,
+               #new_NPC_list=Send(Send(SYS,@GetLibrary),@GetOccupationList,
+                                    #cNPC_class=&RazaBanker));
+         Send(oQE,@SetQuestNodeAssignHint,#index=QNT_ID_BABYSPIDER_ONE,
+               #new_hint=babyspider_assign_1);
+      }
+      else
+      {
+         Debug("Error building QN: QNT_ID_BABYSPIDER_ONE");
+      }
+
+      // Template #2 - BabySpider
+      // QNT_ID_BABYSPIDER_TWO
+      if Send(oQE,@AddQuestNodeTemplate,#questnode_type=QN_TYPE_MONSTER,
+               #NPC_modifier=QN_NPCMOD_SAME,
+               #monsterlist=[ &SpiderBaby ],
+               #amount_needed=1,
+               #prizelist=[ [ QN_PRIZETYPE_EXPERIENCE_POINTS, 999999 ], [ QN_PRIZETYPE_TRAINING_POINTS, 999999 ] ],
+               #quest_node_index=QNT_ID_BABYSPIDER_TWO)
+      {
+         Send(oQE,@SetQuestNodeNPCList,#index=QNT_ID_BABYSPIDER_TWO,
+               #new_NPC_list=Send(Send(SYS,@GetLibrary),@GetOccupationList,
+                                    #cNPC_class=&RazaBanker));
+         Send(oQE,@SetQuestNodeSuccessHint,#index=QNT_ID_BABYSPIDER_TWO,
+               #new_hint=babyspider_success_2);
+      }
+      else
+      {
+         Debug("Error building QN: QNT_ID_BABYSPIDER_TWO");
+      }
+
+      return;
+   }
+
+end
+/////////////////////////////////////////////////////////////////////////////////

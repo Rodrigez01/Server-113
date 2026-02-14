@@ -1,0 +1,14 @@
+SoulGorge_name_rsc = de "Seelenschmaus"
+SoulGorge_desc_rsc = de \
+   "Verschlingt eine Seele aus Deinem Besitz und wandelt ihre "
+   "spirituelle Energie in Heilung um. Verbraucht die schwaechste "
+   "verfuegbare Seele zuerst. Benoetigt keine Reagenzien, aber "
+   "Du musst mindestens eine Seele bei Dir tragen."
+SoulGorge_cast_self = de \
+   "Du verschlingst eine Seele und dunkle Energie heilt Deine "
+   "Wunden um ~g~B%i~B~n Lebenspunkte."
+SoulGorge_no_soul_rsc = de \
+   "Du hast keine Seelen zum Verschlingen."
+SoulGorge_spell_intro = de \
+   "Nekromantie Lv. 1: Verschlingt eine geerntete Seele, um "
+   "Gesundheit wiederherzustellen."

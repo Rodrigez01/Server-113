@@ -1,0 +1,23 @@
+forcesoflight_name_rsc = de "Kraft des Lichts"
+forcesoflight_desc_rsc = de \
+   "Ruft Sha-Lill herbei, um ihre Kraft allen guten Spielern im Raum zu verleihen, "
+   "auf dass ihre Attacken besser treffen und ihre Zauber kraftvoller werden. "
+   "Dieser Zauber benötigt zwei Holunderbeeren und einen Smaragd."
+forcesoflight_already_enchanted = de \
+   "Dieser Raum ist bereits mit dem Geist Shal'ills gesegnet."
+forcesoflight_enchantment_rsc = de \
+   "\n\nDie %s gibt allen Spielern mit positiven Karma %i Offensivebonus "
+   "und erhöht die Zauberkraft Sha'Lills um %i."
+forcesoflight_on = de "Dieser Ort ist vom Geist Sha-Lills durchdrungen."
+forcesoflight_off = de "Der Geist Sha-Lills verläßt diesen Ort wieder."
+forcesoflight_player_on = de "Du bist vom Geist Sha-Lills erfüllt."
+forcesoflight_player_off = de "Der Geist Sha-Lills hat Dich wieder verlassen."
+
+forcesoflight_name_rsc = pt "forças da luz"
+forcesoflight_desc_rsc = pt "Convoca Shal'ille para infundir seu poder em todos os jogadores bons na sala, tornando seus ataques mais precisos e seus feitiços mais potentes. Requer amoras e esmeraldas para ser lançado."
+forcesoflight_already_enchanted = pt "Este lugar já está impregnado com o espírito de Shal'ille."
+forcesoflight_enchantment_rsc = pt "\n\nO encantamento %s atualmente adiciona %i de ofensiva aos ataques de jogadores bons e %i de poder de feitiço a todos os feitiços de Shal'ille lançados na área."
+forcesoflight_on = pt "Este lugar está impregnado com o espírito de Shal'ille."
+forcesoflight_off = pt "O espírito de Shal'ille parte deste lugar."
+forcesoflight_player_on = pt "Você está cheio do espírito de Shal'ille."
+forcesoflight_player_off = pt "O espírito de Shal'ille te deixou."

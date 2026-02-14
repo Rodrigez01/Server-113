@@ -1,0 +1,42 @@
+// Meridian 59 - Necromantie Soul System
+// Lesser Soul - Dropped by weak monsters (1-74 Max HP)
+
+
+////////////////////////////////////////////////////////////////////////////////
+LesserSoul is Reagent
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include lesssoul.lkod
+
+   LesserSoul_name_rsc = "niederer seelenstein"
+   LesserSoul_icon_rsc = isoulfrag.bgf
+   LesserSoul_desc_rsc = \
+      "A faint, flickering wisp of spiritual energy harvested from a "
+      "weak creature.  It pulses dimly with residual life force."
+   LesserSoul_name_plural_rsc = "niedere seelensteine"
+
+classvars:
+
+   vrName = LesserSoul_name_rsc
+   vrIcon = LesserSoul_icon_rsc
+   vrDesc = LesserSoul_desc_rsc
+
+   vrName_plural = LesserSoul_name_plural_rsc
+
+   viValue_average = 30
+   viWeight = 1
+   viBulk = 2
+
+properties:
+
+   piNumber = 1
+
+messages:
+
+end
+////////////////////////////////////////////////////////////////////////////////

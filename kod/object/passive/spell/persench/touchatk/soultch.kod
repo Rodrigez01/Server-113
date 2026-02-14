@@ -1,0 +1,129 @@
+// Meridian 59 - Necromantie Spell School
+// Soul Touch - Level 1 Necromantie Touch Attack Spell
+// Touch-based attack dealing 16-19 soul damage with chance for soul drop on kill.
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+SoulTouch is TouchAttackSpell
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include soultch.lkod
+
+   SoulTouch_name_rsc = "soul touch"
+   SoulTouch_icon_rsc = inecro7.bgf
+   SoulTouch_desc_rsc = \
+      "Channels raw necromantic energy through your hands, tearing at "
+      "the very soul of anything you strike.  Creatures slain by this "
+      "touch may yield their soul to you.  "
+      "Requires one purple mushroom to cast."
+
+   SoulTouch_already_enchanted_rsc = \
+      "Your hands already crackle with soul energy."
+   SoulTouch_On_rsc = "Your hands glow with an eerie pallid light."
+   SoulTouch_Off_rsc = "The necromantic energy fades from your hands."
+
+   SoulTouch_player_was_hit = \
+      "%s%s tears at your soul with necromantic force!"
+   SoulTouch_player_hit_something = \
+      "%s%s%s recoils as you rip at their soul."
+
+   SoulTouch_player_killed_something = \
+      "The soul of %s%s is ripped free and dissipates."
+   SoulTouch_player_was_killed = \
+      "The touch of %s%s tears your soul from your body, dragging "
+      "%s%s into the darkness."
+
+   SoulTouch_spell_intro = \
+      "Necromantie Lv. 1: Channels soul-rending energy into your touch."
+
+   SoulTouch_sound = qcurweap.ogg
+
+classvars:
+
+   vrName = SoulTouch_name_rsc
+   vrIcon = SoulTouch_icon_rsc
+   vrDesc = SoulTouch_desc_rsc
+
+   vrAlreadyEnchanted = SoulTouch_already_enchanted_rsc
+   vrEnchantment_On = SoulTouch_On_rsc
+   vrEnchantment_Off = SoulTouch_Off_rsc
+
+   vrSpell_intro = SoulTouch_spell_intro
+
+   vrPlayer_was_hit = SoulTouch_player_was_hit
+   vrPlayer_hit_something = SoulTouch_player_hit_something
+   vrPlayer_killed_something = SoulTouch_player_killed_something
+   vrPlayer_was_killed = SoulTouch_player_was_killed
+
+   viIndefinite = ARTICLE_NONE
+   viDefinite = ARTICLE_NONE
+
+   viSchool = SS_NECROMANTIE
+   viSpell_num = SID_SOUL_TOUCH
+   viSpellExertion = 1
+   viSpell_level = 5
+   viMana = 5
+   viMeditate_ratio = 10
+
+   viMin_Damage = 16
+   viMax_Damage = 19
+
+   viSpellType = ATCK_SPELL_UNHOLY+ATCK_SPELL_ALL
+   viStroke = STROKE_UNHOLY_TOUCH
+
+   viDifficulty = 1
+
+   vbAutomatic = FALSE
+
+   vrSucceed_wav = SoulTouch_sound
+
+   viEnchantmentLight = -10
+
+properties:
+
+   plPrerequisites = $
+   plReagents = $
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&PurpleMushroom,1],plReagents);
+
+      return;
+   }
+
+   FindDamage(weapon_used=$,who=$,victim=$)
+   {
+      propagate;
+   }
+
+   DamageFactors(damage=0, who=$, victim=$)
+   "Damage for Soul Touch - straight damage, no special modifiers."
+   {
+      return damage;
+   }
+
+   PlayerKilledSomethingMsg(who=$,victim=$,damage=$)
+   "Override because soul touch needs GetDef instead of GetCapDef."
+   {
+      if vrPlayer_killed_Something = $
+      {
+         return FALSE;
+      }
+
+      Send(who,@MsgSendUser,#message_rsc=vrPlayer_killed_something,
+            #parm1=Send(victim,@GetDef),#parm2=Send(victim,@GetName));
+
+      return TRUE;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

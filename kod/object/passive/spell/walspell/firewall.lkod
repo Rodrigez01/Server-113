@@ -1,0 +1,15 @@
+FireWall_name_rsc = de "Feuerwand"
+FireWall_desc_rsc = de \
+   "Erzeugt einen Feuerwand. Dazu braucht man zwei Feuersand und drei rote Pilze. "
+FireWall_cast_rsc = de "Eine glühend heiße Feuerwand erscheint vor dir!"
+FireWall_failed_rsc = de \
+   "Es gibt zu viel Beschwörungsmagie in diesem Raum. Du kannst nicht noch "
+   "weitere Wände erschaffen"
+
+FireWall_name_rsc = pt "firewall"
+FireWall_desc_rsc = pt \
+   "Cria uma parede de fogo na frente do conjurador. "
+   "Requer cogumelos vermelhos e areia de fogo para lançar."
+FireWall_cast_rsc = pt "Uma parede de fogo ardente aparece diante de você!"
+FireWall_failed_rsc = pt \
+   "Há muita magia de invocação concentrada aqui para criar uma parede de fogo."

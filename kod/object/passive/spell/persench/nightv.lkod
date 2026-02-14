@@ -1,0 +1,18 @@
+nightvision_name_rsc = de "Nachtsicht"
+nightvision_desc_rsc = de \
+   "Verstärkt auf magische Weise die Sehkraft der Zielperson. Der Zauber "
+   "benötigt drei Holunderbeeren. "
+nightvision_already_enchanted_rsc = de "Du hast bereits Nachtsicht."
+nightvision_on_rsc = de "Deine Augen brennen vor magischer Energie."
+nightvision_off_rsc = de "Deine Sicht kehrt zur Normalform zurück."
+nightvision_success_rsc = de "%s%ss Augen brennen voll magischer Energie."
+nightvision_enchantment_rsc = de \
+   "\n\nDein aktueller %s Zauber fügt %i sichtbares Licht hinzu."
+
+nightvision_name_rsc = pt "visão noturna"
+nightvision_desc_rsc = pt "Aumenta magicamente a visão do alvo. Requer três bagas de sabugueiro para lançar."
+nightvision_enchantment_rsc = pt "\n\nSeu encantamento atual de %s adiciona %i de luz visual."
+nightvision_already_enchanted_rsc = pt "Você já possui visão noturna."
+nightvision_on_rsc = pt "Seus olhos ardem com energia mágica."
+nightvision_off_rsc = pt "Sua visão retorna ao normal."
+nightvision_success_rsc = pt "Os olhos de %s%s ardem com energia mágica."

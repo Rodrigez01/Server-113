@@ -1,0 +1,164 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 13 - CHAMBER OF VOICES
+// Typ: Chat-Puzzle (Phrasen in richtiger Reihenfolge)
+////////////////////////////////////////////////////////////////////////////////
+TowerSt13 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   room_towerst13 = st13.roo
+   room_name_towerst13 = "Tower of Quests - Chamber of Voices"
+
+   towerst13_hint = "~kInschriften an den Waenden fluestern: 'Licht... Schatten... Balance...'"
+   towerst13_correct = "~g~BRichtig! Ein Teil des Puzzles ist geloest."
+   towerst13_wrong = "~r~BFalsche Phrase! Das Puzzle wird zurueckgesetzt."
+   towerst13_complete = "~g~BDie Stimmen verstummen. Die Tuer oeffnet sich!"
+
+classvars:
+
+   vrName = room_name_towerst13
+
+   viTeleport_row = 50
+   viTeleport_col = 102
+
+properties:
+
+   prRoom = room_towerst13
+   piRoom_num = RID_TOWER_ST13
+
+   piNextFloor = RID_TOWER_ST14
+   piPrevFloor = RID_TOWER_ST12
+
+   // Phrasen: "licht", "schatten", "balance"
+   plPhrases = $
+   piCurrentPhrase = 1
+
+messages:
+
+   Constructed()
+   {
+      plPhrases = [ "licht", "schatten", "balance" ];
+      piCurrentPhrase = 1;
+
+      plMonsters = $;
+      plGenerators = $;
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 2, 10, RID_TOWER_ST12, 18, 10, ROTATE_NONE ],plExits);
+      plExits = Cons([ 18, 10, RID_TOWER_ST14, 5, 10, ROTATE_NONE ],plExits);
+
+      propagate;
+   }
+
+   FirstUserEntered()
+   {
+      local i;
+
+      // Zeige Hinweis
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst13_hint);
+         }
+      }
+
+      propagate;
+   }
+
+   SomeoneSaid(what=$,type=$,string=$)
+   {
+      local i, sTarget;
+
+      if piCurrentPhrase > Length(plPhrases)
+      {
+         // Bereits geloest
+         propagate;
+      }
+
+      sTarget = Nth(plPhrases, piCurrentPhrase);
+
+      if StringContain(string, sTarget)
+      {
+         // Richtige Phrase!
+         foreach i in plActive
+         {
+            if IsClass(First(i),&User)
+            {
+               Send(First(i),@MsgSendUser,#message_rsc=towerst13_correct);
+            }
+         }
+
+         piCurrentPhrase = piCurrentPhrase + 1;
+
+         if piCurrentPhrase > Length(plPhrases)
+         {
+            // Puzzle geloest!
+            Send(self,@PuzzleComplete);
+         }
+      }
+      else
+      {
+         // Falsche Phrase - nur resetten wenn nicht leer
+         if StringLength(string) > 3
+         {
+            piCurrentPhrase = 1;
+            foreach i in plActive
+            {
+               if IsClass(First(i),&User)
+               {
+                  Send(First(i),@MsgSendUser,#message_rsc=towerst13_wrong);
+               }
+            }
+         }
+      }
+
+      propagate;
+   }
+
+   PuzzleComplete()
+   {
+      local i;
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst13_complete);
+         }
+      }
+
+      Send(self,@OpenStairsUp);
+
+      return;
+   }
+
+   // Reset wenn alle Spieler weg
+   LastUserLeft()
+   {
+      piCurrentPhrase = 1;
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

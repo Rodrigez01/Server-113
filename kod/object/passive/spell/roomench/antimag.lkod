@@ -1,0 +1,20 @@
+AntiMagicAura_name_rsc = de "Anti-Magie-Aura"
+AntiMagicAura_desc_rsc = de \
+   "Sendet eine Schockwelle magischer Energie aus, die durch den Raum geht, "
+   "wodurch die Macht anderer Zaubersprüche für einige Minuten reduziert "
+   "wird. Mächtigere Magier sind bei der Durchführung dieses Zauberspruches "
+   "stärker. Für den Zauber sind zwei Saphire und einen geschliffenen Seraphym erforderlich"
+AntiMagicAura_unnecessary = de "Du kannst die Anti-Magie-Aura nicht überwinden!"
+AntiMagicAura_reinforced = de \
+   "Das magische Feld um Dich herum schwankt wilder als je zuvor."
+AntiMagicAura_on = de "Das magische Feld beginnt zu fluktuieren."
+AntiMagicAura_off = de "Das magische Feld normalisiert sich wieder."
+AntiMagicAura_new_occupant = de "Hier fluktuiert das magische Feld."
+
+AntiMagicAura_name_rsc = pt "aura anti-mágica"
+AntiMagicAura_desc_rsc = pt "Envia uma onda de choque de energia mágica pela sala, reduzindo o poder dos feitiços lançados por vários minutos. Magos mais poderosos são mais eficazes ao lançar este feitiço. Requer dois safiras e um seraphym polido para ser lançado."
+AntiMagicAura_unnecessary = pt "Você não pode superar o campo anti-mágico em vigor."
+AntiMagicAura_reinforced = pt "O campo de mana ao seu redor está flutuando mais descontroladamente do que antes."
+AntiMagicAura_on = pt "O campo de mana começa a flutuar."
+AntiMagicAura_off = pt "O campo de mana volta ao normal."
+AntiMagicAura_new_occupant = pt "O campo de mana está flutuando aqui."

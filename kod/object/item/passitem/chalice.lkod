@@ -1,0 +1,30 @@
+chalice_name_rsc = de "Der Kelch des Regens"
+chalice_desc_rsc = de \
+   "Dieser reich verzierte Kelch ist mit Sha-Lills heiligen Zeichen versehen. "
+   "Eine Inschrift lautet \"Um ihre Tränen aufzufangen.\""
+chalice_cant_get = de \
+   "Du versuchst, den Kelch aufzunehmen, aber eine magische Kraft bindet "
+   "ihn an den steinernen Altar."
+chalice_use = de "Du nippst ein wenig vom Wasser im Kelch des Regens."
+chalice_empty = de "Du nippst das letzte Wasser aus dem Kelch des Regens."
+chalice_combine = de "Du schüttest das Wasser von einem Kelch in den anderen."
+chalice_cant_use_pkill = de "Nur Unschuldige können diesen Kelch benutzen."
+chalice_append_hits = de "\n\nThis chalice has %i %s remaining."
+chalice_append_plural = de "charges"
+chalice_append_single = de "charge"
+
+chalice_name_rsc = pt "Cálice da Chuva"
+chalice_desc_rsc = pt \
+   "Este cálice ornamentado é adornado com marcações sagradas "
+   "de Shal'ille. Uma inscrição diz \"para capturar suas lágrimas.\""
+chalice_cant_get = pt \
+   "Você tenta pegar o cálice, mas ele se apega misticamente "
+   "ao altar de pedra."
+chalice_append_hits = pt "\n\nEste cálice tem %i %s restantes."
+chalice_append_plural = pt "cargas"
+chalice_append_single = pt "carga"
+chalice_use = pt "Você dá um gole na água do Cálice da Chuva."
+chalice_empty = pt "Você dá um último gole na água do Cálice da Chuva."
+chalice_combine = pt "Você despeja a água de um cálice no outro."
+chalice_cant_use_pkill = pt "Apenas inocentes podem aproveitar o cálice."
+chalice_cant_use_dr = pt "Este reino bloqueia a magia do cálice!"

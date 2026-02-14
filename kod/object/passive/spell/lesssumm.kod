@@ -1,0 +1,160 @@
+// Meridian 59 - Necromantie Spell School
+// Lesser Summon - Level 1 Necromantie Summon Spell
+// Consumes a LesserSoul to summon a weak undead minion (Skeleton).
+
+
+////////////////////////////////////////////////////////////////////////////////
+LesserSummon is Spell
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include lesssumm.lkod
+
+   LesserSummon_name_rsc = "lesser summon"
+   LesserSummon_icon_rsc = inecro5.bgf
+   LesserSummon_desc_rsc = \
+      "Consumes a lesser soul to raise a skeletal servant from the "
+      "ground.  The servant will follow and fight for you.  "
+      "Requires one lesser soul."
+
+   LesserSummon_cast_rsc = \
+      "Bones claw their way from the earth, assembling into a servant."
+   LesserSummon_no_soul_rsc = \
+      "You need a lesser soul to fuel this summoning."
+   LesserSummon_failed_rsc = \
+      "There is too much summoning magic focused here."
+   LesserSummon_limit_rsc = \
+      "You already have an undead servant."
+
+   LesserSummon_spell_intro = \
+      "Necromantie Lv. 1: Consumes a lesser soul to summon a skeletal "
+      "servant that fights for you."
+
+   LesserSummon_sound = qdeathlk.ogg
+
+classvars:
+
+   vrName = LesserSummon_name_rsc
+   vrIcon = LesserSummon_icon_rsc
+   vrDesc = LesserSummon_desc_rsc
+
+   viSpell_num = SID_LESSER_SUMMON
+   viSchool = SS_NECROMANTIE
+   viSpell_level = 4
+   viMana = 8
+   viMeditate_ratio = 10
+
+   viSpellExertion = 2
+   viCast_time = 1000
+
+   vrSucceed_wav = LesserSummon_sound
+
+properties:
+
+messages:
+
+   ResetReagents()
+   {
+      // No standard reagents - we consume a LesserSoul manually.
+      plReagents = $;
+
+      return;
+   }
+
+   GetNumSpellTargets()
+   {
+      return 0;
+   }
+
+   CanPayCosts(who=$)
+   {
+      local i, bFoundSoul;
+
+      // Limit to 1 undead minion at a time
+      foreach i in Send(who,@GetControlledMinions)
+      {
+         if IsClass(i,&Skeleton)
+         {
+            Send(who,@MsgSendUser,#message_rsc=LesserSummon_limit_rsc);
+
+            return FALSE;
+         }
+      }
+
+      // Check for LesserSoul in inventory
+      bFoundSoul = FALSE;
+      foreach i in Send(who,@GetHolderPassive)
+      {
+         if IsClass(i,&LesserSoul)
+         {
+            bFoundSoul = TRUE;
+
+            break;
+         }
+      }
+
+      if NOT bFoundSoul
+      {
+         Send(who,@MsgSendUser,#message_rsc=LesserSummon_no_soul_rsc);
+
+         return FALSE;
+      }
+
+      propagate;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellPower=1)
+   {
+      local oRoom, oMinion, i, oSoul;
+
+      oRoom = Send(who,@GetOwner);
+
+      if oRoom = $
+      {
+         return;
+      }
+
+      // Find and consume LesserSoul
+      oSoul = $;
+      foreach i in Send(who,@GetHolderPassive)
+      {
+         if IsClass(i,&LesserSoul)
+         {
+            oSoul = i;
+
+            break;
+         }
+      }
+
+      if oSoul = $
+      {
+         Send(who,@MsgSendUser,#message_rsc=LesserSummon_no_soul_rsc);
+
+         return;
+      }
+
+      Send(oSoul,@SubtractNumber,#number=1);
+
+      // Create the skeleton minion
+      oMinion = Create(&Skeleton,#iSpellpower=iSpellpower,#oMaster=who);
+
+      Send(oRoom,@NewHold,#what=oMinion,#new_row=Send(who,@GetRow),
+            #new_col=Send(who,@GetCol),#fine_row=Send(who,@GetFineRow),
+            #fine_col=Send(who,@GetFineCol));
+
+      Send(who,@MsgSendUser,#message_rsc=LesserSummon_cast_rsc);
+
+      Send(who,@NewControlledMinion,#minion=oMinion);
+      Send(oMinion,@SetBehaviorFlag,#flag=AI_MOVE_FOLLOW_MASTER,
+            #value=TRUE);
+      Send(oMinion,@SetMaster,#oMaster=who);
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

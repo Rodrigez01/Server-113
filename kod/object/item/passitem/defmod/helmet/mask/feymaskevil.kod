@@ -1,0 +1,49 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+FeyMaskEvil is FaceMask
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   FeyMask_evil_name_rsc = "fey derhai mask"
+   FeyMask_evil_icon_male_rsc = res0002h.bgf
+   FeyMask_evil_icon_female_rsc = res0002j.bgf
+   FeyMask_evil_desc_rsc = \
+      "This is a fey derhai mask."
+
+classvars:
+
+   vrName = FeyMask_evil_name_rsc
+   vrDesc = FeyMask_evil_desc_rsc
+
+properties:
+
+   vrIcon = FeyMask_evil_icon_male_rsc
+   vrMaleEvilIcon = FeyMask_evil_icon_male_rsc
+   vrFemaleEvilIcon = FeyMask_evil_icon_female_rsc
+
+messages:
+
+   GetOverlay(animation = $)
+   {
+      if Send(poOwner,@GetGender) = GENDER_FEMALE
+      {
+         return vrFemaleEvilIcon;
+      }
+
+      return vrMaleEvilIcon;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

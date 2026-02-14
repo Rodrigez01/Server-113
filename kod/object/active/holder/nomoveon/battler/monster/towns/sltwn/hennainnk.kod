@@ -1,0 +1,103 @@
+// Meridian 59 - Henna die Barkeeperin
+// Silver Light Harburinn Tavern NPC - sells alcoholic drinks
+
+////////////////////////////////////////////////////////////////////////////////
+HennaInnkeeper is SLTown
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include hennainnk.lkod
+
+   henna_name_rsc = "Henna"
+   henna_icon_rsc = henna.bgf
+   henna_desc_rsc = \
+      "Eine aeltere Frau mit wettergegerbtem Gesicht und einem Krug in der Hand. "
+      "Henna fuehrt die Hafenschenke mit strenger, aber herzlicher Hand. "
+      "Ihre Augen verraten, dass sie in ihrem Leben viel gesehen hat."
+
+   henna_entry_welcome = \
+      "Willkommen in meiner Schenke, %s%s! Setz dich und trink was, "
+      "hier bist du sicher vor dem Wahnsinn da draussen."
+
+   henna_drinks_sale = \
+      "Ich hab Ale, Stout, Wein und den starken Pekonch aus Kocatan. "
+      "Such dir was aus!"
+
+classvars:
+
+   vrName = henna_name_rsc
+   vrIcon = henna_icon_rsc
+   vrDesc = henna_desc_rsc
+
+   viAttributes = \
+      MOB_NOFIGHT | MOB_SELLER | MOB_RANDOM | MOB_NOMOVE \
+      | MOB_LISTEN | MOB_RECEIVE
+   viOccupation = MOB_ROLE_INNKEEPER
+   viMerchant_markup = MERCHANT_DISCOUNT
+
+   viDefinite = ARTICLE_NONE
+   viIndefinite = ARTICLE_NONE
+   viGender = GENDER_FEMALE
+
+properties:
+
+messages:
+
+   Constructor()
+   {
+      propagate;
+   }
+
+   SetForSale()
+   {
+      plFor_sale = [
+         [
+            // Alkoholische Getraenke
+            Create(&Goblet),           // Ale
+            Create(&Mug),              // Stout
+            Create(&wineGoblet),       // Wein
+            Create(&KocatanMug),       // Pekonch
+            // Snacks
+            Create(&Bread),
+            Create(&Cheese)
+         ],
+      $,$,$];
+
+      return;
+   }
+
+   UserEntered(who=$)
+   {
+      Post(who,@SomeoneSaid,#what=self,#string=henna_entry_welcome,
+            #type=SAY_RESOURCE,
+            #parm1=Send(who,@GetDef),#parm2=Send(who,@GetName));
+
+      return;
+   }
+
+   SomeoneSaid(what=$,type=$,string=$)
+   {
+      if IsClass(what,&User)
+      {
+         // Auf "drink" oder "getraenk" reagieren
+         if StringContain(string,"drink")
+            OR StringContain(string,"getraenk")
+            OR StringContain(string,"ale")
+            OR StringContain(string,"bier")
+         {
+            Post(poOwner,@SomeoneSaid,#what=self,#type=SAY_RESOURCE,
+                  #string=henna_drinks_sale);
+
+            return;
+         }
+      }
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

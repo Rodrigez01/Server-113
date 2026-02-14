@@ -1,0 +1,22 @@
+SoulTouch_name_rsc = de "Seelengriff"
+SoulTouch_desc_rsc = de \
+   "Leitet rohe nekromantische Energie durch Deine Haende und zerrt "
+   "an der Seele von allem, was Du triffst. Kreaturen, die durch "
+   "diese Beruehrung sterben, koennten Dir ihre Seele ueberlassen. "
+   "Benoetigt einen violetten Pilz."
+SoulTouch_already_enchanted_rsc = de \
+   "Deine Haende knistern bereits mit Seelenenergie."
+SoulTouch_On_rsc = de "Deine Haende leuchten mit einem unheimlichen fahlen Licht."
+SoulTouch_Off_rsc = de "Die nekromantische Energie verblasst von Deinen Haenden."
+SoulTouch_player_was_hit = de \
+   "%s%s zerrt mit nekromantischer Kraft an Deiner Seele!"
+SoulTouch_player_hit_something = de \
+   "%s%s%s weicht zurueck, als Du an ihrer Seele reisst."
+SoulTouch_player_killed_something = de \
+   "Die Seele von %s%s wird herausgerissen und loest sich auf."
+SoulTouch_player_was_killed = de \
+   "Die Beruehrung von %s%s reisst Deine Seele aus dem Koerper und "
+   "zerrt %s%s in die Dunkelheit."
+SoulTouch_spell_intro = de \
+   "Nekromantie Lv. 1: Leitet seelenzerreissende Energie in Deine "
+   "Beruehrung."

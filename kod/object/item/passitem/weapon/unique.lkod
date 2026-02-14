@@ -1,0 +1,18 @@
+UniqueWeapon_name_rsc = de "Die dunkle Klinge Roqs"
+UniqueWeapon_desc_rsc = de \
+   "Dies ist der persönliche Dolch von Roq, dem Meuchelmörder. Diese Klinge "
+   "scheint identisch mit dem Meuchelmörderdolch zu sein, den Roq für das "
+   "Meuchelmörderspiel aushändigt. Aber das getrocknete Blut von Herzog Kalior "
+   "an der Schneide zeigt, das dies eine viel gefährlichere Waffe ist. Sie "
+   "knistert fast vor böser Energie."
+UniqueWeapon_cant_vault = de \
+   "Deine Waffe schmort sich in Dein Fleisch, während sie an Deiner Hand "
+   "kleben bleibt als sie brennt."
+UniqueWeapon_logoff = de \
+   "Deine Waffe windet sich aus Deinen Händen und macht sich auf die Suche "
+   "nach einem blutdürstigeren Besitzer."
+
+UniqueWeapon_name_rsc = pt "Lâmina Sombria de Roq"
+UniqueWeapon_desc_rsc = pt "A lâmina pessoal de Roq, o assassino. Esta lâmina parece ser idêntica às adagas negras que Roq distribui para o jogo do Assassino. Mas o sangue seco do Duque Kalior ao longo da lâmina revela que esta é uma arma muito mais potente. Ela quase crepita com energia malévola."
+UniqueWeapon_cant_vault = pt "Sua arma se funde em sua carne, grudando em sua mão enquanto queima."
+UniqueWeapon_logoff = pt "Sua arma se liberta para buscar um proprietário mais sedento de sangue."

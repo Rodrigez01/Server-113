@@ -1,0 +1,24 @@
+firestorm_name_rsc = de "Feuersturm"
+firestorm_desc_rsc = de \
+   "Ruft die Magie von Faren herbei und wirft eine Flut von Feuerkugeln herab, "
+   "die das Fleisch deiner Gegner in deiner nahen Umgebung anbraten. "
+   "Dazu braucht man zwei Orkzähne, zwei rote Pilze sowie einen grünen Pilz. "
+firestorm_first_rsc = de \
+   "Du rufst die Magie Farens herbei und eine Flut von Feuerkugeln trifft deine Gegner!"
+firestorm_third_rsc = de \
+   "%s%s ruft die Magie Farens herbei und erzeugt eine Flut von Feuerkugeln!"
+firestorm_killed_someone = de "Die Feuerkugeln treffen %s%s tödlich."
+firestorm_cast_rsc = de \
+   "Du schreist vor Schmerzen, als die Feuerkugeln auf deine Haut treffen! Die Feuerkugeln "
+   "verursachen ~r~B%i~n Schaden."
+firestorm_hit_rsc = de \
+   "%s%s schreit vor Schmerzen, als die Feuerkugeln auf %s Haut treffen und "
+   "~k~B%i~n Schaden verursachen."
+
+firestorm_name_rsc = pt "tempestade de fogo"
+firestorm_desc_rsc = pt "Chama a magia de Faren e lança uma devastadora barragem de bolas de fogo, queimando a carne daqueles ao seu redor. Requer quatro dentes de orc, quatro cogumelos vermelhos e dois de areia de fogo."
+firestorm_first_rsc = pt "Você canaliza o poder de Faren e desencadeia uma barragem de fogo!"
+firestorm_third_rsc = pt "%s%s canaliza o poder de Faren e desencadeia uma barragem de fogo!"
+firestorm_killed_someone = pt "As chamas consomem %s%s."
+firestorm_cast_rsc = pt "Você solta um grito de dor enquanto as chamas queimam sua carne, causando ~r~B%i~n de dano."
+firestorm_hit_rsc = pt "%s%s solta um grito de dor enquanto as chamas queimam a carne de %s, causando ~k~B%i~n de dano."

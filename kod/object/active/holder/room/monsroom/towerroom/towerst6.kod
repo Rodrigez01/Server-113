@@ -1,0 +1,87 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 6 - TWIN GUARDIANS
+// Typ: Dual Boss (beide muessen zeitnah sterben)
+////////////////////////////////////////////////////////////////////////////////
+TowerSt6 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+   TWIN_SYNC_TIME = 30000   // 30 Sekunden
+
+resources:
+
+   room_towerst6 = st6.roo
+   room_name_towerst6 = "Tower of Quests - Twin Guardians"
+
+   towerst6_twin_heal = "~r~BDer ueberlebende Waechter heilt sich vollstaendig!"
+   towerst6_victory = "~g~BBeide Waechter sind gefallen!"
+
+classvars:
+
+   vrName = room_name_towerst6
+
+   viTeleport_row = 50
+   viTeleport_col = 102
+
+properties:
+
+   prRoom = room_towerst6
+   piRoom_num = RID_TOWER_ST6
+
+   piNextFloor = RID_TOWER_ST7
+   piPrevFloor = RID_TOWER_ST5
+
+   poLightGuardian = $
+   poDarkGuardian = $
+   pbLightDead = FALSE
+   pbDarkDead = FALSE
+   ptTwinTimer = $
+
+messages:
+
+   Constructed()
+   {
+      plMonsters = $;
+      plGenerators = $;
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 2, 10, RID_TOWER_ST5, 18, 10, ROTATE_NONE ],plExits);
+      plExits = Cons([ 18, 10, RID_TOWER_ST7, 5, 10, ROTATE_NONE ],plExits);
+
+      propagate;
+   }
+
+   // TODO: Implementiere Twin Boss Logik
+   // SomethingKilled() - pruefe welcher Boss starb
+   // TwinResetTimer() - heile ueberlebenden Boss
+
+   Delete()
+   {
+      if ptTwinTimer <> $
+      {
+         DeleteTimer(ptTwinTimer);
+         ptTwinTimer = $;
+      }
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

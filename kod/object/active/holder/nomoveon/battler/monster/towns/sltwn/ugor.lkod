@@ -1,0 +1,23 @@
+Ugor_name_rsc = de "Ugor"
+Ugor_desc_rsc = de \
+   "Ein massiger Schmied mit russverschmiertem Gesicht und muskuloesen Armen, "
+   "grosse Haemmer an seinem Guertel. Funken spruehen vom Amboss; ein Helm "
+   "mit Nasenschutz sitzt auf seiner Stirn."
+Ugor_cant_fix = de "Das %s kann ich nicht reparieren."
+Ugor_too_good = de "Das %s ist schon in bestem Zustand."
+Ugor_need_money = de "Um %s zu reparieren brauche ich %i Schillinge. Biete mir das Item zusammen mit dem Geld an."
+Ugor_not_enough = de "Das reicht nicht! Die Reparatur von %s kostet %i Schillinge."
+Ugor_change = de "Hier ist dein Wechselgeld."
+Ugor_success = de "Bitte sehr! Dein %s ist wie neu."
+Ugor_only_one = de "Bitte nur ein Item zur Reparatur auf einmal."
+
+Ugor_entry_welcome = de \
+   "~kUgor haemmert auf gluehendes Metall und blickt auf.~n "
+   "\"Seid gegruesst, Reisender! Klinge stumpf? Ruestung verbeult? "
+   "Fuer 5000 Schillinge mach ich alles wieder wie neu!\""
+Ugor_talk_repair = de \
+   "\"Ja, bringt mir eure ramponierte Ausruestung! Bietet mir das Item "
+   "zusammen mit 5000 Schillingen an und ich wirke meine Magie.\""
+Ugor_talk_hello = de \
+   "\"Gut getroffen! Mein Name ist Ugor. Der beste Schmied weit und breit. "
+   "Braucht Ihr etwas repariert?\""

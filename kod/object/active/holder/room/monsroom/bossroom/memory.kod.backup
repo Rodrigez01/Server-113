@@ -1,0 +1,393 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark. 
+
+
+////////////////////////////////////////////////////////////////////////////////
+memory is BossRoom
+
+constants:
+//DECLAIR SECTORS
+   include blakston.khd
+	SECTOR_A0	= 16
+	SECTOR_A1	= 15
+	SECTOR_A2	= 14
+	SECTOR_A3	= 13
+	SECTOR_A4	= 12
+	SECTOR_A5	= 11
+	SECTOR_A6	= 10
+	SECTOR_A7	= 9
+	SECTOR_A8	= 7
+	SECTOR_A9	= 8
+	SECTOR_A10	= 5
+	SECTOR_A11	= 4
+//DEFINE SECTORS DEEP
+	H_A0_Down = 56
+	H_A1_Down = 56
+	H_A2_Down = 56
+	H_A3_Down = 56
+	H_A4_Down = 56
+	H_A5_Down = 56
+	H_A6_Down = 56
+	H_A7_Down = 56
+	H_A8_Down = 56
+	H_A9_Down = 56
+	H_A10_Down = 56
+	H_A11_Down = 56
+//DEFINE SECTORS HIGHT	
+	H_A0_UP = 818
+	H_A1_UP = 914
+	H_A2_UP = 818
+	H_A3_UP = 818
+	H_A4_UP = 818
+	H_A5_UP = 818
+	H_A6_UP = 818
+	H_A7_UP = 818
+	H_A8_UP = 818
+	H_A9_UP = 818
+	H_A10_UP = 1114
+	H_A11_UP = 818
+//DEFINE DUNNO :P	
+	A0_UP = 1
+	A1_UP = 1
+	A2_UP = 1
+	A3_UP = 1
+	A4_UP = 1
+	A5_UP = 1
+	A6_UP = 1
+	A7_UP = 1
+	A8_UP = 1
+	A9_UP = 1
+	A10_UP = 1
+	A11_UP = 1
+//DEFINE DUNNO :P		
+	A0_DOWN=0
+	A1_DOWN=0
+	A2_DOWN=0
+	A3_DOWN=0
+	A4_DOWN=0
+	A5_DOWN=0
+	A6_DOWN=0
+	A7_DOWN=0
+	A8_DOWN=0
+	A9_DOWN=0
+	A10_DOWN=0
+	A11_DOWN=0
+	
+//DEFINE SPEED	
+A0_UP_SPEED=10
+A0_DOWN_SPEED=99
+A1_UP_SPEED=10
+A1_DOWN_SPEED=126
+A2_UP_SPEED=10
+A2_DOWN_SPEED=120
+A3_UP_SPEED=10
+A3_DOWN_SPEED=100
+A4_UP_SPEED=10
+A4_DOWN_SPEED=123
+A5_UP_SPEED=10
+A5_DOWN_SPEED=500
+A6_UP_SPEED=10
+A6_DOWN_SPEED=160
+A7_UP_SPEED=10
+A7_DOWN_SPEED=201
+A8_UP_SPEED=10
+A8_DOWN_SPEED=26
+A9_UP_SPEED=10
+A9_DOWN_SPEED=220
+A10_DOWN_SPEED=114
+A10_UP_SPEED=114
+A11_DOWN_SPEED=114
+A11_UP_SPEED=114
+
+
+resources:
+
+   // include memory.lkod
+
+   room_memory = memory.roo
+   room_name_memory ="an old memory"
+   memory_music = forest.ogg
+
+  
+  
+  
+classvars:
+
+   vrName = room_name_memory
+
+   viTeleport_row = 4
+   viTeleport_col = 3
+
+    viTerrain_type = TERRAIN_CAVES
+
+   viWeatherZone = WEATHER_ZONE_MARION
+
+properties:
+   prBackground = background_chaos_night
+   prRoom = room_memory
+   prMusic = memory_music
+   piRoom_num = RID_memory
+   piA0Position = A0_DOWN
+    piA1Position = A1_DOWN
+	 piA2Position = A2_DOWN
+	  piA3Position = A4_DOWN
+	   piA4Position = A4_DOWN
+	    piA5Position = A5_DOWN
+		 piA6Position = A6_DOWN
+		  piA7Position = A7_DOWN
+		   piA8Position = A8_DOWN
+		    piA9Position = A9_DOWN
+			 piA10Position = A10_DOWN
+			  piA11Position = A11_DOWN
+   
+   
+   
+   
+   
+   
+///////////////////////////////////////////////////////////////////////////////////////
+messages:
+
+   CreateStandardExits()
+  {
+ plExits = $;
+//   
+//   plExits = Cons([ 20, 41, rid_dungeon, 26, 12, SET_ANGLE_NORTH ],plExits);
+//   plExits = Cons([ 1, 4, rid_Soulforge, 1, 1, SET_ANGLE_EAST ],plExits);
+plExits = Cons([ 1, 2, rid_Soulforge, 1, 1, SET_ANGLE_EAST ],plExits);
+plExits = Cons([ 1, 3, rid_Soulforge, 1, 1, SET_ANGLE_EAST ],plExits);
+//   
+   propagate;
+  }
+
+/////////////////////////////////////////////////////////////////////////////////////////
+	     Constructed()
+   {
+      local oPortal;
+
+      plMonsters = [ [&Thrasher, 100] ];
+      plGenerators = [ [ 5, 30 ], [ 10, 35 ], [ 15, 40 ] ];
+
+      oPortal = Create(&DeathRealmEntrance,#desc=portal_DR,#dest_room_num=RID_Soulforge
+      ,#dest_col=1,#dest_row=1,#fine_row=15,#fine_col=32);
+
+	   Send(self,@NewHold,#what=oPortal,#new_row=21, #new_col=50,
+		#fine_row=16,#fine_col=50,#new_angle=ANGLE_NORTH);
+
+
+    propagate;
+   }
+
+/////////////////////////////////////////////////////////////////////////////////////////
+   SetupBossTemplates()
+   {
+      plBossTemplate = [ [&IceDragon, 21, 29] ];
+      return;
+   }
+   
+
+
+//////////////////////
+// Monster death code//
+//////////////////////
+ BossKilledTrigger()
+   {
+      local i;
+
+      // Just killed the orc pit boss (opening door, creating treasure...)
+
+      // Raise the gate.
+      Send(self,@SomethingWaveRoom,#wave_rsc=Orcpit1_door_sound);
+
+      Send(self,@SetSector,#sector=SECTOR_A0,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A0_DOWN,#speed=A0_DOWN_SPEED);
+      piA0Position = A0_DOWN;
+	  
+	        Send(self,@SetSector,#sector=SECTOR_A1,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A1_DOWN,#speed=A1_DOWN_SPEED);
+      piA1Position = A1_DOWN;
+
+	        Send(self,@SetSector,#sector=SECTOR_A2,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A2_DOWN,#speed=A2_DOWN_SPEED);
+      piA1Position = A2_DOWN;
+	    
+	
+	        Send(self,@SetSector,#sector=SECTOR_A3,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A3_DOWN,#speed=A3_DOWN_SPEED);
+      piA1Position = A3_DOWN;
+	  
+		        Send(self,@SetSector,#sector=SECTOR_A4,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A4_DOWN,#speed=A4_DOWN_SPEED);
+      piA1Position = A4_DOWN;	
+	  
+	        Send(self,@SetSector,#sector=SECTOR_A5,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A5_DOWN,#speed=A5_DOWN_SPEED);
+      piA1Position = A5_DOWN;
+
+		        Send(self,@SetSector,#sector=SECTOR_A6,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A6_DOWN,#speed=A6_DOWN_SPEED);
+      piA1Position = A6_DOWN;
+
+	        Send(self,@SetSector,#sector=SECTOR_A7,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A7_DOWN,#speed=A7_DOWN_SPEED);
+      piA1Position = A7_DOWN;
+
+	        Send(self,@SetSector,#sector=SECTOR_A8,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A8_DOWN,#speed=A8_DOWN_SPEED);
+      piA1Position = A8_DOWN;
+	  
+	  	        Send(self,@SetSector,#sector=SECTOR_A9,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A9_DOWN,#speed=A9_DOWN_SPEED);
+      piA1Position = A9_DOWN;
+	  
+	  
+	  	        Send(self,@SetSector,#sector=SECTOR_A9,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A10_DOWN,#speed=A10_DOWN_SPEED);
+      piA1Position = A10_DOWN;
+	  
+	  	        Send(self,@SetSector,#sector=SECTOR_A9,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A11_DOWN,#speed=A10_DOWN_SPEED);
+      piA1Position = A11_DOWN;
+	  
+
+
+      propagate;
+   }
+
+
+//
+//////////////////////////
+// end Monster death code//
+//////////////////////////
+
+
+////////////////////////
+// Boss resetting code //
+////////////////////////
+//
+ ResetBoss()
+   {
+      local i;
+	  
+////	  
+
+      // Close the boss door instantaneously.
+    //  Send(self,@SetSector,#sector=SECTOR_DOOR3a,
+    //        #animation=ANIMATE_CEILING_LIFT,#height=H_DOOR3a_UP,#speed=0);
+ //     Send(self,@SetSector,#sector=SECTOR_DOOR3b,
+  //          #animation=ANIMATE_CEILING_LIFT,#height=H_DOOR3b_UP,#speed=0);
+  //    piDoor3Position = DOOR_UP;
+  
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+       Send(self,@SomethingWaveRoom,#wave_rsc=Orcpit1_door_sound);
+
+      Send(self,@SetSector,#sector=SECTOR_A0,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A0_UP,#speed=A0_UP);
+      piA0Position = A0_UP;
+	  
+	        Send(self,@SetSector,#sector=SECTOR_A1,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A1_UP,#speed=A1_UP);
+      piA1Position = A1_UP;
+
+	        Send(self,@SetSector,#sector=SECTOR_A2,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A2_UP,#speed=A2_UP_SPEED);
+      piA1Position = A2_UP;
+	    
+	
+	        Send(self,@SetSector,#sector=SECTOR_A3,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A3_UP,#speed=A3_UP_SPEED);
+      piA1Position = A3_UP;
+	  
+		        Send(self,@SetSector,#sector=SECTOR_A4,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A4_UP,#speed=A4_UP_SPEED);
+      piA1Position = A4_UP;	
+	  
+	        Send(self,@SetSector,#sector=SECTOR_A5,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A5_UP,#speed=A5_UP_SPEED);
+      piA1Position = A5_UP;
+
+		        Send(self,@SetSector,#sector=SECTOR_A6,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A6_UP,#speed=A6_UP_SPEED);
+      piA1Position = A6_UP;
+
+	        Send(self,@SetSector,#sector=SECTOR_A7,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A7_UP,#speed=A7_UP_SPEED);
+      piA1Position = A7_UP;
+
+	        Send(self,@SetSector,#sector=SECTOR_A8,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A8_UP,#speed=A8_UP_SPEED);
+      piA1Position = A8_UP;
+	  
+	  	        Send(self,@SetSector,#sector=SECTOR_A9,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A9_UP,#speed=A9_UP_SPEED);
+      piA1Position = A9_UP;
+	  
+  	  	        Send(self,@SetSector,#sector=SECTOR_A9,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A10_UP,#speed=A9_UP_SPEED);
+      piA1Position = A10_UP;
+	  	  
+	  	  	        Send(self,@SetSector,#sector=SECTOR_A9,
+           #animation=ANIMATE_FLOOR_LIFT,
+            #height=H_A11_UP,#speed=A9_UP_SPEED);
+      piA1Position = A11_UP;
+	  
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+
+      // Delete any boss bodies that may be lying around...
+      foreach i in plActive
+      {
+         if isClass(First(i),&IceDragon)
+         {
+            Send(First(i),@Delete);
+         }
+      }
+
+      propagate;
+   }
+//
+////////////////////////////
+// End Boss resetting code //
+////////////////////////////
+
+
+//  CreateStandardObjects()
+//  {
+//    Send(self,@NewHold,#what=Create(&ManaNode,#node_num=NODE_memory),
+//         #new_row=20,#new_col=17,#fine_row=0,#fine_col=0);
+//        
+//   propagate;
+// }
+
+
+  
+
+end
+////////////////////////////////////////////////////////////////////////////////

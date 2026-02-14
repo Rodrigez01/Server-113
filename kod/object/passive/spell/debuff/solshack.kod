@@ -1,0 +1,275 @@
+// Meridian 59 - Necromantie Spell School
+// Soul Shackle (Seelenfessel) - Level 5 Debuff
+// Fear effect for 3 seconds. Costs 2 soul fragments.
+
+
+////////////////////////////////////////////////////////////////////////////////
+SoulShackle is Debuff
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include solshack.lkod
+
+   SoulShackle_name_rsc = "soul shackle"
+   SoulShackle_icon_rsc = inecro10.bgf
+   SoulShackle_desc_rsc = \
+      "Shackles the target's soul with chains of terror, causing "
+      "them to cower in fear for 3 seconds. Unable to attack or "
+      "cast spells while shackled.  "
+      "Costs two soul fragments."
+
+   SoulShackle_already_enchanted = \
+      "%s%s is already shackled with fear."
+   SoulShackle_caster = \
+      "Spectral chains bind the soul of %s%s! They cower in terror!"
+   SoulShackle_on = \
+      "Chains of pure terror wrap around your soul! You can do "
+      "nothing but cower!"
+   SoulShackle_off = \
+      "The soul shackles shatter and your courage returns."
+   SoulShackle_no_soul_rsc = \
+      "You need two soul fragments to power this spell."
+
+   SoulShackle_spell_intro = \
+      "Necromantie Lv. 5: Shackles the target's soul with fear. "
+      "Costs two soul fragments."
+
+classvars:
+
+   vrName = SoulShackle_name_rsc
+   vrIcon = SoulShackle_icon_rsc
+   vrDesc = SoulShackle_desc_rsc
+
+   vrAlreadyEnchanted = SoulShackle_already_enchanted
+   vrEnchantment_On = SoulShackle_on
+   vrEnchantment_Off = SoulShackle_off
+   vrSuccess = SoulShackle_caster
+
+   viSpell_num = SID_SOUL_SHACKLE
+   viSchool = SS_NECROMANTIE
+   viSpell_level = 5
+
+   viSpellExertion = 3
+   viMana = 15
+
+   viChance_To_Increase = 10
+   viMeditate_ratio = 50
+
+   viFlash = FLASH_BAD
+
+   viPostCast_time = 2
+
+properties:
+
+   piBaseDuration = 3000
+   piSpellPowerModifier = 10
+   piDeviation = 5
+
+messages:
+
+   ResetReagents()
+   {
+      // No standard reagents - consumes soul fragments manually
+      plReagents = $;
+
+      return;
+   }
+
+   CanPayCosts(who=$,lTargets=$,bItemCast=FALSE)
+   {
+      local i, iSoulCount;
+
+      // Count soul fragments
+      iSoulCount = 0;
+      foreach i in Send(who,@GetHolderPassive)
+      {
+         if IsClass(i,&LesserSoul)
+            OR IsClass(i,&AdeptSoul)
+            OR IsClass(i,&MasterSoul)
+         {
+            iSoulCount = iSoulCount + Send(i,@GetNumber);
+         }
+      }
+
+      if iSoulCount < 2
+      {
+         Send(who,@MsgSendUser,#message_rsc=SoulShackle_no_soul_rsc);
+
+         return FALSE;
+      }
+
+      propagate;
+   }
+
+   CastSpell(who=$,lTargets=$,iSpellpower=0,report=TRUE)
+   {
+      local oTarget, i, iToConsume;
+
+      oTarget = First(lTargets);
+
+      // Consume 2 soul fragments (weakest first)
+      iToConsume = 2;
+      foreach i in Send(who,@GetHolderPassive)
+      {
+         if iToConsume <= 0
+         {
+            break;
+         }
+
+         if IsClass(i,&LesserSoul)
+         {
+            if Send(i,@GetNumber) >= iToConsume
+            {
+               Send(i,@SubtractNumber,#number=iToConsume);
+               iToConsume = 0;
+            }
+            else
+            {
+               iToConsume = iToConsume - Send(i,@GetNumber);
+               Send(i,@SubtractNumber,#number=Send(i,@GetNumber));
+            }
+         }
+      }
+
+      if iToConsume > 0
+      {
+         foreach i in Send(who,@GetHolderPassive)
+         {
+            if iToConsume <= 0
+            {
+               break;
+            }
+
+            if IsClass(i,&AdeptSoul)
+            {
+               if Send(i,@GetNumber) >= iToConsume
+               {
+                  Send(i,@SubtractNumber,#number=iToConsume);
+                  iToConsume = 0;
+               }
+               else
+               {
+                  iToConsume = iToConsume - Send(i,@GetNumber);
+                  Send(i,@SubtractNumber,#number=Send(i,@GetNumber));
+               }
+            }
+         }
+      }
+
+      if iToConsume > 0
+      {
+         foreach i in Send(who,@GetHolderPassive)
+         {
+            if iToConsume <= 0
+            {
+               break;
+            }
+
+            if IsClass(i,&MasterSoul)
+            {
+               if Send(i,@GetNumber) >= iToConsume
+               {
+                  Send(i,@SubtractNumber,#number=iToConsume);
+                  iToConsume = 0;
+               }
+               else
+               {
+                  iToConsume = iToConsume - Send(i,@GetNumber);
+                  Send(i,@SubtractNumber,#number=Send(i,@GetNumber));
+               }
+            }
+         }
+      }
+
+      Send(self,@DoSpell,#what=who,#oTarget=oTarget,#report=report,
+            #iDuration=Send(self,@GetDuration,#iSpellPower=iSpellPower),
+            #iSpellPower=iSpellPower);
+
+      propagate;
+   }
+
+   DoSpell(what=$,oTarget=$,iDuration=$,report=TRUE,iSpellPower=0)
+   {
+      if oTarget = $
+      {
+         return FALSE;
+      }
+
+      if Send(oTarget,@IsEnchanted,#what=self)
+      {
+         return FALSE;
+      }
+
+      if iDuration = $
+      {
+         iDuration = 3000;
+      }
+
+      Send(oTarget,@StartEnchantment,#what=self,#time=iDuration,
+            #report=report,#state=iSpellPower);
+
+      if IsClass(oTarget,&User)
+      {
+         if report
+         {
+            Send(oTarget,@MsgSendUser,#message_rsc=vrEnchantment_On);
+         }
+      }
+
+      if report
+      {
+         Send(what,@MsgSendUser,#message_rsc=vrSuccess,
+               #parm1=Send(oTarget,@GetCapDef),
+               #parm2=Send(oTarget,@GetName));
+      }
+
+      propagate;
+   }
+
+   GetDuration(iSpellPower=0)
+   {
+      local iDuration;
+
+      iDuration = piBaseDuration + iSpellPower * piSpellPowerModifier;
+
+      return iDuration;
+   }
+
+   EndEnchantment(who=$,report=TRUE,state=$)
+   {
+      if IsClass(who,&User)
+      {
+         if report
+         {
+            Send(who,@MsgSendUser,#message_rsc=vrEnchantment_Off);
+         }
+      }
+      else
+      {
+         Post(who,@ResetBehaviorFlags);
+      }
+
+      return;
+   }
+
+   ModifyMonsterBehavior(mob=$)
+   {
+      Send(mob,@SetBehaviorFlag,#flag=AI_NOMOVE,#value=TRUE);
+
+      return;
+   }
+
+   SetSpellPlayerFlag(who=$)
+   {
+      Send(who,@SetPlayerFlag,#flag=PFLAG_NO_FIGHT,#value=TRUE);
+      Send(who,@SetPlayerFlag,#flag=PFLAG_NO_MAGIC,#value=TRUE);
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

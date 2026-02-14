@@ -1,0 +1,118 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 11 - ARENA OF BLOOD
+// Typ: PvP Arena (optional) oder PvE
+////////////////////////////////////////////////////////////////////////////////
+TowerSt11 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   room_towerst11 = st11.roo
+   room_name_towerst11 = "Tower of Quests - Arena of Blood"
+
+   towerst11_pvp_mode = "~kPvP-Modus aktiviert. Sage 'challenge' um zu kaempfen."
+   towerst11_pve_mode = "~kPvE-Modus aktiviert. Besiege die Arena-Monster!"
+   towerst11_victory = "~g~BDu hast die Arena bezwungen!"
+
+classvars:
+
+   vrName = room_name_towerst11
+
+   viTeleport_row = 50
+   viTeleport_col = 102
+
+   viPermanent_flags = ROOM_SAFE_DEATH
+
+properties:
+
+   prRoom = room_towerst11
+   piRoom_num = RID_TOWER_ST11
+
+   piNextFloor = RID_TOWER_ST12
+   piPrevFloor = RID_TOWER_ST10
+
+   pbPvPMode = FALSE
+   piWinsRequired = 1
+   piCurrentWins = 0
+
+messages:
+
+   Constructed()
+   {
+      plMonsters = $;
+      plGenerators = $;
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 2, 10, RID_TOWER_ST10, 18, 10, ROTATE_NONE ],plExits);
+      plExits = Cons([ 18, 10, RID_TOWER_ST12, 5, 10, ROTATE_NONE ],plExits);
+
+      propagate;
+   }
+
+   // Chat-Trigger fuer Modus-Auswahl
+   SomeoneSaid(what=$,type=$,string=$)
+   {
+      local i;
+
+      if StringContain(string,"pvp")
+      {
+         pbPvPMode = TRUE;
+         foreach i in plActive
+         {
+            if IsClass(First(i),&User)
+            {
+               Send(First(i),@MsgSendUser,#message_rsc=towerst11_pvp_mode);
+            }
+         }
+         return;
+      }
+
+      if StringContain(string,"pve")
+      {
+         pbPvPMode = FALSE;
+         Send(self,@SpawnArenaMonster);
+         foreach i in plActive
+         {
+            if IsClass(First(i),&User)
+            {
+               Send(First(i),@MsgSendUser,#message_rsc=towerst11_pve_mode);
+            }
+         }
+         return;
+      }
+
+      propagate;
+   }
+
+   SpawnArenaMonster()
+   {
+      // TODO: Spawne Arena-Monster
+      return;
+   }
+
+   // Safe Death in der Arena
+   SafePlayerAttack()
+   {
+      return TRUE;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

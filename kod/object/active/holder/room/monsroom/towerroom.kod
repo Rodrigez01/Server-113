@@ -1,0 +1,192 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// TowerRoom - Basisklasse fuer alle Tower of Quests and Fights Stockwerke
+////////////////////////////////////////////////////////////////////////////////
+TowerRoom is MonsterRoom
+
+constants:
+
+   include blakston.khd
+
+   // Standard Sektor IDs fuer alle Tower-Raeume
+   SECTOR_STAIRS_UP = 50
+   SECTOR_STAIRS_DOWN = 51
+   SECTOR_DOOR_MAIN = 52
+
+   STAIRS_OPEN = 1
+   STAIRS_CLOSED = 500
+
+   DOOR_OPEN = 1
+   DOOR_CLOSED = 300
+
+resources:
+
+   tower_music = nec02.ogg
+   tower_stairs_open_sound = doorrsup.ogg
+   tower_stairs_closed_sound = doordown.ogg
+
+   tower_floor_cleared = "~g~BDas Stockwerk wurde bezwungen! Die Treppe nach oben oeffnet sich."
+   tower_welcome = "~kWillkommen im Tower of Quests and Fights!"
+
+classvars:
+
+   viTerrain_type = TERRAIN_CASTLE
+   viWeatherZone = WEATHER_ZONE_TOS
+
+   // Kann in Subklassen ueberschrieben werden
+   viBossResetTime = 30 * 60 * 1000   // 30 Minuten
+
+properties:
+
+   prMusic = tower_music
+
+   piBaseLight = LIGHT_NICE
+   piOutside_factor = 0
+
+   // Ist der Aufstieg freigeschaltet?
+   pbStairsOpen = FALSE
+
+   // Wurde das Stockwerk bereits geloest?
+   pbFloorCleared = FALSE
+
+   // Naechstes Stockwerk (RID)
+   piNextFloor = $
+
+   // Vorheriges Stockwerk (RID)
+   piPrevFloor = $
+
+messages:
+
+   Constructor()
+   {
+      propagate;
+   }
+
+   Constructed()
+   {
+      // Treppe nach oben ist zu Beginn geschlossen
+      Send(self,@CloseStairsUp);
+
+      propagate;
+   }
+
+   // Oeffnet die Treppe zum naechsten Stockwerk
+   OpenStairsUp()
+   {
+      local i;
+
+      if pbStairsOpen
+      {
+         return;
+      }
+
+      pbStairsOpen = TRUE;
+      pbFloorCleared = TRUE;
+
+      Send(self,@SomethingWaveRoom,#wave_rsc=tower_stairs_open_sound);
+
+      Send(self,@SetSector,#sector=SECTOR_STAIRS_UP,
+           #animation=ANIMATE_FLOOR_LIFT,
+           #height=STAIRS_OPEN,
+           #speed=35);
+
+      // Benachrichtige alle Spieler
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=tower_floor_cleared);
+         }
+      }
+
+      return;
+   }
+
+   // Schliesst die Treppe zum naechsten Stockwerk
+   CloseStairsUp()
+   {
+      pbStairsOpen = FALSE;
+
+      Send(self,@SetSector,#sector=SECTOR_STAIRS_UP,
+           #animation=ANIMATE_CEILING_LIFT,
+           #height=STAIRS_CLOSED,
+           #speed=0);
+
+      return;
+   }
+
+   // Reset des Stockwerks
+   ResetFloor()
+   {
+      pbFloorCleared = FALSE;
+      Send(self,@CloseStairsUp);
+
+      return;
+   }
+
+   // Wird aufgerufen wenn Stockwerk geloest wurde
+   FloorCleared()
+   {
+      Send(self,@OpenStairsUp);
+
+      return;
+   }
+
+   // Standard Exit zum naechsten Stockwerk
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      // Diese werden in den Subklassen ueberschrieben
+      // um die korrekten Exits zu setzen
+
+      propagate;
+   }
+
+   // Teleport-Punkt
+   GetTeleportRow()
+   {
+      return viTeleport_row;
+   }
+
+   GetTeleportCol()
+   {
+      return viTeleport_col;
+   }
+
+   // Erster Spieler betritt den Raum
+   FirstUserEntered()
+   {
+      local i;
+
+      // Willkommensnachricht nur im ersten Stock
+      if piRoom_num = RID_TOWER_ST1
+      {
+         foreach i in plActive
+         {
+            if IsClass(First(i),&User)
+            {
+               Send(First(i),@MsgSendUser,#message_rsc=tower_welcome);
+            }
+         }
+      }
+
+      propagate;
+   }
+
+   // Kann hier keine Portale oeffnen (Boss-Schutz)
+   CanHavePlayerPortal()
+   {
+      return FALSE;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

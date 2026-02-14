@@ -1,0 +1,65 @@
+# insignia for robe-  qor
+# Groups:
+# 1 standing
+# 2-4 fighting
+# 5 bow-shooting
+# Hotspots:
+# 1 head
+# 21 right arm
+# 31 left arm
+# 41 legs
+#^Applied to Hotspot: 51
+#*Groups: 21
+#* Unlabeled Group
+#* attack A
+#* attack A
+#* attack B
+#* Unlabeled Group
+#* dancing
+#* dancing
+#* dancing
+#* dancing
+#* dancing
+#* dancing
+#* dancing
+#* dancing
+#* dancing
+#* dancing
+#* dancing
+#* dancing
+#* dancing
+#* dancing
+#* dancing
+#* dancing
+-s 4
+8
+necro_emblm_nf.bmp   [175, 99] 
+necro_emblm_nf.bmp   [190, 113] 
+necro_emblm_nf.bmp   [159, 114] 
+necro_emblm_nf.bmp   [176, 113] 
+necro_emblm_nf.bmp   [161, 111] 
+necro_emblm_nf.bmp   [194, 103] 
+necro_emblm_nf.bmp   [185, 105] 
+necro_emblm_nf.bmp   [172, 105] 
+21
+ 8   0 0 0 1 1 1 0 0 
+ 8   0 0 2 3 3 3 0 0 
+ 8   0 0 2 3 3 3 0 0 
+ 8   0 0 0 4 4 4 5 0 
+ 8   0 6 7 8 8 8 0 0 
+ 8   0 0 0 1 1 1 0 0 
+ 8   0 0 0 1 1 1 0 0 
+ 8   0 0 0 1 1 1 0 0 
+ 8   0 0 0 1 1 1 0 0 
+ 8   0 0 0 1 1 1 0 0 
+ 8   0 0 0 1 1 1 0 0 
+ 8   0 0 0 1 1 1 0 0 
+ 8   0 0 0 1 1 1 0 0 
+ 8   0 0 0 1 1 1 0 0 
+ 8   0 0 2 3 3 3 0 0 
+ 8   0 0 0 4 4 4 5 0 
+ 8   0 0 2 3 3 3 0 0 
+ 8   0 0 0 4 4 4 5 0 
+ 8   0 0 2 3 3 3 0 0 
+ 8   0 0 0 4 4 4 5 0 
+ 8   0 0 0 1 1 1 0 0 

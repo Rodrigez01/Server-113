@@ -1,0 +1,21 @@
+DarkRebirth_name_rsc = de "Dunkle Wiedergeburt"
+DarkRebirth_desc_rsc = de \
+   "Bereitet eine Eventualitaet dunkler Energie vor, die den "
+   "Zauberer einmal vom Tod wiederherstellt. Wenn Du sterben "
+   "wuerdest, wirst Du stattdessen mit 25 Prozent Gesundheit "
+   "wiederbelebt. Der Zauber endet dann. "
+   "Benoetigt drei Schamanenblut und zwei Dunkle Engelsfedern."
+DarkRebirth_already_enchanted_rsc = de \
+   "Die Dunkle Wiedergeburt ist bereits vorbereitet."
+DarkRebirth_on_rsc = de \
+   "Du spuerst eine dunkle Eventualitaet greifen. Sollte der Tod "
+   "kommen, wirst Du wieder auferstehen."
+DarkRebirth_off_rsc = de \
+   "Die Eventualitaet der Dunklen Wiedergeburt ist abgelaufen."
+DarkRebirth_success_rsc = de \
+   "Dunkle Energie umhuellt %s%s, bereit sie vom Tod wiederherzustellen."
+DarkRebirth_trigger_rsc = de \
+   "~BDunkle Energie bricht um Dich herum aus! Du wirst vom Tod wiedergeboren!~n"
+DarkRebirth_spell_intro = de \
+   "Nekromantie Lv. 6: Bereitet eine dunkle Eventualitaet vor, die "
+   "den Zauberer einmal beim Tod wiederbelebt."

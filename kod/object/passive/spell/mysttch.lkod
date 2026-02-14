@@ -1,0 +1,27 @@
+MysticTouch_name_rsc = de "Mystische Berührung"
+MysticTouch_desc_rsc = de \
+   "Ruft die Magie Farens herbei, um magische Energie vom Zaubernden zum "
+   "Ziel zu übertragen. Der Zauber benötigt einen braunen Pilz."
+MysticTouch_cast_rsc = de \
+   "Du fühlst, wie sich dein Körper mit magischer Energie von jemanden anderes "
+   "füllt."
+MysticTouch_caster_msg_rsc = de \
+   "Du gibst einen Teil deiner magischen Energie an %s%s."
+MysticTouch_unnecessary_rsc = de \
+   "%s%s kann nicht noch zusätzliche Energie von dir aufnehmen."
+MysticTouch_nomana_rsc = de \
+   "Du hast nicht genug Energie um es auf andere zu transferieren!"
+MysticTouch_notonself_rsc = de \
+   "Du kannst Mystische Berührung nicht auf dich selber zaubern."
+MysticTouch_spell_intro = de \
+   "Faren Level 1: Transferiert Mana von dir auf andere."
+
+MysticTouch_name_rsc = pt "toque místico"
+MysticTouch_desc_rsc = pt "Aproveita a magia de Faren para transferir energia mágica do conjurador para o alvo. "
+      "Requer cogumelos para lançar."
+MysticTouch_cast_rsc = pt "Você sente as energias mágicas de outra pessoa preenchendo seu corpo."
+MysticTouch_caster_msg_rsc = pt "Você dá parte de sua energia mágica para %s%s."
+MysticTouch_unnecessary_rsc = pt "%s%s não pode lidar com energia mágica adicional deste feitiço."
+MysticTouch_nomana_rsc = pt "Você não tem energia mágica suficiente para transferir para outra pessoa!"
+MysticTouch_notonself_rsc = pt "Você não pode lançar o toque místico em si mesmo."
+MysticTouch_spell_intro = pt "Faren Lv. 1: Dá parte da mana do conjurador para outra pessoa."

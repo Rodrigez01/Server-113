@@ -1,0 +1,20 @@
+pork_name_rsc = de "Das Stück Schweinefleisch"
+pork_desc_rsc = de \
+   "Ein saftiges Stück Fleisch, langsam geröstet und mit etwas Apfelglasur "
+   "bestrichen."
+pork_name_plural_rsc = de "Schweinelendchen"
+pork_disp_name = de "Das gegrillte Schweinefilet"
+pork_disp_desc = de \
+   "Man sieht nicht mehr viele Wildschweine rund um Tos, wahrscheinlich seit "
+   "sie wissen, dass die Lieblingsspeise des Herzogs eine gute Portion goldbraun "
+   "gerösteten Schweinefleischs mit Apfelglasur ist."
+pork_got_one = de \
+   "Du schneidest Dir eine gute Portion vom apfelglasierten Schweinefleisch "
+   "ab."
+
+pork_name_rsc = pt "fatia de carne de porco"
+pork_desc_rsc = pt "Uma fatia suculenta de pernil, assada lentamente com um pouco de glacê de maçã."
+pork_name_plural_rsc = pt "fatias de carne de porco"
+pork_disp_name = pt "porco assado"
+pork_disp_desc = pt "Não se vê muitos porcos selvagens nas proximidades de Tos, talvez porque saibam que a refeição favorita do Duque é uma generosa porção de carne de porco assada dourada com glacê de maçã."
+pork_got_one = pt "Você corta uma generosa fatia de carne de porco assada com glacê de maçã."

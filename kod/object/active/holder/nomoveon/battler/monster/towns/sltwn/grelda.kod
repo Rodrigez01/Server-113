@@ -1,0 +1,70 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Grelda - Herbalist
+////////////////////////////////////////////////////////////////////////////////
+SLGrelda is SLTown
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include grelda.lkod
+
+   Grelda_name_rsc = "Grelda"
+   Grelda_icon_rsc = Grelda.bgf
+   Grelda_desc_rsc = \
+      "An older, slightly eccentric woman with wild, untamed hair, "
+      "moss and mushrooms clinging to her dress. She feels sympathetic "
+      "and unconventionally charming."
+
+classvars:
+
+   vrName = Grelda_name_rsc
+   vrIcon = Grelda_icon_rsc
+   vrDesc = Grelda_desc_rsc
+   viMerchant_markup = MERCHANT_NORMAL
+   viAttributes = \
+      MOB_NOFIGHT | MOB_RANDOM | MOB_NOMOVE | MOB_LISTEN | \
+      MOB_BUYER | MOB_SELLER | MOB_LAWFUL | MOB_COND_SELLER
+   viOccupation = MOB_ROLE_HEALER
+
+properties:
+
+messages:
+
+   SetForSale()
+   {
+      plFor_sale = [
+         [
+            Create(&BlueDragonScale,#number=2),
+            Create(&BlueMushroom,#number=4),
+            Create(&DarkAngelFeather,#number=2),
+            Create(&DragonflyEye,#number=4),
+            Create(&EntrootBerry,#number=4),
+            Create(&FairyWing,#number=4),
+            Create(&KriipaClaw,#number=2),
+            Create(&FireSand,#number=4),
+            Create(&WebMoss,#number=4),
+            Create(&Yrxlsap,#number=2),
+            Create(&RainbowFern,#number=4),
+            Create(&OrcTooth,#number=4),
+            Create(&PurpleMushroom,#number=4),
+            Create(&ShamanBlood,#number=2)
+         ],
+      $,$,$];
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

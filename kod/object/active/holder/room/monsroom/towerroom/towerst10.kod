@@ -1,0 +1,141 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 10 - THE CRUSHING FLOOR
+// Typ: Kill-Zonen (wie Soulforge)
+////////////////////////////////////////////////////////////////////////////////
+TowerSt10 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+   CRUSH_TIMER = 180000   // 3 Minuten
+
+   // Kill-Zonen Bereiche
+   KILL_ZONE_ROW_MIN = 10
+   KILL_ZONE_ROW_MAX = 15
+   KILL_ZONE_COL_MIN = 8
+   KILL_ZONE_COL_MAX = 12
+
+resources:
+
+   room_towerst10 = st10.roo
+   room_name_towerst10 = "Tower of Quests - The Crushing Floor"
+
+   towerst10_boss_dead = "~kDer Boden bebt... Die Sektoren senken sich!"
+   towerst10_warning = "~r~kWarnung: In 3 Minuten hebt sich der Boden wieder!"
+   towerst10_crush = "~r~BDu wirst vom aufsteigenden Boden zerquetscht!"
+
+classvars:
+
+   vrName = room_name_towerst10
+
+   viTeleport_row = 50
+   viTeleport_col = 102
+
+properties:
+
+   prRoom = room_towerst10
+   piRoom_num = RID_TOWER_ST10
+
+   piNextFloor = RID_TOWER_ST11
+   piPrevFloor = RID_TOWER_ST9
+
+   ptCrushTimer = $
+   pbSectorsDown = FALSE
+
+messages:
+
+   Constructed()
+   {
+      plMonsters = $;
+      plGenerators = $;
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 2, 10, RID_TOWER_ST9, 18, 10, ROTATE_NONE ],plExits);
+      plExits = Cons([ 18, 10, RID_TOWER_ST11, 5, 10, ROTATE_NONE ],plExits);
+
+      propagate;
+   }
+
+   // Nach Boss-Kill: Sektoren senken sich, Timer startet
+   BossKilledTrigger()
+   {
+      local i;
+
+      pbSectorsDown = TRUE;
+
+      // TODO: Senke Sektoren
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst10_boss_dead);
+            Send(First(i),@MsgSendUser,#message_rsc=towerst10_warning);
+         }
+      }
+
+      ptCrushTimer = CreateTimer(self,@CrushTimer,CRUSH_TIMER);
+
+      Send(self,@OpenStairsUp);
+
+      return;
+   }
+
+   CrushTimer()
+   {
+      local i, oUser, iRow, iCol;
+
+      ptCrushTimer = $;
+
+      // Hebe Sektoren wieder - toete Spieler in Kill-Zonen
+      foreach i in plActive
+      {
+         oUser = First(i);
+         if IsClass(oUser,&User)
+         {
+            iRow = Send(oUser,@GetRow);
+            iCol = Send(oUser,@GetCol);
+
+            if (iRow >= KILL_ZONE_ROW_MIN) AND (iRow <= KILL_ZONE_ROW_MAX)
+               AND (iCol >= KILL_ZONE_COL_MIN) AND (iCol <= KILL_ZONE_COL_MAX)
+            {
+               Send(oUser,@MsgSendUser,#message_rsc=towerst10_crush);
+               Send(oUser,@Killed,#what=self);
+            }
+         }
+      }
+
+      pbSectorsDown = FALSE;
+
+      return;
+   }
+
+   Delete()
+   {
+      if ptCrushTimer <> $
+      {
+         DeleteTimer(ptCrushTimer);
+         ptCrushTimer = $;
+      }
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

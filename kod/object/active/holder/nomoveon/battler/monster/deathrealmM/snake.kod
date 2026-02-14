@@ -1,0 +1,162 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+Snake is DeathRealmM
+
+constants:
+
+   include blakston.khd
+   POISON_CHANCE = 10
+   POISON_DURATION = 90000   //// in milliseconds
+   POISON_LOSSRATE = 2500    //// in health points * 10^-4 / second
+
+resources:
+
+   Snake_koc_name_rsc = "ekasni"
+   Snake_name_rsc = "giant snake"
+   Snake_icon_rsc = Snake.bgf
+   Snake_desc_rsc = \
+      "A decayed snake, its bite still venomous.  "
+
+   Snake_dead_icon_rsc = SnakeX.bgf
+   Snake_dead_name_rsc = "dead snake"
+
+   Snake_sound_hit = wrm_atkh.ogg
+   Snake_sound_miss = wrm_atkm.ogg
+   Snake_sound_death = wrm_dth.ogg
+   Snake_sound_aware = wrm_awr.ogg
+
+classvars:
+
+   vrName = Snake_name_rsc
+   vrIcon = Snake_icon_rsc
+   vrDesc = Snake_desc_rsc
+
+   viIndefinite = ARTICLE_AN
+   vrKocName = Snake_koc_name_rsc
+
+   vrDead_icon = Snake_dead_icon_rsc
+   vrDead_name = Snake_dead_name_rsc
+
+   viAttack_type = ATCK_WEAP_BITE
+
+   viTreasure_type = TID_HELL_WASP
+
+   vrSound_hit = Snake_sound_hit
+   vrSound_miss = Snake_sound_miss
+   vrSound_aware = Snake_sound_aware
+   vrSound_death = Snake_sound_death
+
+properties:
+
+   piAnimation = ANIM_NONE
+
+messages:
+
+   Constructed()
+   {
+      plResistances = [ [-ATCK_WEAP_ALL, -20] ];
+
+      propagate;
+   }
+
+   HitSideEffect(what = $, who = $)
+   {
+      local oSpell;
+
+      if Random(1,POISON_CHANCE) = 1
+      {
+         oSpell = Send(SYS,@FindSpellByNum,#num=SID_POISON);
+         Send(oSpell,@MakePoisoned,#who=what,
+               #lossrate=POISON_LOSSRATE,#duration=POISON_DURATION);
+      
+         if who <> $
+         {
+            Send(who,@MsgSendUser,#message_rsc=dspider_illusion_poisoned,
+                  #parm1=Send(what,@GetDef),#parm2=Send(what,@GetName),
+                  #parm3=Send(what,@GetHisHer));
+         }
+      }
+
+      return;
+   }
+   
+   DoSpasm()
+   {
+      local roll;
+
+      roll = Random(1,10);
+
+      if roll = 1
+      {
+         Send(self,@DoLegSpasm);
+
+         propagate;
+      }
+
+      if roll <= 5
+      {
+         Send(poOwner,@SomethingTurned,#what=self,
+               #new_angle=Random(0,MAX_ANGLE-1));
+      }
+
+      propagate;
+   }
+
+   MonsterAttack(what = $)
+   {
+      piAnimation = ANIM_ATTACK;
+      Send(poOwner,@SomethingChanged,#what=self);
+      piAnimation = ANIM_NONE;
+
+      return;
+   }
+
+   DoLegSpasm()
+   {
+      piAnimation = ANIM_ATTACK;
+      Send(poOwner,@SomethingChanged,#what=self);
+      piAnimation = ANIM_NONE;
+
+      return;
+   }
+
+   SendMoveAnimation()
+   {
+      AddPacket(1,ANIMATE_CYCLE, 4,150, 2,1, 2,2);
+
+      return;
+   }
+
+   SendLookAnimation()
+   {
+      AddPacket(1,ANIMATE_CYCLE);
+      AddPacket(4,150, 2,1, 2,2);
+
+      return;
+   }
+
+   SendAnimation()
+   {
+      if piAnimation = ANIM_ATTACK
+      {
+         AddPacket(1,ANIMATE_ONCE, 4,150, 2,1, 2,3, 2,1);
+
+         return;
+      }
+
+      // if no body animation
+      AddPacket(1,ANIMATE_NONE,2,1);
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

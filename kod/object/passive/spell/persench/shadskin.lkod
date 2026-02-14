@@ -1,0 +1,18 @@
+ShadowSkin_name_rsc = de "Schattenhaut"
+ShadowSkin_desc_rsc = de \
+   "Umhuellt den Zauberer mit einer Schicht lebendiger Schatten, "
+   "die eingehenden Schaden fuer kurze Zeit absorbiert. "
+   "Benoetigt eine Dunkle Engelsfeder."
+ShadowSkin_already_enchanted_rsc = de \
+   "Du bist bereits in Schatten gehuellt."
+ShadowSkin_on_rsc = de \
+   "Schatten verdichten sich um Deinen Koerper und bilden "
+   "eine schuetzende Schicht."
+ShadowSkin_off_rsc = de \
+   "Die Schattenschicht loest sich auf und Deine Haut ist "
+   "wieder ungeschuetzt."
+ShadowSkin_success_rsc = de \
+   "Schatten umhuellen %s%s und bilden einen dunklen Schild."
+ShadowSkin_spell_intro = de \
+   "Nekromantie Lv. 2: Umhuellt den Zauberer mit schuetzenden "
+   "Schatten, die die Verteidigung erhoehen."

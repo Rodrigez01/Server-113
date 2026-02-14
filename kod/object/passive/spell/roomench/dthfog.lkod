@@ -1,0 +1,18 @@
+DeathFog_name_rsc = de "Todesnebel"
+DeathFog_desc_rsc = de \
+   "Fuellt das Gebiet mit einem giftigen Miasma nekrotischer "
+   "Energie, das langsam das Leben aller Anwesenden entzieht. "
+   "Benoetigt drei Dunkle Engelsfedern und zwei Schamanenblut."
+DeathFog_already_enchanted = de "Ein Todesnebel fuellt dieses Gebiet bereits."
+DeathFog_on = de \
+   "Ein dicker, kraenklich gruener Nebel rollt ueber den Boden. "
+   "Die Luft wird schwer vom Gestank des Todes."
+DeathFog_off = de "Der Todesnebel loest sich auf."
+DeathFog_new_entrant = de "Ein giftiger Nebel wuergt die Luft hier."
+DeathFog_kills_you = de "Der Todesnebel verschlingt Deinen letzten Atemzug."
+DeathFog_kills_him = de \
+   "%s%s bricht zusammen, verzehrt von Deinem Todesnebel."
+DeathFog_hurts_you = de \
+   "Der nekrotische Nebel verbrennt Deine Lungen fuer ~r~B%i~B~n Schaden!"
+DeathFog_spell_intro = de \
+   "Nekromantie Lv. 5: Fuellt den Raum mit einem lebensentziehendem Nebel."

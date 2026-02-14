@@ -1,0 +1,29 @@
+debuff_name_rsc = de "debuff"
+debuff_desc_rsc = de "Ein Zauber, der auf andere Spieler gezaubert wird."
+debuff_already_enchanted_rsc = de "Du bist bereits verzaubert."
+debuff_On_rsc = de "Dein Körper prickelt mit magischer Energie."
+debuff_Off_rsc = de \
+   "Du fühlst, wie dein magisches Feld knistert und dann verschwindet."
+debuff_Success_rsc = de "Du verzauberst %s%s."
+debuff_Target_Already_Enchanted_rsc = de \
+   "%s%s hat versucht %s%s auf dich zu zaubern."
+debuff_Other_Already_Enchanted_rsc = de \
+   "%s%s ist bereits mit dem Zauber verzaubert."
+debuff_bad_target = de "Du kannst %s%s nicht verzaubern."
+debuff_bad_location = de \
+   "Du kannst in diesem Raum nichts auf andere Spieler zaubern."
+debuff_display_duration = de "Dauer von ~k~B%s~n is ~k~B%i~n Millisekunden."
+
+debuff_name_rsc = pt "enfraquecer"
+debuff_desc_rsc = pt \
+    "Um encantamento lançado em outro jogador."
+debuff_already_enchanted_rsc = pt "Você já está encantado."
+debuff_On_rsc = pt "Seu corpo treme com energia mágica."
+debuff_Off_rsc = pt "Você sente seu campo mágico crepitar e dissipar."
+debuff_Success_rsc = pt "Você encanta %s%s."
+debuff_Target_Already_Enchanted_rsc = pt "%s%s tentou lançar %s%s em você."
+debuff_Other_Already_Enchanted_rsc = pt "%s%s já está afetado por essa magia."
+debuff_bad_target = pt "Você não pode encantar %s%s."
+debuff_bad_location = pt "Você não pode lançar encantamentos em outros aqui."
+debuff_display_duration = pt \
+    "Duração de ~k~B%s~n é de ~k~B%i~n segundos."

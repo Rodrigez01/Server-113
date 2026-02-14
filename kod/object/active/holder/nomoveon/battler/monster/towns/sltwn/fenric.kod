@@ -1,0 +1,93 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Fenric - Necromantie Spell Teacher
+////////////////////////////////////////////////////////////////////////////////
+SLFenric is SLTown
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include fenric.lkod
+
+   Fenric_name_rsc = "Fenric"
+   Fenric_icon_rsc = Fenric.bgf
+   Fenric_desc_rsc = \
+      "A mysterious traveler in a dark cloak, a scarred dagger at his belt. "
+      "His eyes are full of stories, and a faint smell of grave dirt "
+      "clings to his robes.  He is known to teach the forbidden arts "
+      "of Necromantie to those brave enough to ask."
+
+   Fenric_already_have_spell = \
+      "~kFenric says, \"You already know the secrets of %s.  "
+      "Do not waste my time.\""
+   Fenric_not_ready = \
+      "~kFenric says, \"The dead do not yield their secrets to the "
+      "unprepared.  Return when you have grown stronger.\""
+
+classvars:
+
+   vrName = Fenric_name_rsc
+   vrIcon = Fenric_icon_rsc
+   vrDesc = Fenric_desc_rsc
+   viAttributes = \
+      MOB_NOFIGHT | MOB_RANDOM | MOB_NOMOVE | MOB_LISTEN \
+      | MOB_LAWFUL | MOB_TEACHER
+   viOccupation = MOB_ROLE_WIZARD
+
+properties:
+
+messages:
+
+   SetForSale()
+   {
+      plFor_sale = [
+         [
+            Create(&NecromantieRobe)
+         ],
+         $,
+         [
+            SID_SOUL_DRAIN,
+            SID_BONE_SHIELD,
+            SID_SPECTRAL_CHILL,
+            SID_DARK_PACT,
+            SID_SOUL_REAPING,
+            SID_LESSER_SUMMON,
+            SID_SOUL_GORGE,
+            SID_SOUL_TOUCH,
+            SID_SOUL_SPLINTER,
+            SID_GRAVE_GRIP,
+            SID_BONE_BREATH,
+            SID_DEATH_FEVER,
+            SID_SHADOW_SKIN,
+            SID_GHOST_MARK,
+            SID_CORPSE_EXPLOSION,
+            SID_SOUL_CHAIN,
+            SID_BONE_ARMOR,
+            SID_UNDEAD_SERVANT,
+            SID_SOUL_THEFT,
+            SID_CURSE_WEAKNESS,
+            SID_BLOOD_PACT,
+            SID_DEATH_FOG,
+            SID_SOUL_SHACKLE,
+            SID_ARMY_OF_BONES,
+            SID_DARK_REBIRTH,
+            SID_SOUL_ANNIHILATION
+         ],
+      $];
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

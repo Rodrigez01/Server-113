@@ -1,0 +1,23 @@
+DarkPact_name_rsc = de "Dunkler Pakt"
+DarkPact_desc_rsc = de \
+   "Schliesst einen Pakt mit den Maechten des Todes. Du opferst einen "
+   "Teil Deiner Lebenskraft um Deine magische Macht enorm zu verstaerken. "
+   "Waehrend der Pakt aktiv ist, richten alle Zauber mehr Schaden an, "
+   "aber Du kannst nicht geheilt werden. "
+   "Benoetigt drei dunkle Engelsfedern und ein Schamanenblut."
+DarkPact_enchantment_rsc = de \
+   "\n\nDein aktueller %s Pakt erhoeht den Zauberschaden um %i, "
+   "verhindert aber jegliche Heilung."
+DarkPact_already_enchanted_rsc = de \
+   "Du hast bereits einen dunklen Pakt geschlossen."
+DarkPact_on_rsc = de \
+   "Du spuerst wie ein Stueck Deiner Seele weggerissen wird, waehrend "
+   "dunkle Macht durch Deine Adern fliesst. Deine magische Kraft steigt, "
+   "aber Waerme und Heilung sind nun ausser Deiner Reichweite."
+DarkPact_off_rsc = de \
+   "Der dunkle Pakt erlischt und die beklemmende Macht verblasst. "
+   "Du spuerst Deine Verbindung zur lebenden Welt langsam zurueckkehren."
+DarkPact_success_rsc = de \
+   "Dunkle Energie knistert um %s%s waehrend ein Pakt mit dem Tod geschlossen wird."
+DarkPact_sacrifice_rsc = de \
+   "Der Pakt fordert ein Opfer! Du verlierst ~r~B%i~B~n Lebenspunkte."

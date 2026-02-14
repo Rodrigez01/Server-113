@@ -1,0 +1,7 @@
+zombie2_koc_name_rsc = de "ixleoc'tar"
+zombie2_name_rsc = de "Verfluchter Zombie"
+zombie2_desc_rsc = de \
+   "Ein uralter Untoter, dessen verdorbene Seele von dunkler Magie "
+   "durchdrungen ist. Seine fauligen Augen gluehen mit unheiliger Macht, "
+   "und giftige Daempfe steigen aus seinem verwesenden Koerper auf."
+zombie2_dead_name_rsc = de "Ein toter Verfluchter Zombie"

@@ -1,0 +1,10 @@
+CraftSkinningKnife_name_rsc = pt "fabricar faca de esfolação"
+CraftSkinningKnife_desc_rsc = pt \
+      "Fabricar uma faca de esfolação em uma bigorna com um martelo de ferreiro. "
+      "Requer 20 lingotes de ferro e 5 tábuas."
+
+CraftSkinningKnife_name_rsc = de "Häutemesser herstellen"
+CraftSkinningKnife_desc_rsc = de \
+      "Stelle ein Häutemesser an einem Amboss mit einem Schmiedehammer her."
+      "Erfordert 20 Eisenbarren und 5 Bretter."
+      

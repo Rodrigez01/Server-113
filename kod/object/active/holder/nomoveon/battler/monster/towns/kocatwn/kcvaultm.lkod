@@ -1,0 +1,12 @@
+Kocatanvaultman_name_rsc = de "Itzal cha'Nosak"
+kocatanvaultman_desc_rsc = de \
+   "Itzal's oft derbe Art und die merkwürdigen Geräusche die er von sich "
+   "gibt, haben ihn weniger beliebt gemacht als seinen Zwillingsbruder Huital. "
+   "Mit einem schweren Seufzer und einem animalischen Grunzen kümmert er "
+   "sich unwillig um die Bedürfnisse derer, die Gegenstände im Lager aufbewahren "
+   "wollen."
+kocatanvaultman_entry_welcome = de "Guten Tag!"
+
+Kocatanvaultman_name_rsc = pt "Itzal cha'Nosak"
+Kocatanvaultman_desc_rsc = pt "A atitude muitas vezes rude de Itzal e os barulhos corporais desajeitados o tornam muito menos popular do que seu irmão fraternal, Huital. Com um suspiro laborioso e um grunhido porcino, ele acomoda relutantemente as necessidades daqueles que desejam armazenar itens no cofre."
+kocatanvaultman_entry_welcome = pt "Oh, estou cansado dessa sua atitude condescendente."

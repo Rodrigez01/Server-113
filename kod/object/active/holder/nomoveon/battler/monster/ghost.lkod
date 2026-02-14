@@ -1,0 +1,21 @@
+ghost_koc_name_rsc = de "far'nohl kotezleoc"
+ghost_name_rsc = de "Far'Nohls Geist"
+ghost_generic_name_rsc = de "Geist"
+ghost_desc_rsc = de \
+   "Lumpen und verfaultes Fleisch hängen an den Knochen dieser magischen "
+   "Erscheinung. Es ist der Geist eines früheren Tyrannen Meridians mit dem "
+   "Namen Far'Nohl, der Leben und Seele an die schwarzen Künste vergab."
+ghost_normal_desc_rsc = de \
+   "Als verlorene Seelen voll unendlicher Wut gehören diese schrecklichen "
+   "Untoten zu den am meisten gefürchteten Geschöpfen, die das Festland von "
+   "Meridian bevölkern. Die Schmerzen und Qualen, die nötig sind, um einen "
+   "zu schaffen, bewirken, dass sie nur recht selten auftreten - was ein "
+   "Segen für die Lebenden ist."
+ghost_dead_name_rsc = de "toter Geist"
+
+ghost_name_rsc = pt "fantasma de Far'Nohl"
+ghost_desc_rsc = pt \
+   "Farrapos e carne podre pendem nos ossos desta aparição mágica. Este é o fantasma de um antigo tirano de Meridian, Far'Nohl, que deu sua vida e sua alma às artes negras."
+ghost_normal_desc_rsc = pt \
+   "Almas perdidas de ira interminável, esses temidos mortos-vivos estão entre as criaturas mais temidas a percorrer as terras principais de Meridian. A tortura e a dor necessárias para criar um significam que sua ocorrência é relativamente rara - o que é uma bênção para os vivos."
+ghost_dead_name_rsc = pt "fantasma morto"

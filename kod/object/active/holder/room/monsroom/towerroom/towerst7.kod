@@ -1,0 +1,123 @@
+// Meridian 59, Copyright 1994-2012 Andrew Kirmse and Chris Kirmse.
+// All rights reserved.
+//
+// This software is distributed under a license that is described in
+// the LICENSE file that accompanies it.
+//
+// Meridian is a registered trademark.
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Tower Stockwerk 7 - THE HORDE
+// Typ: Mass Monster Kill (Kill-Counter)
+////////////////////////////////////////////////////////////////////////////////
+TowerSt7 is TowerRoom
+
+constants:
+
+   include blakston.khd
+
+   KILL_TARGET = 50
+
+resources:
+
+   room_towerst7 = st7.roo
+   room_name_towerst7 = "Tower of Quests - The Horde"
+
+   towerst7_kill_count = "~kMonster getoetet: %i / %i"
+   towerst7_complete = "~g~BDie Horde wurde besiegt! Die Treppe oeffnet sich."
+
+classvars:
+
+   vrName = room_name_towerst7
+
+   viTeleport_row = 50
+   viTeleport_col = 102
+
+properties:
+
+   prRoom = room_towerst7
+   piRoom_num = RID_TOWER_ST7
+
+   piNextFloor = RID_TOWER_ST8
+   piPrevFloor = RID_TOWER_ST6
+
+   piKillCount = 0
+   piKillTarget = KILL_TARGET
+
+messages:
+
+   Constructed()
+   {
+      // Viele Monster-Generatoren
+      plMonsters = [ [&Skeleton, 50], [&Zombie, 50] ];
+      plGenerators = [ [6,6], [6,10], [6,14], [10,6], [10,14],
+                       [14,6], [14,10], [14,14] ];
+
+      propagate;
+   }
+
+   CreateStandardExits()
+   {
+      plExits = $;
+
+      plExits = Cons([ 2, 10, RID_TOWER_ST6, 18, 10, ROTATE_NONE ],plExits);
+      plExits = Cons([ 18, 10, RID_TOWER_ST8, 5, 10, ROTATE_NONE ],plExits);
+
+      propagate;
+   }
+
+   SomethingKilled(killer=$,victim=$)
+   {
+      local i;
+
+      if IsClass(victim,&Monster)
+      {
+         piKillCount = piKillCount + 1;
+
+         // Update alle Spieler
+         foreach i in plActive
+         {
+            if IsClass(First(i),&User)
+            {
+               Send(First(i),@MsgSendUser,#message_rsc=towerst7_kill_count,
+                    #parm1=piKillCount,#parm2=piKillTarget);
+            }
+         }
+
+         if piKillCount >= piKillTarget
+         {
+            Send(self,@HordeCleared);
+         }
+      }
+
+      propagate;
+   }
+
+   HordeCleared()
+   {
+      local i;
+
+      foreach i in plActive
+      {
+         if IsClass(First(i),&User)
+         {
+            Send(First(i),@MsgSendUser,#message_rsc=towerst7_complete);
+         }
+      }
+
+      Send(self,@OpenStairsUp);
+
+      return;
+   }
+
+   // Reset wenn alle Spieler weg sind
+   LastUserLeft()
+   {
+      piKillCount = 0;
+
+      propagate;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////

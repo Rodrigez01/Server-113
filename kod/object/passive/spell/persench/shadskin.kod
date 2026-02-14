@@ -1,0 +1,130 @@
+// Meridian 59 - Necromantie Spell School
+// Shadow Skin (Schattenhaut) - Level 2 Personal Enchantment
+// +Armor (defense bonus) for 10 seconds.
+
+
+////////////////////////////////////////////////////////////////////////////////
+ShadowSkin is PersonalEnchantment
+
+constants:
+
+   include blakston.khd
+
+resources:
+
+   include shadskin.lkod
+
+   ShadowSkin_name_rsc = "shadow skin"
+   ShadowSkin_icon_rsc = inecro2.bgf
+   ShadowSkin_desc_rsc = \
+      "Wraps the caster in a layer of living shadow that absorbs "
+      "incoming damage for a short time.  "
+      "Requires one dark angel feather to cast."
+
+   ShadowSkin_enchantment_rsc = \
+      "\n\nYour current %s adds %i defense."
+
+   ShadowSkin_already_enchanted_rsc = \
+      "You are already cloaked in shadow."
+   ShadowSkin_on_rsc = \
+      "Shadows coalesce around your body, forming a protective layer."
+   ShadowSkin_off_rsc = \
+      "The shadow layer dissolves and your skin is exposed once more."
+   ShadowSkin_success_rsc = \
+      "Shadows wrap around %s%s, forming a dark shield."
+
+   ShadowSkin_spell_intro = \
+      "Necromantie Lv. 2: Wraps the caster in protective shadows "
+      "that increase defense."
+
+classvars:
+
+   viPersonal_ench = True
+
+   vrName = ShadowSkin_name_rsc
+   vrIcon = ShadowSkin_icon_rsc
+   vrDesc = ShadowSkin_desc_rsc
+
+   vrAlreadyEnchanted = ShadowSkin_already_enchanted_rsc
+   vrEnchantment_On = ShadowSkin_On_rsc
+   vrEnchantment_Off = ShadowSkin_Off_rsc
+   vrSuccess = ShadowSkin_Success_rsc
+
+   viSpell_num = SID_SHADOW_SKIN
+
+   vrSpell_intro = ShadowSkin_spell_intro
+
+   viMana = 8
+
+   viSpell_level = 2
+   viSchool = SS_NECROMANTIE
+
+   viChance_To_Increase = 25
+   viMeditate_ratio = 20
+
+   viFlash = FLASH_GOOD_SELF
+
+properties:
+
+   viPurgeFactor = 75
+
+messages:
+
+   ResetReagents()
+   {
+      plReagents = $;
+      plReagents = Cons([&DarkAngelFeather,1],plReagents);
+
+      return;
+   }
+
+   GetStateValue(iSpellpower=$,who=$,target=$)
+   {
+      Send(target,@AddDefenseModifier,#what=self);
+
+      return iSpellpower;
+   }
+
+   GetDuration(iSpellPower=0)
+   {
+      local iDuration;
+
+      // 10 seconds base, scales slightly with spellpower
+      iDuration = (10 + (iSpellPower/10)) * 1000;
+
+      return iDuration;
+   }
+
+   EndEnchantment(who=$,report=TRUE,state=0)
+   {
+      Send(who,@RemoveDefenseModifier,#what=self);
+
+      propagate;
+   }
+
+   ModifyDefense(who=$,what=$,defense=$)
+   {
+      local iBonus;
+
+      iBonus = Send(who,@GetEnchantedState,#what=self);
+      // Defense bonus scales with spellpower
+      iBonus = 50 + iBonus;
+
+      return defense + iBonus;
+   }
+
+   DefendingHit(who=$,what=$)
+   {
+      return;
+   }
+
+   EffectDesc(who=$)
+   {
+      AddPacket(4,ShadowSkin_enchantment_rsc, 4,Send(self,@GetName),
+                4,50 + Send(who,@GetEnchantedState,#what=self));
+
+      return;
+   }
+
+end
+////////////////////////////////////////////////////////////////////////////////
